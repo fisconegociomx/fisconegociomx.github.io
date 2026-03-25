@@ -817,117 +817,137 @@ function toggleBen(el) {
 
 <!-- SOCIOS COMERCIALES -->
 <style>
-.socios-section { max-width: 800px; margin: 0 auto 56px; padding: 0 20px; }
-.socios-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; }
-@media (max-width: 560px) { .socios-grid { grid-template-columns: 1fr; } }
-.socio-card {
-  background: var(--dark-3);
+.socios-section2 { max-width: 720px; margin: 0 auto 56px; padding: 0 20px; }
+.socio-acc {
   border: 1px solid #1e2240;
-  border-radius: 16px;
-  padding: 28px 22px;
-  cursor: pointer;
-  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
-  text-align: center;
-  position: relative;
+  border-radius: 14px;
   overflow: hidden;
+  margin-bottom: 10px;
+  background: var(--dark-3);
+  transition: border-color 0.2s;
 }
-.socio-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 50% 0%, rgba(0,255,109,0.06), transparent 70%);
-  opacity: 0;
-  transition: opacity 0.3s;
+.socio-acc.open { border-color: rgba(0,255,109,0.4); }
+.socio-acc-header {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 20px;
+  cursor: pointer;
+  user-select: none;
 }
-.socio-card:hover::before, .socio-card.open::before { opacity: 1; }
-.socio-card:hover, .socio-card.open {
-  border-color: rgba(0,255,109,0.4);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 28px rgba(0,255,109,0.08);
+.socio-acc-icon { font-size: 1.4rem; flex-shrink: 0; }
+.socio-acc-name {
+  flex: 1;
+  font-size: 0.92rem; font-weight: 800;
+  letter-spacing: 0.05em; text-transform: uppercase; color: #fff;
 }
-.socio-icon { font-size: 2rem; margin-bottom: 10px; }
-.socio-name {
-  font-size: 0.85rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #fff;
-  margin-bottom: 6px;
-}
-.socio-tag {
-  font-size: 0.7rem;
-  color: #00ff6d;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  margin-bottom: 12px;
-}
-.socio-short { font-size: 0.78rem; color: var(--gray); line-height: 1.5; }
-.socio-detail {
+.socio-acc-sub { font-size: 0.72rem; color: #00ff6d; font-weight: 600; }
+.socio-acc-chevron { color: #00ff6d; font-size: 1rem; transition: transform 0.25s; flex-shrink: 0; }
+.socio-acc.open .socio-acc-chevron { transform: rotate(90deg); }
+.socio-acc-body {
   max-height: 0; overflow: hidden;
-  font-size: 0.8rem; color: #aaa; line-height: 1.65;
-  transition: max-height 0.3s ease, padding 0.3s ease;
-  padding-top: 0;
-  border-top: 0px solid #1e2240;
-  transition: max-height 0.3s ease, padding 0.3s ease, border 0.3s ease;
+  transition: max-height 0.3s ease;
+  padding: 0 20px;
 }
-.socio-card.open .socio-detail {
-  max-height: 150px;
-  padding-top: 12px;
-  margin-top: 12px;
+.socio-acc.open .socio-acc-body { max-height: 180px; }
+.socio-acc-inner {
+  padding-bottom: 18px;
   border-top: 1px solid #1e2240;
+  padding-top: 14px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
 }
-.socio-cta {
-  display: inline-block;
-  margin-top: 12px;
-  font-size: 0.74rem;
-  font-weight: 700;
-  color: #00ff6d;
-  text-decoration: none;
+.socio-acc-desc { font-size: 0.82rem; color: #aaa; line-height: 1.6; flex: 1; min-width: 180px; }
+.socio-ig-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+  color: #fff; font-size: 0.8rem; font-weight: 700;
+  padding: 10px 18px; border-radius: 50px; text-decoration: none;
+  white-space: nowrap; flex-shrink: 0;
+  transition: opacity 0.2s, transform 0.15s;
+}
+.socio-ig-btn:hover { opacity: 0.85; transform: scale(1.03); }
+.socio-ig-no {
+  font-size: 0.75rem; color: #555; font-style: italic;
 }
 </style>
-<div class="socios-section">
+<div class="socios-section2">
   <h2 class="nc-headline" style="text-align:center;margin-bottom:8px;margin-top:0;">Servicios Adicionales y<br><span style="color:#00ff6d;">Socios Comerciales</span></h2>
-  <p style="text-align:center;font-size:0.88rem;color:#8C8C8C;margin-bottom:32px;">Contamos con aliados estratégicos que complementan nuestros servicios.</p>
-  <div class="socios-grid">
+  <p style="text-align:center;font-size:0.88rem;color:#8C8C8C;margin-bottom:32px;">Aliados estratégicos que complementan y potencian nuestros servicios.</p>
 
-    <div class="socio-card" onclick="toggleSocio(this)">
-      <div class="socio-icon">🌐</div>
-      <div class="socio-name">Web3 Collective</div>
-      <div class="socio-tag">Consultoría Blockchain & IA</div>
-      <div class="socio-short">Estrategia, implementación y educación en tecnología Web3 e Inteligencia Artificial para negocios.</div>
-      <div class="socio-detail">Firma especializada en consultoría blockchain, DeFi e IA aplicada a negocios. Juntos ofrecemos soluciones integrales que combinan la solidez financiera-fiscal con innovación tecnológica de vanguardia.</div>
+  <div class="socio-acc" onclick="toggleAcc(this)">
+    <div class="socio-acc-header">
+      <div class="socio-acc-icon">🌐</div>
+      <div>
+        <div class="socio-acc-name">Web3 Collective</div>
+        <div class="socio-acc-sub">Consultoría Blockchain & IA</div>
+      </div>
+      <div class="socio-acc-chevron">›</div>
     </div>
-
-    <div class="socio-card" onclick="toggleSocio(this)">
-      <div class="socio-icon">🤖</div>
-      <div class="socio-name">AgentBase</div>
-      <div class="socio-tag">Automatización con IA</div>
-      <div class="socio-short">Plataforma mexicana de agentes de IA para automatizar procesos administrativos, ventas y atención al cliente.</div>
-      <div class="socio-detail">A través de AgentBase implementamos agentes de IA en tu negocio que responden WhatsApp, procesan facturas, generan reportes y gestionan citas — todo de forma autónoma y sin que tú tengas que intervenir.</div>
+    <div class="socio-acc-body">
+      <div class="socio-acc-inner">
+        <div class="socio-acc-desc">Firma especializada en estrategia, gestión e implementación de soluciones blockchain, Web3 e IA aplicada a negocios. Juntos ofrecemos soluciones que combinan solidez fiscal con innovación tecnológica.</div>
+        <a href="https://www.instagram.com/web3_collective" target="_blank" class="socio-ig-btn" onclick="event.stopPropagation()">📸 Ver en Instagram</a>
+      </div>
     </div>
-
-    <div class="socio-card" onclick="toggleSocio(this)">
-      <div class="socio-icon">🏢</div>
-      <div class="socio-name">Atiko Cowork</div>
-      <div class="socio-tag">Espacio de Trabajo Colaborativo</div>
-      <div class="socio-short">Espacios de coworking diseñados para emprendedores y empresas en crecimiento en San Luis Potosí.</div>
-      <div class="socio-detail">Atiko Cowork ofrece oficinas privadas, salas de juntas y espacios flexibles para que tu empresa tenga presencia profesional sin los costos fijos de una oficina propia. Ideal para startups y emprendedores en expansión.</div>
-    </div>
-
-    <div class="socio-card" onclick="toggleSocio(this)">
-      <div class="socio-icon">⚖️</div>
-      <div class="socio-name">Despachos Jurídicos</div>
-      <div class="socio-tag">Defensa Legal & Fiscal</div>
-      <div class="socio-short">Red de despachos jurídicos y fiscales especializados en defensa ante el SAT, contratos y cumplimiento legal empresarial.</div>
-      <div class="socio-detail">Contamos con aliados especializados en defensa fiscal ante el SAT, constitución de empresas, contratos comerciales y cumplimiento legal. Cuando tu negocio necesita respaldo jurídico, tenemos al experto indicado.</div>
-    </div>
-
   </div>
+
+  <div class="socio-acc" onclick="toggleAcc(this)">
+    <div class="socio-acc-header">
+      <div class="socio-acc-icon">🤖</div>
+      <div>
+        <div class="socio-acc-name">AgentBase</div>
+        <div class="socio-acc-sub">Automatización con IA</div>
+      </div>
+      <div class="socio-acc-chevron">›</div>
+    </div>
+    <div class="socio-acc-body">
+      <div class="socio-acc-inner">
+        <div class="socio-acc-desc">Plataforma mexicana de agentes de IA para automatizar procesos administrativos, ventas y atención al cliente. Implementamos agentes que trabajan 24/7 sin intervención humana.</div>
+        <a href="https://www.instagram.com/agentbase.mx" target="_blank" class="socio-ig-btn" onclick="event.stopPropagation()">📸 Ver en Instagram</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="socio-acc" onclick="toggleAcc(this)">
+    <div class="socio-acc-header">
+      <div class="socio-acc-icon">🏢</div>
+      <div>
+        <div class="socio-acc-name">Atiko Cowork</div>
+        <div class="socio-acc-sub">Espacio de Trabajo Colaborativo</div>
+      </div>
+      <div class="socio-acc-chevron">›</div>
+    </div>
+    <div class="socio-acc-body">
+      <div class="socio-acc-inner">
+        <div class="socio-acc-desc">Espacios de coworking para emprendedores y empresas en crecimiento en San Luis Potosí. Oficinas privadas, salas de juntas y espacios flexibles con presencia profesional sin costos fijos.</div>
+        <a href="https://www.instagram.com/atikocoworkmx" target="_blank" class="socio-ig-btn" onclick="event.stopPropagation()">📸 Ver en Instagram</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="socio-acc" onclick="toggleAcc(this)">
+    <div class="socio-acc-header">
+      <div class="socio-acc-icon">⚖️</div>
+      <div>
+        <div class="socio-acc-name">Despachos Jurídicos</div>
+        <div class="socio-acc-sub">Defensa Legal & Fiscal</div>
+      </div>
+      <div class="socio-acc-chevron">›</div>
+    </div>
+    <div class="socio-acc-body">
+      <div class="socio-acc-inner">
+        <div class="socio-acc-desc">Red de despachos especializados en defensa fiscal ante el SAT, contratos comerciales, constitución de empresas y cumplimiento legal. Cuando necesitas respaldo jurídico, tenemos al experto indicado.</div>
+        <div class="socio-ig-no">Instagram próximamente</div>
+      </div>
+    </div>
+  </div>
+
 </div>
 <script>
-function toggleSocio(el) {
+function toggleAcc(el) {
   const isOpen = el.classList.contains('open');
-  document.querySelectorAll('.socio-card').forEach(c => c.classList.remove('open'));
+  document.querySelectorAll('.socio-acc').forEach(a => a.classList.remove('open'));
   if (!isOpen) el.classList.add('open');
 }
 </script>
