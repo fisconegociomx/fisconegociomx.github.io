@@ -287,6 +287,111 @@
   </div>
 </div>
 
+<!-- COMPARATIVA -->
+<div class="section-title">Por Qué Elegirnos</div>
+<style>
+.compare-wrap {
+  max-width: 800px;
+  margin: 0 auto 56px;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 560px) {
+  .compare-wrap { grid-template-columns: 1fr; }
+}
+.compare-col {
+  border-radius: 16px;
+  padding: 24px 20px;
+}
+.compare-col.us {
+  background: #0F1C3A;
+  border: 1.5px solid var(--blue);
+}
+.compare-col.them {
+  background: var(--dark-3);
+  border: 1px solid #1e2a45;
+}
+.compare-col-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.compare-col-icon { font-size: 1.4rem; }
+.compare-col-title {
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+.compare-col.us .compare-col-title { color: var(--blue-light); }
+.compare-col.them .compare-col-title { color: var(--gray); }
+.compare-items { display: flex; flex-direction: column; gap: 10px; }
+.compare-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+.compare-dot-yes {
+  min-width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--blue);
+  color: #fff;
+  font-size: 0.65rem;
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.compare-dot-no {
+  min-width: 18px; height: 18px;
+  border-radius: 50%;
+  background: #2a2a2a;
+  color: #555;
+  font-size: 0.65rem;
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.compare-col.us .compare-item { color: #ddd; }
+.compare-col.them .compare-item { color: var(--gray); }
+</style>
+<div class="compare-wrap">
+  <div class="compare-col us">
+    <div class="compare-col-header">
+      <div class="compare-col-icon">🎯</div>
+      <div class="compare-col-title">Con Fernando Mendoza</div>
+    </div>
+    <div class="compare-items">
+      <div class="compare-item"><div class="compare-dot-yes">✓</div><span>Atención personalizada y acceso directo a tu contador</span></div>
+      <div class="compare-item"><div class="compare-dot-yes">✓</div><span>Especialización en emprendedores y startups</span></div>
+      <div class="compare-item"><div class="compare-dot-yes">✓</div><span>Acompañamiento fiscal permanente todo el año</span></div>
+      <div class="compare-item"><div class="compare-dot-yes">✓</div><span>Estados y reportes financieros mensuales claros</span></div>
+      <div class="compare-item"><div class="compare-dot-yes">✓</div><span>Contabilidad 100% digital y automatizada</span></div>
+      <div class="compare-item"><div class="compare-dot-yes">✓</div><span>Asesoría proactiva — te avisamos antes de que haya problemas</span></div>
+      <div class="compare-item"><div class="compare-dot-yes">✓</div><span>Respuesta en menos de 24 horas siempre</span></div>
+      <div class="compare-item"><div class="compare-dot-yes">✓</div><span>Digitalización y automatización de procesos incluida</span></div>
+    </div>
+  </div>
+  <div class="compare-col them">
+    <div class="compare-col-header">
+      <div class="compare-col-icon">📁</div>
+      <div class="compare-col-title">Contador Tradicional</div>
+    </div>
+    <div class="compare-items">
+      <div class="compare-item"><div class="compare-dot-no">✗</div><span>Atención genérica, un cliente más entre cientos</span></div>
+      <div class="compare-item"><div class="compare-dot-no">✗</div><span>Sin experiencia específica en emprendimientos</span></div>
+      <div class="compare-item"><div class="compare-dot-no">✗</div><span>Solo aparece en época de declaraciones</span></div>
+      <div class="compare-item"><div class="compare-dot-no">✗</div><span>Sin reportes financieros — solo cumplen lo mínimo</span></div>
+      <div class="compare-item"><div class="compare-dot-no">✗</div><span>Procesos manuales, papeles y visitas presenciales</span></div>
+      <div class="compare-item"><div class="compare-dot-no">✗</div><span>Reactivos — te enteras del problema cuando ya es tarde</span></div>
+      <div class="compare-item"><div class="compare-dot-no">✗</div><span>Tiempos de respuesta lentos o inconsistentes</span></div>
+      <div class="compare-item"><div class="compare-dot-no">✗</div><span>Sin herramientas digitales ni automatización</span></div>
+    </div>
+  </div>
+</div>
+
 <!-- SERVICES -->
 <div class="section-title">Servicios</div>
 <div class="services-grid">
