@@ -435,6 +435,159 @@
   </div>
 </div>
 
+<!-- NECESITAS CONTADOR -->
+<style>
+.nc-section {
+  max-width: 720px;
+  margin: 0 auto 56px;
+  padding: 0 20px;
+}
+.nc-headline {
+  text-align: center;
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  font-weight: 900;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+.nc-headline span { color: #00ff6d; }
+.nc-sub {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--gray);
+  margin-bottom: 36px;
+}
+.nc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+.nc-item {
+  background: var(--dark-3);
+  border: 1px solid #1e2240;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+.nc-item.open { border-color: #00ff6d; }
+.nc-item-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  user-select: none;
+}
+.nc-item-num {
+  min-width: 32px; height: 32px;
+  border-radius: 50%;
+  background: rgba(0,255,109,0.08);
+  border: 1px solid rgba(0,255,109,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #00ff6d;
+  flex-shrink: 0;
+}
+.nc-item-title {
+  flex: 1;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #fff;
+}
+.nc-item-chevron {
+  font-size: 1rem;
+  color: #00ff6d;
+  transition: transform 0.25s;
+  flex-shrink: 0;
+}
+.nc-item.open .nc-item-chevron { transform: rotate(90deg); }
+.nc-item-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+  padding: 0 18px;
+  font-size: 0.83rem;
+  color: #aaa;
+  line-height: 1.7;
+}
+.nc-item.open .nc-item-body {
+  max-height: 200px;
+  padding: 0 18px 16px;
+}
+.nc-cta-wrap {
+  text-align: center;
+}
+.nc-cta-label {
+  font-size: 0.78rem;
+  color: var(--gray);
+  margin-bottom: 12px;
+}
+</style>
+<div class="nc-section">
+  <h2 class="nc-headline">¿No sabes si necesitas<br><span>un contador?</span></h2>
+  <p class="nc-sub">Si alguna de estas situaciones te suena familiar, ya es momento.</p>
+  <div class="nc-list">
+
+    <div class="nc-item" onclick="toggleNc(this)">
+      <div class="nc-item-header">
+        <div class="nc-item-num">01</div>
+        <div class="nc-item-title">Emitiste facturas pero no sabes si las hiciste bien</div>
+        <div class="nc-item-chevron">›</div>
+      </div>
+      <div class="nc-item-body">Una factura mal emitida puede costarte una multa o perder la deducción fiscal. Si facturaste sin asesoría, es probable que haya errores que no notes hasta que el SAT te los señale.</div>
+    </div>
+
+    <div class="nc-item" onclick="toggleNc(this)">
+      <div class="nc-item-header">
+        <div class="nc-item-num">02</div>
+        <div class="nc-item-title">El SAT te mandó un correo y no sabes qué quiere</div>
+        <div class="nc-item-chevron">›</div>
+      </div>
+      <div class="nc-item-body">Los avisos del SAT tienen plazos. Ignorarlos o responderlos mal puede derivar en multas, recargos o hasta el bloqueo de tus sellos de facturación. Un contador sabe exactamente qué hacer y en cuánto tiempo.</div>
+    </div>
+
+    <div class="nc-item" onclick="toggleNc(this)">
+      <div class="nc-item-header">
+        <div class="nc-item-num">03</div>
+        <div class="nc-item-title">Tienes empleados y no sabes cómo pagarles correctamente</div>
+        <div class="nc-item-chevron">›</div>
+      </div>
+      <div class="nc-item-body">Tener empleados implica nómina, IMSS, INFONAVIT y retención de impuestos. Si no lo haces bien desde el inicio, acumulas adeudos con el IMSS que pueden ser muy costosos de regularizar después.</div>
+    </div>
+
+    <div class="nc-item" onclick="toggleNc(this)">
+      <div class="nc-item-header">
+        <div class="nc-item-num">04</div>
+        <div class="nc-item-title">Tu negocio está creciendo pero no sabes si es rentable</div>
+        <div class="nc-item-chevron">›</div>
+      </div>
+      <div class="nc-item-body">Vender más no siempre significa ganar más. Sin un estado de resultados real, puedes estar creciendo en ventas pero perdiendo dinero sin saberlo. Un contador te pone los números en blanco y negro para que tomes decisiones con claridad.</div>
+    </div>
+
+    <div class="nc-item" onclick="toggleNc(this)">
+      <div class="nc-item-header">
+        <div class="nc-item-num">05</div>
+        <div class="nc-item-title">Ya no tienes tiempo de llevar tus propios números</div>
+        <div class="nc-item-chevron">›</div>
+      </div>
+      <div class="nc-item-body">Cuando el negocio crece, tu tiempo vale más enfocado en vender y operar que en llevar una hoja de Excel. Delegar la contabilidad a alguien de confianza te libera para hacer lo que mejor sabes hacer.</div>
+    </div>
+
+  </div>
+  <div class="nc-cta-wrap">
+    <div class="nc-cta-label">¿Te identificaste con alguna? Hablemos.</div>
+    <a href="https://wa.me/5214442522739" target="_blank" class="cta-btn">Quiero una consulta gratuita →</a>
+  </div>
+</div>
+<script>
+function toggleNc(el) {
+  const isOpen = el.classList.contains('open');
+  document.querySelectorAll('.nc-item').forEach(i => i.classList.remove('open'));
+  if (!isOpen) el.classList.add('open');
+}
+</script>
+
 <!-- SERVICES -->
 <div class="section-title">Servicios</div>
 <div class="services-grid">
