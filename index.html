@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>C.P. Fernando Mendoza Ferreira — Asesoría Fiscal y Empresarial</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+    :root {
+      --blue: #1A6BCC;
+      --blue-light: #2A8BFF;
+      --blue-dark: #0F4A99;
+      --gray: #8C8C8C;
+      --dark: #0A0F1E;
+      --dark-2: #0F1628;
+      --dark-3: #141D35;
+      --dark-4: #1A2440;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--dark);
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    /* HERO */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 60px 24px 40px;
+      text-align: center;
+    }
+
+    .avatar-wrap {
+      position: relative;
+      margin-bottom: 24px;
+    }
+    .avatar {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--blue);
+    }
+    .avatar-placeholder {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: var(--dark-3);
+      border: 3px solid var(--blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+    }
+    .avatar-ring {
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      border: 2px solid #1A6BCC44;
+    }
+
+    .credential {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--blue-light);
+      margin-bottom: 8px;
+    }
+    .name {
+      font-size: 1.9rem;
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+    .tagline {
+      font-size: 1rem;
+      color: #aaa;
+      max-width: 400px;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    .tagline span { color: var(--blue-light); font-weight: 600; }
+
+    .hero-cta {
+      display: inline-block;
+      background: var(--blue);
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .hero-cta:hover { background: var(--blue-light); transform: translateY(-2px); }
+
+    /* STATS */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      padding: 32px 24px;
+      border-top: 1px solid #1e2a45;
+      border-bottom: 1px solid #1e2a45;
+      max-width: 600px;
+      margin: 0 auto 48px;
+    }
+    .stat { text-align: center; }
+    .stat-number {
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--blue-light);
+    }
+    .stat-label {
+      font-size: 0.72rem;
+      color: var(--gray);
+      margin-top: 2px;
+    }
+
+    /* SECTION TITLE */
+    .section-title {
+      text-align: center;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 24px;
+    }
+
+    /* SERVICES GRID */
+    .services-grid {
+      max-width: 800px;
+      margin: 0 auto 56px;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    .service-card {
+      background: var(--dark-3);
+      border: 1px solid #1e2a45;
+      border-radius: 14px;
+      padding: 22px 18px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .service-card:hover {
+      border-color: var(--blue);
+      transform: translateY(-2px);
+    }
+    .service-icon { font-size: 1.6rem; margin-bottom: 12px; }
+    .service-name {
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .service-desc {
+      font-size: 0.78rem;
+      color: var(--gray);
+      line-height: 1.5;
+    }
+
+    /* PORQUE YO */
+    .porque-wrap {
+      max-width: 700px;
+      margin: 0 auto 56px;
+      padding: 0 20px;
+    }
+    .porque-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .porque-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      background: var(--dark-3);
+      border: 1px solid #1e2a45;
+      border-radius: 14px;
+      padding: 20px 18px;
+    }
+    .porque-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .porque-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .porque-desc {
+      font-size: 0.8rem;
+      color: var(--gray);
+      line-height: 1.5;
+    }
+
+    /* CTA SECTION */
+    .cta-section {
+      max-width: 560px;
+      margin: 0 auto 56px;
+      padding: 40px 24px;
+      background: var(--dark-3);
+      border: 1px solid #1e2a45;
+      border-radius: 20px;
+      text-align: center;
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+    @media (min-width: 600px) {
+      .cta-section { margin-left: auto; margin-right: auto; }
+    }
+    .cta-section-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+    .cta-section-desc {
+      font-size: 0.85rem;
+      color: var(--gray);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    .cta-btn {
+      display: inline-block;
+      background: var(--blue);
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .cta-btn:hover { background: var(--blue-light); }
+
+    /* FOOTER */
+    .footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 0.75rem;
+      color: #2a3a5a;
+      border-top: 1px solid #1e2a45;
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="avatar-wrap">
+    <div class="avatar-ring"></div>
+    <div class="avatar-placeholder">👔</div>
+  </div>
+  <div class="credential">C.P. · Contador Público · Asesor Empresarial</div>
+  <h1 class="name">Fernando Mendoza<br>Ferreira</h1>
+  <p class="tagline"><span>El mejor socio comercial</span> para tu emprendimiento</p>
+  <a href="https://wa.me/5214442522739" target="_blank" class="hero-cta">Agendar Consulta Gratuita →</a>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-number">8+</div>
+    <div class="stat-label">Servicios Especializados</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">100%</div>
+    <div class="stat-label">Cumplimiento Fiscal</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">SLP</div>
+    <div class="stat-label">San Luis Potosí</div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<div class="section-title">Servicios</div>
+<div class="services-grid">
+
+  <div class="service-card">
+    <div class="service-icon">📊</div>
+    <div class="service-name">Contabilidad</div>
+    <div class="service-desc">Registros contables ordenados, estados financieros y reportes que te permiten tomar decisiones con información real.</div>
+  </div>
+
+  <div class="service-card">
+    <div class="service-icon">🏛️</div>
+    <div class="service-name">Cumplimiento Fiscal</div>
+    <div class="service-desc">Declaraciones mensuales, anuales y especiales al corriente. Sin multas, sin sorpresas del SAT.</div>
+  </div>
+
+  <div class="service-card">
+    <div class="service-icon">🧾</div>
+    <div class="service-name">Facturación</div>
+    <div class="service-desc">Emisión y gestión de CFDI. Control de facturas emitidas y recibidas, complementos de pago y notas de crédito.</div>
+  </div>
+
+  <div class="service-card">
+    <div class="service-icon">👥</div>
+    <div class="service-name">Gestión de Nómina</div>
+    <div class="service-desc">Cálculo de nómina, IMSS, INFONAVIT y SUA. Tu equipo siempre pagado y tus obligaciones patronales al día.</div>
+  </div>
+
+  <div class="service-card">
+    <div class="service-icon">💼</div>
+    <div class="service-name">Asesoría Empresarial</div>
+    <div class="service-desc">Estrategia financiera, estructura corporativa y toma de decisiones basada en datos reales de tu negocio.</div>
+  </div>
+
+  <div class="service-card">
+    <div class="service-icon">📋</div>
+    <div class="service-name">Controles Administrativos</div>
+    <div class="service-desc">Procesos internos, flujos de caja, control de gastos e indicadores clave para que tu negocio funcione con orden.</div>
+  </div>
+
+  <div class="service-card">
+    <div class="service-icon">🗂️</div>
+    <div class="service-name">Gestión de Proyectos</div>
+    <div class="service-desc">Planificación financiera de proyectos, presupuestos, seguimiento de costos y control de rentabilidad.</div>
+  </div>
+
+  <div class="service-card">
+    <div class="service-icon">⚡</div>
+    <div class="service-name">Digitalización y Automatización</div>
+    <div class="service-desc">Implementación de herramientas digitales para automatizar procesos administrativos y reducir carga operativa.</div>
+  </div>
+
+</div>
+
+<!-- PORQUE YO -->
+<div class="section-title">¿Por Qué Trabajar Conmigo?</div>
+<div class="porque-wrap">
+  <div class="porque-list">
+
+    <div class="porque-item">
+      <div class="porque-icon">🎯</div>
+      <div>
+        <div class="porque-title">Enfoque en resultados, no en trámites</div>
+        <div class="porque-desc">No solo llevo tus números — te ayudo a entenderlos y a usarlos para crecer. Tu contabilidad es una herramienta de negocio, no un gasto obligatorio.</div>
+      </div>
+    </div>
+
+    <div class="porque-item">
+      <div class="porque-icon">🤝</div>
+      <div>
+        <div class="porque-title">Socio, no proveedor</div>
+        <div class="porque-desc">Me involucro en tu negocio como si fuera el mío. Tienes acceso directo, respuesta rápida y un asesor que conoce tu situación particular.</div>
+      </div>
+    </div>
+
+    <div class="porque-item">
+      <div class="porque-icon">🔒</div>
+      <div>
+        <div class="porque-title">Cumplimiento total y sin sorpresas</div>
+        <div class="porque-desc">Tu empresa siempre al corriente con el SAT, IMSS e INFONAVIT. Anticipo los cambios fiscales antes de que te afecten.</div>
+      </div>
+    </div>
+
+    <div class="porque-item">
+      <div class="porque-icon">💡</div>
+      <div>
+        <div class="porque-title">Digitalización incluida</div>
+        <div class="porque-desc">Implemento herramientas y automatizaciones para que tu administración sea más eficiente, moderna y libre de procesos manuales innecesarios.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CTA FINAL -->
+<div class="cta-section">
+  <div class="cta-section-title">¿Listo para ordenar tu negocio?</div>
+  <div class="cta-section-desc">Primera consulta sin costo. Revisamos tu situación fiscal y administrativa y te digo exactamente qué necesitas — sin compromiso.</div>
+  <a href="https://wa.me/5214442522739" target="_blank" class="cta-btn">Hablar con Fernando →</a>
+</div>
+
+<div class="footer">© 2026 C.P. Fernando Mendoza Ferreira · fisconegociomx@gmail.com</div>
+
+</body>
+</html>
