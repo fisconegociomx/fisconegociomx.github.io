@@ -399,154 +399,154 @@
 
 <!-- NECESITAS CONTADOR -->
 <style>
-.nc-section {
-  max-width: 720px;
-  margin: 0 auto 56px;
-  padding: 0 20px;
-}
-.nc-headline {
-  text-align: center;
-  font-size: clamp(1.5rem, 4vw, 2.2rem);
-  font-weight: 900;
-  line-height: 1.2;
-  margin-bottom: 8px;
-}
+.nc-section { max-width: 720px; margin: 0 auto 56px; padding: 0 20px; }
+.nc-headline { text-align: center; font-size: clamp(1.5rem, 4vw, 2.2rem); font-weight: 900; line-height: 1.2; margin-bottom: 8px; }
 .nc-headline span { color: #00ff6d; }
-.nc-sub {
-  text-align: center;
-  font-size: 0.9rem;
-  color: var(--gray);
-  margin-bottom: 36px;
-}
-.nc-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 32px;
-}
-.nc-item {
+.nc-sub { text-align: center; font-size: 0.88rem; color: var(--gray); margin-bottom: 10px; }
+.nc-instruction { text-align: center; font-size: 0.78rem; color: rgba(0,255,109,0.7); margin-bottom: 28px; font-weight: 600; letter-spacing: 0.05em; }
+.nc-cards { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+.nc-card {
   background: var(--dark-3);
-  border: 1px solid #1e2240;
+  border: 1.5px solid #1e2240;
   border-radius: 14px;
-  overflow: hidden;
-  cursor: pointer;
-  transition: border-color 0.2s;
-}
-.nc-item.open { border-color: #00ff6d; }
-.nc-item-header {
-  display: flex;
-  align-items: center;
-  gap: 14px;
   padding: 16px 18px;
+  display: flex; align-items: center; gap: 14px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, transform 0.15s;
   user-select: none;
 }
-.nc-item-num {
-  min-width: 32px; height: 32px;
-  border-radius: 50%;
-  background: rgba(0,255,109,0.08);
-  border: 1px solid rgba(0,255,109,0.2);
+.nc-card:hover { border-color: rgba(0,255,109,0.4); background: #1a2040; transform: translateX(3px); }
+.nc-card.selected { border-color: #00ff6d; background: rgba(0,255,109,0.06); }
+.nc-checkbox {
+  min-width: 24px; height: 24px;
+  border-radius: 6px;
+  border: 2px solid #2a3050;
   display: flex; align-items: center; justify-content: center;
-  font-size: 0.78rem;
-  font-weight: 800;
-  color: #00ff6d;
   flex-shrink: 0;
+  transition: border-color 0.2s, background 0.2s;
+  font-size: 0.8rem;
 }
-.nc-item-title {
-  flex: 1;
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: #fff;
-}
-.nc-item-chevron {
-  font-size: 1rem;
-  color: #00ff6d;
-  transition: transform 0.25s;
-  flex-shrink: 0;
-}
-.nc-item.open .nc-item-chevron { transform: rotate(90deg); }
-.nc-item-body {
-  max-height: 0;
+.nc-card.selected .nc-checkbox { border-color: #00ff6d; background: #00ff6d; color: #0d1026; font-weight: 900; }
+.nc-card-icon { font-size: 1.3rem; flex-shrink: 0; }
+.nc-card-text { flex: 1; font-size: 0.86rem; font-weight: 600; color: #ddd; line-height: 1.4; }
+.nc-card.selected .nc-card-text { color: #fff; }
+.nc-counter-wrap { text-align: center; margin-bottom: 20px; }
+.nc-counter-bar {
+  max-width: 400px; margin: 0 auto 10px;
+  height: 6px; border-radius: 3px;
+  background: #1e2240;
   overflow: hidden;
-  transition: max-height 0.3s ease, padding 0.3s ease;
-  padding: 0 18px;
-  font-size: 0.83rem;
-  color: #aaa;
-  line-height: 1.7;
 }
-.nc-item.open .nc-item-body {
-  max-height: 200px;
-  padding: 0 18px 16px;
+.nc-counter-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #00cc57, #00ff6d);
+  width: 0%;
+  transition: width 0.4s ease;
 }
-.nc-cta-wrap {
+.nc-counter-text { font-size: 0.78rem; color: var(--gray); }
+.nc-result {
+  background: var(--dark-3);
+  border: 1px solid #1e2240;
+  border-radius: 16px;
+  padding: 24px 20px;
   text-align: center;
+  transition: border-color 0.3s;
 }
-.nc-cta-label {
-  font-size: 0.78rem;
-  color: var(--gray);
-  margin-bottom: 12px;
+.nc-result.show-0 { border-color: #1e2240; }
+.nc-result.show-low { border-color: rgba(255,200,0,0.4); }
+.nc-result.show-mid { border-color: rgba(255,100,0,0.4); }
+.nc-result.show-high { border-color: #00ff6d; }
+.nc-result-emoji { font-size: 2rem; margin-bottom: 8px; }
+.nc-result-title { font-size: 1rem; font-weight: 800; margin-bottom: 6px; color: #fff; }
+.nc-result-desc { font-size: 0.82rem; color: #aaa; line-height: 1.6; margin-bottom: 16px; }
+.nc-result-cta {
+  display: inline-block;
+  background: #00ff6d; color: #0d1026;
+  font-size: 0.85rem; font-weight: 800;
+  padding: 12px 26px; border-radius: 50px;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+  box-shadow: 0 4px 16px rgba(0,255,109,0.2);
 }
+.nc-result-cta:hover { background: #00e060; transform: translateY(-1px); }
 </style>
 <div class="nc-section">
   <h2 class="nc-headline">¿No sabes si necesitas<br><span>un contador?</span></h2>
-  <p class="nc-sub">Si alguna de estas situaciones te suena familiar, ya es momento.</p>
-  <div class="nc-list">
-
-    <div class="nc-item" onclick="toggleNc(this)">
-      <div class="nc-item-header">
-        <div class="nc-item-num">01</div>
-        <div class="nc-item-title">Emitiste facturas pero no sabes si las hiciste bien</div>
-        <div class="nc-item-chevron">›</div>
-      </div>
-      <div class="nc-item-body">Una factura mal emitida puede costarte una multa o perder la deducción fiscal. Si facturaste sin asesoría, es probable que haya errores que no notes hasta que el SAT te los señale.</div>
+  <p class="nc-sub">Haz el diagnóstico rápido de tu negocio.</p>
+  <p class="nc-instruction">✓ Selecciona las situaciones que aplican a ti</p>
+  <div class="nc-cards">
+    <div class="nc-card" onclick="toggleNcCard(this)">
+      <div class="nc-checkbox"></div>
+      <div class="nc-card-icon">🧾</div>
+      <div class="nc-card-text">Emito facturas pero no estoy seguro de hacerlo correctamente</div>
     </div>
-
-    <div class="nc-item" onclick="toggleNc(this)">
-      <div class="nc-item-header">
-        <div class="nc-item-num">02</div>
-        <div class="nc-item-title">El SAT te mandó un correo y no sabes qué quiere</div>
-        <div class="nc-item-chevron">›</div>
-      </div>
-      <div class="nc-item-body">Los avisos del SAT tienen plazos. Ignorarlos o responderlos mal puede derivar en multas, recargos o hasta el bloqueo de tus sellos de facturación. Un contador sabe exactamente qué hacer y en cuánto tiempo.</div>
+    <div class="nc-card" onclick="toggleNcCard(this)">
+      <div class="nc-checkbox"></div>
+      <div class="nc-card-icon">🏛️</div>
+      <div class="nc-card-text">El SAT me mandó un aviso y no sé cómo responderlo</div>
     </div>
-
-    <div class="nc-item" onclick="toggleNc(this)">
-      <div class="nc-item-header">
-        <div class="nc-item-num">03</div>
-        <div class="nc-item-title">Tienes empleados y no sabes cómo pagarles correctamente</div>
-        <div class="nc-item-chevron">›</div>
-      </div>
-      <div class="nc-item-body">Tener empleados implica nómina, IMSS, INFONAVIT y retención de impuestos. Si no lo haces bien desde el inicio, acumulas adeudos con el IMSS que pueden ser muy costosos de regularizar después.</div>
+    <div class="nc-card" onclick="toggleNcCard(this)">
+      <div class="nc-checkbox"></div>
+      <div class="nc-card-icon">👥</div>
+      <div class="nc-card-text">Tengo empleados y no sé si los estoy pagando bien ante el IMSS</div>
     </div>
-
-    <div class="nc-item" onclick="toggleNc(this)">
-      <div class="nc-item-header">
-        <div class="nc-item-num">04</div>
-        <div class="nc-item-title">Tu negocio está creciendo pero no sabes si es rentable</div>
-        <div class="nc-item-chevron">›</div>
-      </div>
-      <div class="nc-item-body">Vender más no siempre significa ganar más. Sin un estado de resultados real, puedes estar creciendo en ventas pero perdiendo dinero sin saberlo. Un contador te pone los números en blanco y negro para que tomes decisiones con claridad.</div>
+    <div class="nc-card" onclick="toggleNcCard(this)">
+      <div class="nc-checkbox"></div>
+      <div class="nc-card-icon">📈</div>
+      <div class="nc-card-text">Mi negocio está creciendo pero no sé si realmente es rentable</div>
     </div>
-
-    <div class="nc-item" onclick="toggleNc(this)">
-      <div class="nc-item-header">
-        <div class="nc-item-num">05</div>
-        <div class="nc-item-title">Ya no tienes tiempo de llevar tus propios números</div>
-        <div class="nc-item-chevron">›</div>
-      </div>
-      <div class="nc-item-body">Cuando el negocio crece, tu tiempo vale más enfocado en vender y operar que en llevar una hoja de Excel. Delegar la contabilidad a alguien de confianza te libera para hacer lo que mejor sabes hacer.</div>
+    <div class="nc-card" onclick="toggleNcCard(this)">
+      <div class="nc-checkbox"></div>
+      <div class="nc-card-icon">⏱️</div>
+      <div class="nc-card-text">Ya no tengo tiempo de llevar mis propios números y contabilidad</div>
     </div>
-
   </div>
-  <div class="nc-cta-wrap">
-    <div class="nc-cta-label">¿Te identificaste con alguna? Hablemos.</div>
-    <a href="https://wa.me/5214442522739" target="_blank" class="cta-btn">Quiero una consulta gratuita →</a>
+  <div class="nc-counter-wrap">
+    <div class="nc-counter-bar"><div class="nc-counter-fill" id="nc-fill"></div></div>
+    <div class="nc-counter-text" id="nc-counter-text">0 de 5 situaciones seleccionadas</div>
+  </div>
+  <div class="nc-result show-0" id="nc-result">
+    <div class="nc-result-emoji" id="nc-emoji">☝️</div>
+    <div class="nc-result-title" id="nc-rtitle">Selecciona las situaciones que aplican</div>
+    <div class="nc-result-desc" id="nc-rdesc">Marca las que reconoces en tu negocio para ver tu diagnóstico.</div>
   </div>
 </div>
 <script>
-function toggleNc(el) {
-  const isOpen = el.classList.contains('open');
-  document.querySelectorAll('.nc-item').forEach(i => i.classList.remove('open'));
-  if (!isOpen) el.classList.add('open');
+const ncResults = [
+  { cls: 'show-0', emoji: '☝️', title: 'Selecciona las situaciones que aplican', desc: 'Marca las que reconoces en tu negocio para ver tu diagnóstico.', cta: false },
+  { cls: 'show-low', emoji: '🤔', title: 'Podrías beneficiarte de orientación', desc: 'Una situación ya es señal de que hay algo por ordenar. Una consulta rápida puede ahorrarte problemas futuros.', cta: true },
+  { cls: 'show-low', emoji: '⚠️', title: 'Ya hay señales de alerta', desc: 'Dos situaciones indican que hay áreas de tu negocio que necesitan atención fiscal o financiera pronto.', cta: true },
+  { cls: 'show-mid', emoji: '🚨', title: 'Necesitas un contador ahora', desc: 'Con tres situaciones activas, tu negocio está acumulando riesgos fiscales y financieros que pueden costar caro. Actúa antes de que se compliquen.', cta: true },
+  { cls: 'show-high', emoji: '🔥', title: 'Necesitas un contador urgente', desc: 'Cuatro situaciones es una señal clara de que tu negocio necesita orden fiscal y financiero de inmediato. No lo dejes para después.', cta: true },
+  { cls: 'show-high', emoji: '💡', title: '¡Definitivamente necesitas apoyo profesional!', desc: 'Tu negocio tiene todo para crecer — solo necesita el soporte fiscal y financiero correcto. Hablemos hoy.', cta: true },
+];
+function toggleNcCard(el) {
+  el.classList.toggle('selected');
+  el.querySelector('.nc-checkbox').textContent = el.classList.contains('selected') ? '✓' : '';
+  updateNcResult();
+}
+function updateNcResult() {
+  const count = document.querySelectorAll('.nc-card.selected').length;
+  const r = ncResults[count];
+  const pct = (count / 5) * 100;
+  document.getElementById('nc-fill').style.width = pct + '%';
+  document.getElementById('nc-counter-text').textContent = count + ' de 5 situaciones seleccionadas';
+  const res = document.getElementById('nc-result');
+  res.className = 'nc-result ' + r.cls;
+  document.getElementById('nc-emoji').textContent = r.emoji;
+  document.getElementById('nc-rtitle').textContent = r.title;
+  document.getElementById('nc-rdesc').textContent = r.desc;
+  const existing = res.querySelector('.nc-result-cta');
+  if (existing) existing.remove();
+  if (r.cta) {
+    const btn = document.createElement('a');
+    btn.href = 'https://wa.me/5214442522739';
+    btn.target = '_blank';
+    btn.className = 'nc-result-cta';
+    btn.textContent = 'Quiero una consulta gratuita →';
+    res.appendChild(btn);
+  }
 }
 </script>
 
