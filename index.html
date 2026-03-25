@@ -746,6 +746,291 @@ function closeSrvBtn() { document.getElementById('srv-overlay').classList.remove
   <a href="https://wa.me/5214442522739" target="_blank" class="cta-btn">Hablar con Fernando →</a>
 </div>
 
+<!-- CALENDARIO -->
+<div class="section-title" style="margin-top:48px;">Agendar Cita</div>
+<style>
+.cal-wrap {
+  max-width: 680px;
+  margin: 0 auto 56px;
+  padding: 0 20px;
+}
+.cal-hint {
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--gray);
+  margin-bottom: 24px;
+}
+.cal-hint span { color: #00ff6d; }
+.cal-box {
+  background: var(--dark-3);
+  border: 1px solid #1e2240;
+  border-radius: 18px;
+  padding: 24px 20px;
+}
+.cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.cal-nav {
+  background: #1e2240;
+  border: none;
+  color: #00ff6d;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
+}
+.cal-nav:hover { background: rgba(0,255,109,0.15); }
+.cal-month-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  text-transform: capitalize;
+}
+.cal-grid-head {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin-bottom: 6px;
+}
+.cal-dow {
+  text-align: center;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--gray);
+  padding: 4px 0;
+}
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+.cal-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  border: 1px solid transparent;
+  color: #ddd;
+}
+.cal-day:hover:not(.disabled):not(.empty) {
+  background: rgba(0,255,109,0.12);
+  border-color: rgba(0,255,109,0.3);
+}
+.cal-day.selected {
+  background: #00ff6d;
+  color: #0d1026;
+  font-weight: 800;
+}
+.cal-day.disabled {
+  color: #333;
+  cursor: not-allowed;
+}
+.cal-day.today {
+  border-color: rgba(0,255,109,0.4);
+  color: #00ff6d;
+}
+.cal-day.empty { cursor: default; }
+.cal-times {
+  margin-top: 22px;
+  display: none;
+}
+.cal-times-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-bottom: 12px;
+}
+.cal-times-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 8px;
+}
+.cal-time-slot {
+  padding: 10px 8px;
+  text-align: center;
+  border-radius: 10px;
+  background: #1e2240;
+  border: 1px solid #252b45;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #ddd;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.cal-time-slot:hover {
+  background: rgba(0,255,109,0.12);
+  border-color: #00ff6d;
+  color: #00ff6d;
+}
+.cal-time-slot.selected {
+  background: #00ff6d;
+  color: #0d1026;
+  border-color: #00ff6d;
+  font-weight: 800;
+}
+.cal-confirm {
+  margin-top: 20px;
+  display: none;
+  text-align: center;
+}
+.cal-confirm-text {
+  font-size: 0.85rem;
+  color: #aaa;
+  margin-bottom: 14px;
+}
+.cal-confirm-text strong { color: #00ff6d; }
+.cal-confirm-btn {
+  display: inline-block;
+  background: #00ff6d;
+  color: #0d1026;
+  font-size: 0.9rem;
+  font-weight: 800;
+  padding: 14px 28px;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.cal-confirm-btn:hover { background: #00e060; }
+</style>
+<div class="cal-wrap">
+  <p class="cal-hint">Elige fecha y hora. Las citas deben agendarse con <span>mínimo 48 horas</span> de anticipación.</p>
+  <div class="cal-box">
+    <div class="cal-header">
+      <button class="cal-nav" onclick="calPrev()">‹</button>
+      <div class="cal-month-title" id="cal-month-title"></div>
+      <button class="cal-nav" onclick="calNext()">›</button>
+    </div>
+    <div class="cal-grid-head">
+      <div class="cal-dow">Dom</div>
+      <div class="cal-dow">Lun</div>
+      <div class="cal-dow">Mar</div>
+      <div class="cal-dow">Mié</div>
+      <div class="cal-dow">Jue</div>
+      <div class="cal-dow">Vie</div>
+      <div class="cal-dow">Sáb</div>
+    </div>
+    <div class="cal-grid" id="cal-grid"></div>
+    <div class="cal-times" id="cal-times">
+      <div class="cal-times-label">Selecciona un horario</div>
+      <div class="cal-times-grid" id="cal-times-grid"></div>
+    </div>
+    <div class="cal-confirm" id="cal-confirm">
+      <div class="cal-confirm-text" id="cal-confirm-text"></div>
+      <a class="cal-confirm-btn" id="cal-confirm-btn" href="#" target="_blank">Confirmar por WhatsApp →</a>
+    </div>
+  </div>
+</div>
+<script>
+const SLOTS = ['10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00'];
+const MONTHS = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+const PHONE = '5214442522739';
+let calYear, calMonth, selDay = null, selTime = null;
+
+function initCal() {
+  const now = new Date();
+  calYear = now.getFullYear();
+  calMonth = now.getMonth();
+  renderCal();
+}
+
+function renderCal() {
+  document.getElementById('cal-month-title').textContent = MONTHS[calMonth] + ' ' + calYear;
+  const grid = document.getElementById('cal-grid');
+  grid.innerHTML = '';
+  const now = new Date();
+  const limit = new Date(now.getTime() + 48 * 60 * 60 * 1000);
+  const firstDay = new Date(calYear, calMonth, 1).getDay();
+  const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+  const today = new Date(); today.setHours(0,0,0,0);
+
+  for (let i = 0; i < firstDay; i++) {
+    const el = document.createElement('div');
+    el.className = 'cal-day empty';
+    grid.appendChild(el);
+  }
+  for (let d = 1; d <= daysInMonth; d++) {
+    const date = new Date(calYear, calMonth, d);
+    const el = document.createElement('div');
+    el.className = 'cal-day';
+    el.textContent = d;
+    const isDisabled = date < limit || date.getDay() === 0; // bloquear si < 48h o domingo
+    if (isDisabled) {
+      el.classList.add('disabled');
+    } else {
+      const dateStr = calYear + '-' + String(calMonth+1).padStart(2,'0') + '-' + String(d).padStart(2,'0');
+      if (date.toDateString() === today.toDateString()) el.classList.add('today');
+      if (selDay === dateStr) el.classList.add('selected');
+      el.onclick = () => selectDay(dateStr, d);
+    }
+    grid.appendChild(el);
+  }
+}
+
+function selectDay(dateStr, d) {
+  selDay = dateStr;
+  selTime = null;
+  renderCal();
+  const timesEl = document.getElementById('cal-times');
+  timesEl.style.display = 'block';
+  const grid = document.getElementById('cal-times-grid');
+  grid.innerHTML = '';
+  SLOTS.forEach(slot => {
+    const el = document.createElement('div');
+    el.className = 'cal-time-slot';
+    el.textContent = slot;
+    el.onclick = () => selectTime(slot, el);
+    grid.appendChild(el);
+  });
+  document.getElementById('cal-confirm').style.display = 'none';
+}
+
+function selectTime(slot, el) {
+  document.querySelectorAll('.cal-time-slot').forEach(e => e.classList.remove('selected'));
+  el.classList.add('selected');
+  selTime = slot;
+  const [y,m,d] = selDay.split('-');
+  const monthName = MONTHS[parseInt(m)-1];
+  const msg = encodeURIComponent('Hola Fernando, me gustaría agendar una consulta el ' + d + ' de ' + monthName + ' de ' + y + ' a las ' + slot + ' hrs. Quedo pendiente de tu confirmación.');
+  const confirmEl = document.getElementById('cal-confirm');
+  confirmEl.style.display = 'block';
+  document.getElementById('cal-confirm-text').innerHTML = 'Cita seleccionada: <strong>' + d + ' de ' + monthName + ' ' + y + ' a las ' + slot + '</strong>';
+  document.getElementById('cal-confirm-btn').href = 'https://wa.me/' + PHONE + '?text=' + msg;
+}
+
+function calPrev() {
+  calMonth--;
+  if (calMonth < 0) { calMonth = 11; calYear--; }
+  selDay = null; selTime = null;
+  renderCal();
+  document.getElementById('cal-times').style.display = 'none';
+  document.getElementById('cal-confirm').style.display = 'none';
+}
+
+function calNext() {
+  calMonth++;
+  if (calMonth > 11) { calMonth = 0; calYear++; }
+  selDay = null; selTime = null;
+  renderCal();
+  document.getElementById('cal-times').style.display = 'none';
+  document.getElementById('cal-confirm').style.display = 'none';
+}
+
+initCal();
+</script>
+
 <div class="footer">© 2026 C.P. Fernando Mendoza Ferreira · fisconegociomx@gmail.com</div>
 
 </body>
