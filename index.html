@@ -1259,6 +1259,88 @@ function calNext() {
 initCal();
 </script>
 
+<!-- CLIENTES -->
+<style>
+.clients-section { max-width: 800px; margin: 0 auto 56px; padding: 0 20px; }
+.clients-track-wrap {
+  overflow: hidden;
+  border-radius: 16px;
+  background: var(--dark-3);
+  border: 1px solid #1e2240;
+  padding: 32px 20px;
+}
+.clients-track {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  animation: scroll-clients 12s linear infinite;
+  width: max-content;
+}
+.clients-track:hover { animation-play-state: paused; }
+@keyframes scroll-clients {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.client-logo-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.client-logo-img {
+  height: 64px;
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
+  border-radius: 10px;
+  filter: grayscale(30%);
+  transition: filter 0.2s, transform 0.2s;
+}
+.clients-track:hover .client-logo-img { filter: grayscale(0%); transform: scale(1.05); }
+.client-logo-name {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gray);
+}
+</style>
+<div class="clients-section">
+  <h2 class="nc-headline" style="text-align:center;margin-bottom:8px;margin-top:0;">Clientes que <span style="color:#00ff6d;">confían en nosotros</span></h2>
+  <p style="text-align:center;font-size:0.88rem;color:#8C8C8C;margin-bottom:28px;">Emprendedores y empresas que ya ordenaron su negocio con Fisconegociomx.</p>
+  <div class="clients-track-wrap">
+    <div class="clients-track">
+      <!-- Set 1 -->
+      <div class="client-logo-item">
+        <img src="logo_flores.jpg" alt="Flores El Patrón" class="client-logo-img" style="background:#fce4ec;padding:6px;">
+        <div class="client-logo-name">Flores El Patrón</div>
+      </div>
+      <div class="client-logo-item">
+        <img src="atiko_logo.jpg" alt="Atiko Cowork" class="client-logo-img" style="background:#000;padding:6px;">
+        <div class="client-logo-name">Atiko Cowork</div>
+      </div>
+      <div class="client-logo-item">
+        <img src="logo_web3.jpg" alt="Web3 Collective" class="client-logo-img" style="background:#fff;padding:6px;">
+        <div class="client-logo-name">Web3 Collective</div>
+      </div>
+      <!-- Set 2 (duplicado para loop infinito) -->
+      <div class="client-logo-item">
+        <img src="logo_flores.jpg" alt="Flores El Patrón" class="client-logo-img" style="background:#fce4ec;padding:6px;">
+        <div class="client-logo-name">Flores El Patrón</div>
+      </div>
+      <div class="client-logo-item">
+        <img src="atiko_logo.jpg" alt="Atiko Cowork" class="client-logo-img" style="background:#000;padding:6px;">
+        <div class="client-logo-name">Atiko Cowork</div>
+      </div>
+      <div class="client-logo-item">
+        <img src="logo_web3.jpg" alt="Web3 Collective" class="client-logo-img" style="background:#fff;padding:6px;">
+        <div class="client-logo-name">Web3 Collective</div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- SOCIOS COMERCIALES -->
 <style>
 .socios-section2 { max-width: 720px; margin: 0 auto 56px; padding: 0 20px; }
@@ -1321,7 +1403,7 @@ initCal();
 
   <div class="socio-acc" onclick="toggleAcc(this)">
     <div class="socio-acc-header">
-      <div class="socio-acc-icon">🌐</div>
+      <img src="logo_web3.jpg" alt="Web3 Collective" style="width:44px;height:36px;object-fit:contain;border-radius:6px;background:#fff;padding:4px;flex-shrink:0;">
       <div>
         <div class="socio-acc-name">Web3 Collective</div>
         <div class="socio-acc-sub">Consultoría Blockchain & IA</div>
