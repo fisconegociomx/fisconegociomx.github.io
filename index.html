@@ -596,7 +596,8 @@ setTimeout(animateCmpRows, 200);
 </script>
 
 <!-- SERVICES -->
-<div class="section-title">Servicios</div>
+<h2 class="nc-headline" style="text-align:center;margin-bottom:8px;margin-top:0;">Nuestros <span style="color:#00ff6d;">Servicios</span></h2>
+<p style="text-align:center;font-size:0.88rem;color:#8C8C8C;margin-bottom:32px;">Da clic en cada servicio para conocer más.</p>
 <div class="services-grid">
 
   <div class="service-card" onclick="openSrv('srv1')">
@@ -707,44 +708,105 @@ function closeSrvBtn() { document.getElementById('srv-overlay').classList.remove
 </script>
 
 <!-- PORQUE YO -->
-<div class="section-title">¿Por Qué Trabajar Conmigo?</div>
-<div class="porque-wrap">
-  <div class="porque-list">
+<style>
+.ben-section { max-width: 800px; margin: 0 auto 56px; padding: 0 20px; }
+.ben-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; }
+@media (max-width: 560px) { .ben-grid { grid-template-columns: 1fr; } }
+.ben-card {
+  background: var(--dark-3);
+  border: 1px solid #1e2240;
+  border-radius: 16px;
+  padding: 22px 20px;
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.ben-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #00ff6d, #00cc57);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.ben-card:hover::after, .ben-card.open::after { transform: scaleX(1); }
+.ben-card:hover, .ben-card.open { border-color: rgba(0,255,109,0.4); transform: translateY(-2px); box-shadow: 0 6px 24px rgba(0,255,109,0.08); }
+.ben-card-top { display: flex; align-items: center; gap: 14px; }
+.ben-icon { font-size: 1.6rem; }
+.ben-title { font-size: 0.92rem; font-weight: 700; color: #fff; flex: 1; }
+.ben-chevron { color: #00ff6d; font-size: 1rem; transition: transform 0.25s; }
+.ben-card.open .ben-chevron { transform: rotate(90deg); }
+.ben-body {
+  max-height: 0; overflow: hidden;
+  font-size: 0.82rem; color: #aaa; line-height: 1.7;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+  padding-top: 0;
+}
+.ben-card.open .ben-body { max-height: 200px; padding-top: 14px; }
+.ben-card.highlight .ben-icon-wrap { background: rgba(0,255,109,0.15); }
+</style>
+<div class="ben-section">
+  <h2 class="nc-headline" style="text-align:center;margin-bottom:8px;margin-top:0;">Nuestros <span style="color:#00ff6d;">Beneficios</span></h2>
+  <p style="text-align:center;font-size:0.88rem;color:#8C8C8C;margin-bottom:32px;">Da clic en cada punto para conocer más.</p>
+  <div class="ben-grid">
 
-    <div class="porque-item">
-      <div class="porque-icon">🎯</div>
-      <div>
-        <div class="porque-title">Enfoque en resultados, no en trámites</div>
-        <div class="porque-desc">No solo llevo tus números — te ayudo a entenderlos y a usarlos para crecer. Tu contabilidad es una herramienta de negocio, no un gasto obligatorio.</div>
+    <div class="ben-card" onclick="toggleBen(this)">
+      <div class="ben-card-top">
+        <div class="ben-icon">🎯</div>
+        <div class="ben-title">Enfoque en resultados</div>
+        <div class="ben-chevron">›</div>
       </div>
+      <div class="ben-body">No solo llevamos tus números — te ayudamos a entenderlos y usarlos para crecer. Tu contabilidad es una herramienta de negocio, no un gasto obligatorio.</div>
     </div>
 
-    <div class="porque-item">
-      <div class="porque-icon">🤝</div>
-      <div>
-        <div class="porque-title">Socio, no proveedor</div>
-        <div class="porque-desc">Me involucro en tu negocio como si fuera el mío. Tienes acceso directo, respuesta rápida y un asesor que conoce tu situación particular.</div>
+    <div class="ben-card" onclick="toggleBen(this)">
+      <div class="ben-card-top">
+        <div class="ben-icon">🤝</div>
+        <div class="ben-title">Socio, no proveedor</div>
+        <div class="ben-chevron">›</div>
       </div>
+      <div class="ben-body">Nos involucramos en tu negocio como si fuera el nuestro. Tienes acceso directo, respuesta rápida y un asesor que conoce tu situación particular a fondo.</div>
     </div>
 
-    <div class="porque-item">
-      <div class="porque-icon">🔒</div>
-      <div>
-        <div class="porque-title">Cumplimiento total y sin sorpresas</div>
-        <div class="porque-desc">Tu empresa siempre al corriente con el SAT, IMSS e INFONAVIT. Anticipo los cambios fiscales antes de que te afecten.</div>
+    <div class="ben-card" onclick="toggleBen(this)">
+      <div class="ben-card-top">
+        <div class="ben-icon">🔒</div>
+        <div class="ben-title">Cumplimiento sin sorpresas</div>
+        <div class="ben-chevron">›</div>
       </div>
+      <div class="ben-body">Tu empresa siempre al corriente con SAT, IMSS e INFONAVIT. Anticipamos los cambios fiscales antes de que te afecten para que nunca tengas multas inesperadas.</div>
     </div>
 
-    <div class="porque-item">
-      <div class="porque-icon">💡</div>
-      <div>
-        <div class="porque-title">Digitalización incluida</div>
-        <div class="porque-desc">Implemento herramientas y automatizaciones para que tu administración sea más eficiente, moderna y libre de procesos manuales innecesarios.</div>
+    <div class="ben-card" onclick="toggleBen(this)">
+      <div class="ben-card-top">
+        <div class="ben-icon">💡</div>
+        <div class="ben-title">Digitalización incluida</div>
+        <div class="ben-chevron">›</div>
       </div>
+      <div class="ben-body">Implementamos herramientas y automatizaciones para que tu administración sea eficiente, moderna y libre de procesos manuales. Tu negocio al día con la tecnología.</div>
+    </div>
+
+    <div class="ben-card" onclick="toggleBen(this)" style="grid-column: 1 / -1;">
+      <div class="ben-card-top">
+        <div class="ben-icon">🌐</div>
+        <div class="ben-title">Socios Estratégicos</div>
+        <div class="ben-chevron">›</div>
+      </div>
+      <div class="ben-body">Contamos con una red de especialistas en distintos rubros para darte soluciones integrales: Certificaciones ISO, Importación y Exportación de productos, Gestión de Riesgos Sanitarios, Defensa Fiscal, y más. Si tu negocio lo necesita, tenemos al experto indicado.</div>
     </div>
 
   </div>
 </div>
+<script>
+function toggleBen(el) {
+  const isOpen = el.classList.contains('open');
+  document.querySelectorAll('.ben-card').forEach(c => c.classList.remove('open'));
+  if (!isOpen) el.classList.add('open');
+}
+</script>
 
 <!-- CTA FINAL -->
 <div class="cta-section">
