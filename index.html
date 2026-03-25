@@ -968,10 +968,114 @@ function toggleBen(el) {
 </script>
 
 <!-- CTA FINAL -->
-<div class="cta-section">
-  <div class="cta-section-title">¿No sabes si necesitas contador?</div>
-  <div class="cta-section-desc">Primera consulta sin costo. Cuéntame tu situación y te digo exactamente qué necesitas — sin compromiso.</div>
-  <a href="https://wa.me/5214442522739" target="_blank" class="cta-btn">Mándame un WhatsApp 😉</a>
+<style>
+.cta2-section {
+  max-width: 720px;
+  margin: 0 auto 56px;
+  padding: 0 20px;
+}
+.cta2-box {
+  background: linear-gradient(135deg, #0d1a14 0%, #0f1e2a 50%, #151832 100%);
+  border: 1.5px solid rgba(0,255,109,0.3);
+  border-radius: 22px;
+  padding: 44px 32px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cta2-box::before {
+  content: '';
+  position: absolute;
+  top: -60px; left: 50%;
+  transform: translateX(-50%);
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,255,109,0.08), transparent 70%);
+  pointer-events: none;
+}
+.cta2-tag {
+  display: inline-block;
+  background: rgba(0,255,109,0.12);
+  border: 1px solid rgba(0,255,109,0.3);
+  color: #00ff6d;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 5px 16px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+.cta2-title {
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-weight: 900;
+  line-height: 1.2;
+  margin-bottom: 12px;
+  color: #fff;
+}
+.cta2-title span { color: #00ff6d; }
+.cta2-desc {
+  font-size: 0.9rem;
+  color: #aaa;
+  line-height: 1.7;
+  max-width: 480px;
+  margin: 0 auto 28px;
+}
+.cta2-benefits {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+.cta2-benefit {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  color: #ddd;
+  font-weight: 600;
+}
+.cta2-benefit-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #00ff6d;
+  flex-shrink: 0;
+}
+.cta2-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #00ff6d;
+  color: #0d1026;
+  font-size: 1rem;
+  font-weight: 800;
+  padding: 16px 38px;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 6px 24px rgba(0,255,109,0.3);
+}
+.cta2-btn:hover { background: #00e060; transform: translateY(-3px); box-shadow: 0 10px 32px rgba(0,255,109,0.4); }
+.cta2-note {
+  margin-top: 14px;
+  font-size: 0.72rem;
+  color: var(--gray);
+}
+</style>
+<div class="cta2-section">
+  <div class="cta2-box">
+    <div class="cta2-tag">📅 Primera cita sin costo</div>
+    <h2 class="cta2-title">Tu negocio merece<br><span>un contador de verdad</span></h2>
+    <p class="cta2-desc">No esperes a que el SAT te mande una multa o que tus números dejen de cuadrar. Agenda hoy tu primera consulta — sin costo, sin compromiso — y empieza a ordenar tu negocio con alguien que sí se involucra.</p>
+    <div class="cta2-benefits">
+      <div class="cta2-benefit"><div class="cta2-benefit-dot"></div>Diagnóstico fiscal gratuito</div>
+      <div class="cta2-benefit"><div class="cta2-benefit-dot"></div>Sin letra chica</div>
+      <div class="cta2-benefit"><div class="cta2-benefit-dot"></div>Respuesta en menos de 24h</div>
+    </div>
+    <a href="https://wa.me/5214442522739" target="_blank" class="cta2-btn">📲 Agenda tu primera cita gratis</a>
+    <div class="cta2-note">Escríbeme directo por WhatsApp — respondo rápido 😉</div>
+  </div>
 </div>
 
 <!-- CALENDARIO -->
