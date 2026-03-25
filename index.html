@@ -755,82 +755,77 @@ setTimeout(animateCmpRows, 200);
 </script>
 
 <!-- SERVICES -->
+<style>
+.srv2-wrap {
+  max-width: 860px;
+  margin: 0 auto 56px;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 560px) { .srv2-wrap { grid-template-columns: 1fr; } }
+.srv2-group {
+  background: var(--dark-3);
+  border: 1px solid #1e2240;
+  border-radius: 18px;
+  overflow: hidden;
+}
+.srv2-group-header {
+  padding: 16px 20px 12px;
+  border-bottom: 1px solid #1e2240;
+}
+.srv2-group-title {
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #00ff6d;
+}
+.srv2-group-sub {
+  font-size: 0.72rem;
+  color: var(--gray);
+  margin-top: 2px;
+}
+.srv2-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  border-bottom: 1px solid #1a1f3a;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.srv2-item:last-child { border-bottom: none; }
+.srv2-item:hover { background: rgba(0,255,109,0.04); }
+.srv2-item-icon { font-size: 1.1rem; flex-shrink: 0; }
+.srv2-item-name { flex: 1; font-size: 0.84rem; font-weight: 600; color: #ddd; }
+.srv2-item-arrow { font-size: 0.9rem; color: rgba(0,255,109,0.4); transition: color 0.15s, transform 0.15s; }
+.srv2-item:hover .srv2-item-arrow { color: #00ff6d; transform: translateX(3px); }
+</style>
 <h2 class="nc-headline" style="text-align:center;margin-bottom:8px;margin-top:0;">Nuestros <span style="color:#00ff6d;">Servicios</span></h2>
-<p style="text-align:center;font-size:0.88rem;color:#8C8C8C;margin-bottom:32px;">Da clic en cada servicio para conocer más.</p>
-<div class="services-grid">
-
-  <div class="service-card" onclick="openSrv('srv1')">
-    <div class="service-icon-wrap">📊</div>
-    <div class="service-content">
-      <div class="service-name">Contabilidad</div>
-      <div class="service-short">Tus números siempre en orden.</div>
+<p style="text-align:center;font-size:0.88rem;color:#8C8C8C;margin-bottom:28px;">Da clic en cada servicio para conocer más.</p>
+<div class="srv2-wrap">
+  <div class="srv2-group">
+    <div class="srv2-group-header">
+      <div class="srv2-group-title">Fiscal & Contable</div>
+      <div class="srv2-group-sub">Cumplimiento y orden financiero</div>
     </div>
-    <div class="service-arrow">›</div>
+    <div class="srv2-item" onclick="openSrv('srv1')"><div class="srv2-item-icon">📊</div><div class="srv2-item-name">Contabilidad</div><div class="srv2-item-arrow">›</div></div>
+    <div class="srv2-item" onclick="openSrv('srv2')"><div class="srv2-item-icon">🏛️</div><div class="srv2-item-name">Cumplimiento Fiscal</div><div class="srv2-item-arrow">›</div></div>
+    <div class="srv2-item" onclick="openSrv('srv3')"><div class="srv2-item-icon">🧾</div><div class="srv2-item-name">Facturación</div><div class="srv2-item-arrow">›</div></div>
+    <div class="srv2-item" onclick="openSrv('srv4')"><div class="srv2-item-icon">👥</div><div class="srv2-item-name">Gestión de Nómina</div><div class="srv2-item-arrow">›</div></div>
   </div>
-
-  <div class="service-card" onclick="openSrv('srv2')">
-    <div class="service-icon-wrap">🏛️</div>
-    <div class="service-content">
-      <div class="service-name">Cumplimiento Fiscal</div>
-      <div class="service-short">Sin multas, sin sustos del SAT.</div>
+  <div class="srv2-group">
+    <div class="srv2-group-header">
+      <div class="srv2-group-title">Asesoría & Digitalización</div>
+      <div class="srv2-group-sub">Estrategia y eficiencia operativa</div>
     </div>
-    <div class="service-arrow">›</div>
+    <div class="srv2-item" onclick="openSrv('srv5')"><div class="srv2-item-icon">💼</div><div class="srv2-item-name">Asesoría Empresarial</div><div class="srv2-item-arrow">›</div></div>
+    <div class="srv2-item" onclick="openSrv('srv6')"><div class="srv2-item-icon">📋</div><div class="srv2-item-name">Controles Administrativos</div><div class="srv2-item-arrow">›</div></div>
+    <div class="srv2-item" onclick="openSrv('srv7')"><div class="srv2-item-icon">🗂️</div><div class="srv2-item-name">Gestión de Proyectos</div><div class="srv2-item-arrow">›</div></div>
+    <div class="srv2-item" onclick="openSrv('srv8')"><div class="srv2-item-icon">⚡</div><div class="srv2-item-name">Digitalización y Automatización</div><div class="srv2-item-arrow">›</div></div>
   </div>
-
-  <div class="service-card" onclick="openSrv('srv3')">
-    <div class="service-icon-wrap">🧾</div>
-    <div class="service-content">
-      <div class="service-name">Facturación</div>
-      <div class="service-short">Factura bien desde el primer día.</div>
-    </div>
-    <div class="service-arrow">›</div>
-  </div>
-
-  <div class="service-card" onclick="openSrv('srv4')">
-    <div class="service-icon-wrap">👥</div>
-    <div class="service-content">
-      <div class="service-name">Gestión de Nómina</div>
-      <div class="service-short">Tu equipo, pagado y protegido.</div>
-    </div>
-    <div class="service-arrow">›</div>
-  </div>
-
-  <div class="service-card" onclick="openSrv('srv5')">
-    <div class="service-icon-wrap">💼</div>
-    <div class="service-content">
-      <div class="service-name">Asesoría Empresarial</div>
-      <div class="service-short">Estrategia real para tu negocio.</div>
-    </div>
-    <div class="service-arrow">›</div>
-  </div>
-
-  <div class="service-card" onclick="openSrv('srv6')">
-    <div class="service-icon-wrap">📋</div>
-    <div class="service-content">
-      <div class="service-name">Controles Administrativos</div>
-      <div class="service-short">Orden interno, negocio que fluye.</div>
-    </div>
-    <div class="service-arrow">›</div>
-  </div>
-
-  <div class="service-card" onclick="openSrv('srv7')">
-    <div class="service-icon-wrap">🗂️</div>
-    <div class="service-content">
-      <div class="service-name">Gestión de Proyectos</div>
-      <div class="service-short">Tus proyectos, con rentabilidad.</div>
-    </div>
-    <div class="service-arrow">›</div>
-  </div>
-
-  <div class="service-card" onclick="openSrv('srv8')">
-    <div class="service-icon-wrap">⚡</div>
-    <div class="service-content">
-      <div class="service-name">Digitalización y Automatización</div>
-      <div class="service-short">Menos papeleo, más tiempo para ti.</div>
-    </div>
-    <div class="service-arrow">›</div>
-  </div>
-
 </div>
 
 <!-- SERVICE MODAL -->
