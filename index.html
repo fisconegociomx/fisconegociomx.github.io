@@ -815,143 +815,6 @@ function toggleBen(el) {
   <a href="https://wa.me/5214442522739" target="_blank" class="cta-btn">Hablar con Fernando →</a>
 </div>
 
-<!-- SOCIOS COMERCIALES -->
-<style>
-.socios-section2 { max-width: 720px; margin: 0 auto 56px; padding: 0 20px; }
-.socio-acc {
-  border: 1px solid #1e2240;
-  border-radius: 14px;
-  overflow: hidden;
-  margin-bottom: 10px;
-  background: var(--dark-3);
-  transition: border-color 0.2s;
-}
-.socio-acc.open { border-color: rgba(0,255,109,0.4); }
-.socio-acc-header {
-  display: flex; align-items: center; gap: 14px;
-  padding: 16px 20px;
-  cursor: pointer;
-  user-select: none;
-}
-.socio-acc-icon { font-size: 1.4rem; flex-shrink: 0; }
-.socio-acc-name {
-  flex: 1;
-  font-size: 0.92rem; font-weight: 800;
-  letter-spacing: 0.05em; text-transform: uppercase; color: #fff;
-}
-.socio-acc-sub { font-size: 0.72rem; color: #00ff6d; font-weight: 600; }
-.socio-acc-chevron { color: #00ff6d; font-size: 1rem; transition: transform 0.25s; flex-shrink: 0; }
-.socio-acc.open .socio-acc-chevron { transform: rotate(90deg); }
-.socio-acc-body {
-  max-height: 0; overflow: hidden;
-  transition: max-height 0.3s ease;
-  padding: 0 20px;
-}
-.socio-acc.open .socio-acc-body { max-height: 180px; }
-.socio-acc-inner {
-  padding-bottom: 18px;
-  border-top: 1px solid #1e2240;
-  padding-top: 14px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-.socio-acc-desc { font-size: 0.82rem; color: #aaa; line-height: 1.6; flex: 1; min-width: 180px; }
-.socio-ig-btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
-  color: #fff; font-size: 0.8rem; font-weight: 700;
-  padding: 10px 18px; border-radius: 50px; text-decoration: none;
-  white-space: nowrap; flex-shrink: 0;
-  transition: opacity 0.2s, transform 0.15s;
-}
-.socio-ig-btn:hover { opacity: 0.85; transform: scale(1.03); }
-.socio-ig-no {
-  font-size: 0.75rem; color: #555; font-style: italic;
-}
-</style>
-<div class="socios-section2">
-  <h2 class="nc-headline" style="text-align:center;margin-bottom:8px;margin-top:0;">Servicios Adicionales y<br><span style="color:#00ff6d;">Socios Comerciales</span></h2>
-  <p style="text-align:center;font-size:0.88rem;color:#8C8C8C;margin-bottom:32px;">Aliados estratégicos que complementan y potencian nuestros servicios.</p>
-
-  <div class="socio-acc" onclick="toggleAcc(this)">
-    <div class="socio-acc-header">
-      <div class="socio-acc-icon">🌐</div>
-      <div>
-        <div class="socio-acc-name">Web3 Collective</div>
-        <div class="socio-acc-sub">Consultoría Blockchain & IA</div>
-      </div>
-      <div class="socio-acc-chevron">›</div>
-    </div>
-    <div class="socio-acc-body">
-      <div class="socio-acc-inner">
-        <div class="socio-acc-desc">Firma especializada en estrategia, gestión e implementación de soluciones blockchain, Web3 e IA aplicada a negocios. Juntos ofrecemos soluciones que combinan solidez fiscal con innovación tecnológica.</div>
-        <a href="https://www.instagram.com/web3_collective" target="_blank" class="socio-ig-btn" onclick="event.stopPropagation()">📸 Ver en Instagram</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="socio-acc" onclick="toggleAcc(this)">
-    <div class="socio-acc-header">
-      <div class="socio-acc-icon">🤖</div>
-      <div>
-        <div class="socio-acc-name">AgentBase</div>
-        <div class="socio-acc-sub">Automatización con IA</div>
-      </div>
-      <div class="socio-acc-chevron">›</div>
-    </div>
-    <div class="socio-acc-body">
-      <div class="socio-acc-inner">
-        <div class="socio-acc-desc">Plataforma mexicana de agentes de IA para automatizar procesos administrativos, ventas y atención al cliente. Implementamos agentes que trabajan 24/7 sin intervención humana.</div>
-        <a href="https://www.instagram.com/agentbase.mx" target="_blank" class="socio-ig-btn" onclick="event.stopPropagation()">📸 Ver en Instagram</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="socio-acc" onclick="toggleAcc(this)">
-    <div class="socio-acc-header">
-      <div class="socio-acc-icon">🏢</div>
-      <div>
-        <div class="socio-acc-name">Atiko Cowork</div>
-        <div class="socio-acc-sub">Espacio de Trabajo Colaborativo</div>
-      </div>
-      <div class="socio-acc-chevron">›</div>
-    </div>
-    <div class="socio-acc-body">
-      <div class="socio-acc-inner">
-        <div class="socio-acc-desc">Espacios de coworking para emprendedores y empresas en crecimiento en San Luis Potosí. Oficinas privadas, salas de juntas y espacios flexibles con presencia profesional sin costos fijos.</div>
-        <a href="https://www.instagram.com/atikocoworkmx" target="_blank" class="socio-ig-btn" onclick="event.stopPropagation()">📸 Ver en Instagram</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="socio-acc" onclick="toggleAcc(this)">
-    <div class="socio-acc-header">
-      <div class="socio-acc-icon">⚖️</div>
-      <div>
-        <div class="socio-acc-name">Despachos Jurídicos</div>
-        <div class="socio-acc-sub">Defensa Legal & Fiscal</div>
-      </div>
-      <div class="socio-acc-chevron">›</div>
-    </div>
-    <div class="socio-acc-body">
-      <div class="socio-acc-inner">
-        <div class="socio-acc-desc">Red de despachos especializados en defensa fiscal ante el SAT, contratos comerciales, constitución de empresas y cumplimiento legal. Cuando necesitas respaldo jurídico, tenemos al experto indicado.</div>
-        <div class="socio-ig-no">Instagram próximamente</div>
-      </div>
-    </div>
-  </div>
-
-</div>
-<script>
-function toggleAcc(el) {
-  const isOpen = el.classList.contains('open');
-  document.querySelectorAll('.socio-acc').forEach(a => a.classList.remove('open'));
-  if (!isOpen) el.classList.add('open');
-}
-</script>
-
 <!-- CALENDARIO -->
 <div class="section-title" style="margin-top:48px;">Agendar Cita</div>
 <style>
@@ -1235,6 +1098,143 @@ function calNext() {
 }
 
 initCal();
+</script>
+
+<!-- SOCIOS COMERCIALES -->
+<style>
+.socios-section2 { max-width: 720px; margin: 0 auto 56px; padding: 0 20px; }
+.socio-acc {
+  border: 1px solid #1e2240;
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  background: var(--dark-3);
+  transition: border-color 0.2s;
+}
+.socio-acc.open { border-color: rgba(0,255,109,0.4); }
+.socio-acc-header {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 20px;
+  cursor: pointer;
+  user-select: none;
+}
+.socio-acc-icon { font-size: 1.4rem; flex-shrink: 0; }
+.socio-acc-name {
+  flex: 1;
+  font-size: 0.92rem; font-weight: 800;
+  letter-spacing: 0.05em; text-transform: uppercase; color: #fff;
+}
+.socio-acc-sub { font-size: 0.72rem; color: #00ff6d; font-weight: 600; }
+.socio-acc-chevron { color: #00ff6d; font-size: 1rem; transition: transform 0.25s; flex-shrink: 0; }
+.socio-acc.open .socio-acc-chevron { transform: rotate(90deg); }
+.socio-acc-body {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.3s ease;
+  padding: 0 20px;
+}
+.socio-acc.open .socio-acc-body { max-height: 180px; }
+.socio-acc-inner {
+  padding-bottom: 18px;
+  border-top: 1px solid #1e2240;
+  padding-top: 14px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.socio-acc-desc { font-size: 0.82rem; color: #aaa; line-height: 1.6; flex: 1; min-width: 180px; }
+.socio-ig-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+  color: #fff; font-size: 0.8rem; font-weight: 700;
+  padding: 10px 18px; border-radius: 50px; text-decoration: none;
+  white-space: nowrap; flex-shrink: 0;
+  transition: opacity 0.2s, transform 0.15s;
+}
+.socio-ig-btn:hover { opacity: 0.85; transform: scale(1.03); }
+.socio-ig-no {
+  font-size: 0.75rem; color: #555; font-style: italic;
+}
+</style>
+<div class="socios-section2">
+  <h2 class="nc-headline" style="text-align:center;margin-bottom:8px;margin-top:0;">Servicios Adicionales y<br><span style="color:#00ff6d;">Socios Comerciales</span></h2>
+  <p style="text-align:center;font-size:0.88rem;color:#8C8C8C;margin-bottom:32px;">Aliados estratégicos que complementan y potencian nuestros servicios.</p>
+
+  <div class="socio-acc" onclick="toggleAcc(this)">
+    <div class="socio-acc-header">
+      <div class="socio-acc-icon">🌐</div>
+      <div>
+        <div class="socio-acc-name">Web3 Collective</div>
+        <div class="socio-acc-sub">Consultoría Blockchain & IA</div>
+      </div>
+      <div class="socio-acc-chevron">›</div>
+    </div>
+    <div class="socio-acc-body">
+      <div class="socio-acc-inner">
+        <div class="socio-acc-desc">Firma especializada en estrategia, gestión e implementación de soluciones blockchain, Web3 e IA aplicada a negocios. Juntos ofrecemos soluciones que combinan solidez fiscal con innovación tecnológica.</div>
+        <a href="https://www.instagram.com/web3_collective" target="_blank" class="socio-ig-btn" onclick="event.stopPropagation()">📸 Ver en Instagram</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="socio-acc" onclick="toggleAcc(this)">
+    <div class="socio-acc-header">
+      <div class="socio-acc-icon">🤖</div>
+      <div>
+        <div class="socio-acc-name">AgentBase</div>
+        <div class="socio-acc-sub">Automatización con IA</div>
+      </div>
+      <div class="socio-acc-chevron">›</div>
+    </div>
+    <div class="socio-acc-body">
+      <div class="socio-acc-inner">
+        <div class="socio-acc-desc">Plataforma mexicana de agentes de IA para automatizar procesos administrativos, ventas y atención al cliente. Implementamos agentes que trabajan 24/7 sin intervención humana.</div>
+        <a href="https://www.instagram.com/agentbase.mx" target="_blank" class="socio-ig-btn" onclick="event.stopPropagation()">📸 Ver en Instagram</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="socio-acc" onclick="toggleAcc(this)">
+    <div class="socio-acc-header">
+      <div class="socio-acc-icon">🏢</div>
+      <div>
+        <div class="socio-acc-name">Atiko Cowork</div>
+        <div class="socio-acc-sub">Espacio de Trabajo Colaborativo</div>
+      </div>
+      <div class="socio-acc-chevron">›</div>
+    </div>
+    <div class="socio-acc-body">
+      <div class="socio-acc-inner">
+        <div class="socio-acc-desc">Espacios de coworking para emprendedores y empresas en crecimiento en San Luis Potosí. Oficinas privadas, salas de juntas y espacios flexibles con presencia profesional sin costos fijos.</div>
+        <a href="https://www.instagram.com/atikocoworkmx" target="_blank" class="socio-ig-btn" onclick="event.stopPropagation()">📸 Ver en Instagram</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="socio-acc" onclick="toggleAcc(this)">
+    <div class="socio-acc-header">
+      <div class="socio-acc-icon">⚖️</div>
+      <div>
+        <div class="socio-acc-name">Despachos Jurídicos</div>
+        <div class="socio-acc-sub">Defensa Legal & Fiscal</div>
+      </div>
+      <div class="socio-acc-chevron">›</div>
+    </div>
+    <div class="socio-acc-body">
+      <div class="socio-acc-inner">
+        <div class="socio-acc-desc">Red de despachos especializados en defensa fiscal ante el SAT, contratos comerciales, constitución de empresas y cumplimiento legal. Cuando necesitas respaldo jurídico, tenemos al experto indicado.</div>
+        <div class="socio-ig-no">Instagram próximamente</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<script>
+function toggleAcc(el) {
+  const isOpen = el.classList.contains('open');
+  document.querySelectorAll('.socio-acc').forEach(a => a.classList.remove('open'));
+  if (!isOpen) el.classList.add('open');
+}
 </script>
 
 <div class="footer">© 2026 C.P. Fernando Mendoza Ferreira · fisconegociomx@gmail.com</div>
