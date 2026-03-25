@@ -331,109 +331,115 @@
 </div>
 
 <!-- COMPARATIVA -->
-<div class="section-title">Por Qué Elegirnos</div>
 <style>
-.compare-wrap {
+.cmp-section {
   max-width: 800px;
   margin: 0 auto 56px;
   padding: 0 20px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
 }
-@media (max-width: 560px) {
-  .compare-wrap { grid-template-columns: 1fr; }
+.cmp-headline {
+  text-align: center;
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  font-weight: 900;
+  line-height: 1.2;
+  margin-bottom: 8px;
 }
-.compare-col {
-  border-radius: 16px;
-  padding: 24px 20px;
+.cmp-headline span { color: #00ff6d; }
+.cmp-sub {
+  text-align: center;
+  font-size: 0.88rem;
+  color: var(--gray);
+  margin-bottom: 32px;
 }
-.compare-col.us {
-  background: #151832;
-  border: 1.5px solid #00ff6d;
-}
-.compare-col.them {
-  background: var(--dark-3);
-  border: 1px solid #1e2240;
-}
-.compare-col-header {
+.cmp-tabs {
   display: flex;
-  align-items: center;
+  justify-content: center;
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
-.compare-col-icon { font-size: 1.4rem; }
-.compare-col-title {
-  font-size: 0.9rem;
-  font-weight: 800;
-}
-.compare-col.us .compare-col-title { color: #00ff6d; }
-.compare-col.them .compare-col-title { color: var(--gray); }
-.compare-items { display: flex; flex-direction: column; gap: 10px; }
-.compare-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
+.cmp-tab {
+  padding: 10px 24px;
+  border-radius: 50px;
   font-size: 0.82rem;
-  line-height: 1.45;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1.5px solid #1e2240;
+  background: var(--dark-3);
+  color: var(--gray);
+  transition: all 0.2s;
 }
-.compare-dot-yes {
-  min-width: 18px; height: 18px;
-  border-radius: 50%;
-  background: #00ff6d;
-  color: #fff;
-  font-size: 0.65rem;
-  display: flex; align-items: center; justify-content: center;
-  margin-top: 1px;
-  flex-shrink: 0;
+.cmp-tab.active-us { background: rgba(0,255,109,0.12); border-color: #00ff6d; color: #00ff6d; }
+.cmp-tab.active-them { background: rgba(255,80,80,0.08); border-color: #ff5050; color: #ff5050; }
+.cmp-panel { display: none; }
+.cmp-panel.active { display: flex; flex-direction: column; gap: 10px; }
+.cmp-row {
+  display: flex; align-items: center; gap: 14px;
+  background: var(--dark-3); border: 1px solid #1e2240;
+  border-radius: 12px; padding: 14px 16px;
+  font-size: 0.84rem; color: #ddd; line-height: 1.4;
+  opacity: 0; transform: translateY(8px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
 }
-.compare-dot-no {
-  min-width: 18px; height: 18px;
-  border-radius: 50%;
-  background: #2a2a2a;
-  color: #555;
-  font-size: 0.65rem;
-  display: flex; align-items: center; justify-content: center;
-  margin-top: 1px;
-  flex-shrink: 0;
+.cmp-row.visible { opacity: 1; transform: translateY(0); }
+.cmp-panel-us .cmp-row { border-left: 3px solid #00ff6d; }
+.cmp-panel-them .cmp-row { border-left: 3px solid #ff5050; color: var(--gray); }
+.cmp-badge-yes {
+  min-width: 28px; height: 28px; border-radius: 50%;
+  background: rgba(0,255,109,0.12); border: 1px solid rgba(0,255,109,0.3);
+  color: #00ff6d; font-size: 0.8rem; font-weight: 800;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
-.compare-col.us .compare-item { color: #ddd; }
-.compare-col.them .compare-item { color: var(--gray); }
+.cmp-badge-no {
+  min-width: 28px; height: 28px; border-radius: 50%;
+  background: rgba(255,80,80,0.08); border: 1px solid rgba(255,80,80,0.2);
+  color: #ff5050; font-size: 0.8rem; font-weight: 800;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
 </style>
-<div class="compare-wrap">
-  <div class="compare-col us">
-    <div class="compare-col-header">
-      <div class="compare-col-icon">🎯</div>
-      <div class="compare-col-title">Con Fernando Mendoza</div>
-    </div>
-    <div class="compare-items">
-      <div class="compare-item"><div class="compare-dot-yes">✓</div><span>Atención personalizada y acceso directo a tu contador</span></div>
-      <div class="compare-item"><div class="compare-dot-yes">✓</div><span>Especialización en emprendedores y startups</span></div>
-      <div class="compare-item"><div class="compare-dot-yes">✓</div><span>Acompañamiento fiscal permanente todo el año</span></div>
-      <div class="compare-item"><div class="compare-dot-yes">✓</div><span>Estados y reportes financieros mensuales claros</span></div>
-      <div class="compare-item"><div class="compare-dot-yes">✓</div><span>Contabilidad 100% digital y automatizada</span></div>
-      <div class="compare-item"><div class="compare-dot-yes">✓</div><span>Asesoría proactiva — te avisamos antes de que haya problemas</span></div>
-      <div class="compare-item"><div class="compare-dot-yes">✓</div><span>Respuesta en menos de 24 horas siempre</span></div>
-      <div class="compare-item"><div class="compare-dot-yes">✓</div><span>Digitalización y automatización de procesos incluida</span></div>
-    </div>
+<div class="cmp-section">
+  <h2 class="cmp-headline">¿Por qué elegir<br><span>a Fernando?</span></h2>
+  <p class="cmp-sub">Compara y decide con información real.</p>
+  <div class="cmp-tabs">
+    <div class="cmp-tab active-us" id="tab-us" onclick="switchCmp('us')">🎯 Con Fernando</div>
+    <div class="cmp-tab" id="tab-them" onclick="switchCmp('them')">📁 Contador Tradicional</div>
   </div>
-  <div class="compare-col them">
-    <div class="compare-col-header">
-      <div class="compare-col-icon">📁</div>
-      <div class="compare-col-title">Contador Tradicional</div>
-    </div>
-    <div class="compare-items">
-      <div class="compare-item"><div class="compare-dot-no">✗</div><span>Atención genérica, un cliente más entre cientos</span></div>
-      <div class="compare-item"><div class="compare-dot-no">✗</div><span>Sin experiencia específica en emprendimientos</span></div>
-      <div class="compare-item"><div class="compare-dot-no">✗</div><span>Solo aparece en época de declaraciones</span></div>
-      <div class="compare-item"><div class="compare-dot-no">✗</div><span>Sin reportes financieros — solo cumplen lo mínimo</span></div>
-      <div class="compare-item"><div class="compare-dot-no">✗</div><span>Procesos manuales, papeles y visitas presenciales</span></div>
-      <div class="compare-item"><div class="compare-dot-no">✗</div><span>Reactivos — te enteras del problema cuando ya es tarde</span></div>
-      <div class="compare-item"><div class="compare-dot-no">✗</div><span>Tiempos de respuesta lentos o inconsistentes</span></div>
-      <div class="compare-item"><div class="compare-dot-no">✗</div><span>Sin herramientas digitales ni automatización</span></div>
-    </div>
+  <div class="cmp-panel cmp-panel-us active" id="panel-us">
+    <div class="cmp-row"><div class="cmp-badge-yes">✓</div><span>Atención personalizada y acceso directo a tu contador</span></div>
+    <div class="cmp-row"><div class="cmp-badge-yes">✓</div><span>Especialización en emprendedores y startups</span></div>
+    <div class="cmp-row"><div class="cmp-badge-yes">✓</div><span>Acompañamiento fiscal permanente todo el año</span></div>
+    <div class="cmp-row"><div class="cmp-badge-yes">✓</div><span>Estados y reportes financieros mensuales claros</span></div>
+    <div class="cmp-row"><div class="cmp-badge-yes">✓</div><span>Contabilidad 100% digital y automatizada</span></div>
+    <div class="cmp-row"><div class="cmp-badge-yes">✓</div><span>Asesoría proactiva — te avisamos antes de que haya problemas</span></div>
+    <div class="cmp-row"><div class="cmp-badge-yes">✓</div><span>Respuesta en menos de 24 horas siempre</span></div>
+    <div class="cmp-row"><div class="cmp-badge-yes">✓</div><span>Digitalización y automatización de procesos incluida</span></div>
+  </div>
+  <div class="cmp-panel cmp-panel-them" id="panel-them">
+    <div class="cmp-row"><div class="cmp-badge-no">✗</div><span>Atención genérica, un cliente más entre cientos</span></div>
+    <div class="cmp-row"><div class="cmp-badge-no">✗</div><span>Sin experiencia específica en emprendimientos</span></div>
+    <div class="cmp-row"><div class="cmp-badge-no">✗</div><span>Solo aparece en época de declaraciones</span></div>
+    <div class="cmp-row"><div class="cmp-badge-no">✗</div><span>Sin reportes financieros — solo cumplen lo mínimo</span></div>
+    <div class="cmp-row"><div class="cmp-badge-no">✗</div><span>Procesos manuales, papeles y visitas presenciales</span></div>
+    <div class="cmp-row"><div class="cmp-badge-no">✗</div><span>Reactivos — te enteras del problema cuando ya es tarde</span></div>
+    <div class="cmp-row"><div class="cmp-badge-no">✗</div><span>Tiempos de respuesta lentos o inconsistentes</span></div>
+    <div class="cmp-row"><div class="cmp-badge-no">✗</div><span>Sin herramientas digitales ni automatización</span></div>
   </div>
 </div>
+<script>
+function switchCmp(who) {
+  document.getElementById('tab-us').className = 'cmp-tab' + (who==='us' ? ' active-us' : '');
+  document.getElementById('tab-them').className = 'cmp-tab' + (who==='them' ? ' active-them' : '');
+  document.getElementById('panel-us').className = 'cmp-panel cmp-panel-us' + (who==='us' ? ' active' : '');
+  document.getElementById('panel-them').className = 'cmp-panel cmp-panel-them' + (who==='them' ? ' active' : '');
+  setTimeout(animateCmpRows, 10);
+}
+function animateCmpRows() {
+  document.querySelectorAll('.cmp-panel.active .cmp-row').forEach((r,i) => {
+    r.classList.remove('visible');
+    setTimeout(() => r.classList.add('visible'), i * 60);
+  });
+}
+setTimeout(animateCmpRows, 200);
+</script>
 
 <!-- NECESITAS CONTADOR -->
 <style>
