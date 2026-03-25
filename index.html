@@ -815,6 +815,123 @@ function toggleBen(el) {
   <a href="https://wa.me/5214442522739" target="_blank" class="cta-btn">Hablar con Fernando →</a>
 </div>
 
+<!-- SOCIOS COMERCIALES -->
+<style>
+.socios-section { max-width: 800px; margin: 0 auto 56px; padding: 0 20px; }
+.socios-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; }
+@media (max-width: 560px) { .socios-grid { grid-template-columns: 1fr; } }
+.socio-card {
+  background: var(--dark-3);
+  border: 1px solid #1e2240;
+  border-radius: 16px;
+  padding: 28px 22px;
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.socio-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(0,255,109,0.06), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.socio-card:hover::before, .socio-card.open::before { opacity: 1; }
+.socio-card:hover, .socio-card.open {
+  border-color: rgba(0,255,109,0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(0,255,109,0.08);
+}
+.socio-icon { font-size: 2rem; margin-bottom: 10px; }
+.socio-name {
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  margin-bottom: 6px;
+}
+.socio-tag {
+  font-size: 0.7rem;
+  color: #00ff6d;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  margin-bottom: 12px;
+}
+.socio-short { font-size: 0.78rem; color: var(--gray); line-height: 1.5; }
+.socio-detail {
+  max-height: 0; overflow: hidden;
+  font-size: 0.8rem; color: #aaa; line-height: 1.65;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+  padding-top: 0;
+  border-top: 0px solid #1e2240;
+  transition: max-height 0.3s ease, padding 0.3s ease, border 0.3s ease;
+}
+.socio-card.open .socio-detail {
+  max-height: 150px;
+  padding-top: 12px;
+  margin-top: 12px;
+  border-top: 1px solid #1e2240;
+}
+.socio-cta {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #00ff6d;
+  text-decoration: none;
+}
+</style>
+<div class="socios-section">
+  <h2 class="nc-headline" style="text-align:center;margin-bottom:8px;margin-top:0;">Servicios Adicionales y<br><span style="color:#00ff6d;">Socios Comerciales</span></h2>
+  <p style="text-align:center;font-size:0.88rem;color:#8C8C8C;margin-bottom:32px;">Contamos con aliados estratégicos que complementan nuestros servicios.</p>
+  <div class="socios-grid">
+
+    <div class="socio-card" onclick="toggleSocio(this)">
+      <div class="socio-icon">🌐</div>
+      <div class="socio-name">Web3 Collective</div>
+      <div class="socio-tag">Consultoría Blockchain & IA</div>
+      <div class="socio-short">Estrategia, implementación y educación en tecnología Web3 e Inteligencia Artificial para negocios.</div>
+      <div class="socio-detail">Firma especializada en consultoría blockchain, DeFi e IA aplicada a negocios. Juntos ofrecemos soluciones integrales que combinan la solidez financiera-fiscal con innovación tecnológica de vanguardia.</div>
+    </div>
+
+    <div class="socio-card" onclick="toggleSocio(this)">
+      <div class="socio-icon">🤖</div>
+      <div class="socio-name">AgentBase</div>
+      <div class="socio-tag">Automatización con IA</div>
+      <div class="socio-short">Plataforma mexicana de agentes de IA para automatizar procesos administrativos, ventas y atención al cliente.</div>
+      <div class="socio-detail">A través de AgentBase implementamos agentes de IA en tu negocio que responden WhatsApp, procesan facturas, generan reportes y gestionan citas — todo de forma autónoma y sin que tú tengas que intervenir.</div>
+    </div>
+
+    <div class="socio-card" onclick="toggleSocio(this)">
+      <div class="socio-icon">🏢</div>
+      <div class="socio-name">Atiko Cowork</div>
+      <div class="socio-tag">Espacio de Trabajo Colaborativo</div>
+      <div class="socio-short">Espacios de coworking diseñados para emprendedores y empresas en crecimiento en San Luis Potosí.</div>
+      <div class="socio-detail">Atiko Cowork ofrece oficinas privadas, salas de juntas y espacios flexibles para que tu empresa tenga presencia profesional sin los costos fijos de una oficina propia. Ideal para startups y emprendedores en expansión.</div>
+    </div>
+
+    <div class="socio-card" onclick="toggleSocio(this)">
+      <div class="socio-icon">⚖️</div>
+      <div class="socio-name">Despachos Jurídicos</div>
+      <div class="socio-tag">Defensa Legal & Fiscal</div>
+      <div class="socio-short">Red de despachos jurídicos y fiscales especializados en defensa ante el SAT, contratos y cumplimiento legal empresarial.</div>
+      <div class="socio-detail">Contamos con aliados especializados en defensa fiscal ante el SAT, constitución de empresas, contratos comerciales y cumplimiento legal. Cuando tu negocio necesita respaldo jurídico, tenemos al experto indicado.</div>
+    </div>
+
+  </div>
+</div>
+<script>
+function toggleSocio(el) {
+  const isOpen = el.classList.contains('open');
+  document.querySelectorAll('.socio-card').forEach(c => c.classList.remove('open'));
+  if (!isOpen) el.classList.add('open');
+}
+</script>
+
 <!-- CALENDARIO -->
 <div class="section-title" style="margin-top:48px;">Agendar Cita</div>
 <style>
