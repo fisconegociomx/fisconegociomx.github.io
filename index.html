@@ -32,74 +32,133 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 60px 24px 40px;
+      padding: 56px 24px 40px;
       text-align: center;
+      position: relative;
+      overflow: hidden;
     }
-
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -80px; left: 50%;
+      transform: translateX(-50%);
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,255,109,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
     .avatar-wrap {
       position: relative;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     .avatar {
-      width: 110px;
-      height: 110px;
+      width: 120px; height: 120px;
       border-radius: 50%;
       object-fit: cover;
-      border: 3px solid var(--blue);
-    }
-    .avatar-placeholder {
-      width: 110px;
-      height: 110px;
-      border-radius: 50%;
-      background: var(--dark-3);
-      border: 3px solid var(--blue);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.5rem;
+      border: 3px solid #00ff6d;
+      position: relative;
+      z-index: 1;
     }
     .avatar-ring {
       position: absolute;
-      inset: -6px;
+      inset: -8px;
       border-radius: 50%;
-      border: 2px solid #00ff6d44;
+      border: 1.5px solid rgba(0,255,109,0.3);
+      animation: ring-pulse 3s ease-in-out infinite;
     }
-
+    .avatar-ring2 {
+      position: absolute;
+      inset: -16px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,255,109,0.12);
+      animation: ring-pulse 3s ease-in-out infinite 0.8s;
+    }
+    @keyframes ring-pulse {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.04); }
+    }
     .credential {
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-weight: 700;
       letter-spacing: 0.15em;
       text-transform: uppercase;
       color: #00ff6d;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
     .name {
-      font-size: 1.9rem;
+      font-size: 2.1rem;
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+    .brand-tag {
+      display: inline-block;
+      font-size: 0.72rem;
       font-weight: 800;
-      line-height: 1.15;
-      margin-bottom: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #0d1026;
+      background: #00ff6d;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 16px;
     }
     .tagline {
       font-size: 1rem;
       color: #aaa;
-      max-width: 400px;
+      max-width: 380px;
       line-height: 1.6;
       margin-bottom: 24px;
     }
     .tagline span { color: #00ff6d; font-weight: 600; }
-
     .hero-cta {
       display: inline-block;
       background: #00ff6d;
-      color: #fff;
-      font-size: 0.9rem;
-      font-weight: 700;
-      padding: 14px 32px;
+      color: #0d1026;
+      font-size: 0.92rem;
+      font-weight: 800;
+      padding: 15px 36px;
       border-radius: 50px;
       text-decoration: none;
-      transition: background 0.2s, transform 0.15s;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(0,255,109,0.25);
     }
-    .hero-cta:hover { background: #00ff6d; transform: translateY(-2px); }
+    .hero-cta:hover { background: #00e060; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,255,109,0.35); }
+    .hero-socials {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+      justify-content: center;
+    }
+    .hero-social-btn {
+      display: flex; align-items: center; gap: 8px;
+      padding: 9px 18px;
+      border-radius: 50px;
+      background: #151832;
+      border: 1px solid #1e2240;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #aaa;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .hero-social-btn:hover { border-color: #00ff6d; color: #00ff6d; background: rgba(0,255,109,0.06); }
+    .hero-badges {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 28px;
+    }
+    .hero-badge {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--gray);
+      background: #151832;
+      border: 1px solid #1e2240;
+      padding: 6px 14px;
+      border-radius: 20px;
+    }
 
     /* STATS */
     .stats {
@@ -303,15 +362,22 @@
 <div class="hero">
   <div class="avatar-wrap">
     <div class="avatar-ring"></div>
+    <div class="avatar-ring2"></div>
     <img src="fernando_profile.jpg" alt="Fernando Mendoza Ferreira" class="avatar">
   </div>
   <div class="credential">C.P. · Contador Público · Asesor Empresarial</div>
   <h1 class="name">Fernando Mendoza<br>Ferreira</h1>
-  <div style="font-size:0.78rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#00ff6d;margin-bottom:14px;margin-top:-4px;">FISCONEGOCIOMX</div>
+  <div class="brand-tag">FISCONEGOCIOMX</div>
   <p class="tagline"><span>El mejor socio comercial</span> para tu emprendimiento</p>
   <a href="https://wa.me/5214442522739" target="_blank" class="hero-cta">Agendar Consulta Gratuita →</a>
-  <div style="display:flex;gap:14px;margin-top:20px;justify-content:center;">
-    <a href="https://www.instagram.com/fisconegociomx" target="_blank" style="display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;background:#1A2440;border:1px solid #1e2a45;font-size:1.2rem;text-decoration:none;transition:border-color 0.2s;" onmouseover="this.style.borderColor='#00ff6d'" onmouseout="this.style.borderColor='#1e2a45'" title="Instagram">📸</a>
+  <div class="hero-socials">
+    <a href="https://www.instagram.com/fisconegociomx" target="_blank" class="hero-social-btn">📸 Instagram</a>
+  </div>
+  <div class="hero-badges">
+    <span class="hero-badge">📊 Contabilidad Digital</span>
+    <span class="hero-badge">🏛️ Cumplimiento Fiscal</span>
+    <span class="hero-badge">💼 Asesoría Empresarial</span>
+    <span class="hero-badge">⚡ Automatización</span>
   </div>
 </div>
 
