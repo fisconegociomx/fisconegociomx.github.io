@@ -382,20 +382,119 @@
 </div>
 
 <!-- STATS -->
-<div class="stats">
-  <div class="stat">
-    <div class="stat-number">+30</div>
-    <div class="stat-label">Emprendedores Asesorados</div>
+<style>
+.stats2 {
+  max-width: 800px;
+  margin: 0 auto 52px;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+@media (max-width: 520px) { .stats2 { grid-template-columns: 1fr; } }
+.stat2 {
+  background: var(--dark-3);
+  border: 1px solid #1e2240;
+  border-radius: 16px;
+  padding: 28px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+.stat2:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0,255,109,0.4);
+  box-shadow: 0 8px 28px rgba(0,255,109,0.08);
+}
+.stat2::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #00ff6d, #00cc57);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+.stat2:hover::before { transform: scaleX(1); }
+.stat2-icon { font-size: 1.8rem; margin-bottom: 12px; }
+.stat2-number {
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: #00ff6d;
+  line-height: 1;
+  margin-bottom: 8px;
+  font-variant-numeric: tabular-nums;
+}
+.stat2-label {
+  font-size: 0.78rem;
+  color: var(--gray);
+  line-height: 1.4;
+  font-weight: 500;
+}
+.stat2-glow {
+  position: absolute;
+  bottom: -30px; right: -30px;
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,255,109,0.08), transparent 70%);
+  transition: opacity 0.3s;
+  opacity: 0;
+}
+.stat2:hover .stat2-glow { opacity: 1; }
+</style>
+<div class="stats2" id="stats2-wrap">
+  <div class="stat2">
+    <div class="stat2-glow"></div>
+    <div class="stat2-icon">🤝</div>
+    <div class="stat2-number" data-target="30" data-prefix="+">0</div>
+    <div class="stat2-label">Emprendedores Asesorados</div>
   </div>
-  <div class="stat">
-    <div class="stat-number">5 años</div>
-    <div class="stat-label">En Desarrollo de Emprendimientos</div>
+  <div class="stat2">
+    <div class="stat2-glow"></div>
+    <div class="stat2-icon">📅</div>
+    <div class="stat2-number" data-target="5" data-suffix=" años">0</div>
+    <div class="stat2-label">En Desarrollo de Emprendimientos</div>
   </div>
-  <div class="stat">
-    <div class="stat-number">100%</div>
-    <div class="stat-label">Contabilidad y Finanzas Digital</div>
+  <div class="stat2">
+    <div class="stat2-glow"></div>
+    <div class="stat2-icon">💻</div>
+    <div class="stat2-number" data-target="100" data-suffix="%">0</div>
+    <div class="stat2-label">Contabilidad y Finanzas Digital</div>
   </div>
 </div>
+<script>
+(function() {
+  function animateCounter(el) {
+    const target = parseInt(el.dataset.target);
+    const prefix = el.dataset.prefix || '';
+    const suffix = el.dataset.suffix || '';
+    const duration = 1400;
+    const start = performance.now();
+    function step(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      const current = Math.round(ease * target);
+      el.textContent = prefix + current + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.stat2-number').forEach(animateCounter);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  const wrap = document.getElementById('stats2-wrap');
+  if (wrap) observer.observe(wrap);
+})();
+</script>
 
 <!-- NECESITAS CONTADOR -->
 <style>
