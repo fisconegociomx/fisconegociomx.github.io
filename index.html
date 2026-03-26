@@ -503,6 +503,100 @@
 })();
 </script>
 
+<!-- PROBLEMA -->
+<style>
+.prob-section{max-width:720px;margin:0 auto 64px;padding:0 20px;}
+.prob-headline{text-align:center;font-size:clamp(1.5rem,4vw,2.2rem);font-weight:900;line-height:1.2;margin-bottom:10px;}
+.prob-headline span{color:#00ff6d;}
+.prob-sub{text-align:center;font-size:.88rem;color:#8C8C8C;margin-bottom:36px;}
+.prob-grid{display:flex;flex-direction:column;gap:12px;margin-bottom:32px;}
+.prob-card{
+  background:#151832;
+  border:1.5px solid #1e2240;
+  border-radius:16px;
+  padding:18px 20px;
+  display:flex;align-items:center;gap:16px;
+  cursor:default;
+  opacity:0;transform:translateX(-24px);
+  transition:opacity .5s ease,transform .5s ease,border-color .3s,box-shadow .3s;
+}
+.prob-card.visible{opacity:1;transform:translateX(0);}
+.prob-card:hover{border-color:rgba(255,80,80,.5);box-shadow:0 0 24px rgba(255,80,80,.08);}
+.prob-card-x{
+  min-width:36px;height:36px;border-radius:50%;
+  background:rgba(255,80,80,.12);
+  border:1.5px solid rgba(255,80,80,.3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;flex-shrink:0;
+  transition:background .3s,transform .3s;
+}
+.prob-card:hover .prob-card-x{background:rgba(255,80,80,.22);transform:scale(1.1);}
+.prob-card-text{font-size:.88rem;font-weight:600;color:#ccc;line-height:1.5;flex:1;}
+.prob-card-text strong{color:#fff;}
+.prob-close{
+  text-align:center;
+  background:#151832;
+  border:1px solid rgba(0,255,109,.25);
+  border-radius:14px;
+  padding:20px 24px;
+  font-size:.9rem;color:#aaa;line-height:1.6;
+  opacity:0;transform:translateY(12px);
+  transition:opacity .5s .6s ease,transform .5s .6s ease;
+}
+.prob-close.visible{opacity:1;transform:translateY(0);}
+.prob-close strong{color:#00ff6d;font-size:1rem;}
+@media(max-width:560px){.prob-card{padding:14px 16px;gap:12px;}.prob-card-text{font-size:.83rem;}}
+</style>
+<div class="prob-section">
+  <h2 class="prob-headline">¿Te suena<br><span>familiar?</span></h2>
+  <p class="prob-sub">Estas son las situaciones más comunes que enfrentan los emprendedores antes de trabajar con nosotros.</p>
+  <div class="prob-grid">
+    <div class="prob-card">
+      <div class="prob-card-x">✕</div>
+      <div class="prob-card-text"><strong>No sabes si estás facturando correctamente</strong> y tienes miedo de que el SAT te penalice por errores que ni conoces.</div>
+    </div>
+    <div class="prob-card">
+      <div class="prob-card-x">✕</div>
+      <div class="prob-card-text"><strong>Recibes requerimientos del SAT</strong> y no entiendes qué quieren ni qué consecuencias puede tener ignorarlos.</div>
+    </div>
+    <div class="prob-card">
+      <div class="prob-card-x">✕</div>
+      <div class="prob-card-text"><strong>Tu contador solo aparece en época de declaraciones.</strong> El resto del año estás solo con tus dudas.</div>
+    </div>
+    <div class="prob-card">
+      <div class="prob-card-x">✕</div>
+      <div class="prob-card-text"><strong>Nadie te explica en términos simples</strong> qué pagas, por qué lo pagas y cómo podrías pagar menos.</div>
+    </div>
+    <div class="prob-card">
+      <div class="prob-card-x">✕</div>
+      <div class="prob-card-text"><strong>Sientes que pagas más impuestos de lo que deberías</strong> pero no tienes a quién preguntarle si hay una forma legal de optimizarlo.</div>
+    </div>
+  </div>
+  <div class="prob-close" id="prob-close">
+    Si marcaste aunque sea uno… <strong>necesitas un contador diferente.</strong><br>
+    <span style="font-size:.82rem;color:#666;">Uno que esté contigo todo el año, no solo en abril.</span>
+  </div>
+</div>
+<script>
+(function(){
+  const cards = document.querySelectorAll('.prob-card');
+  const closeEl = document.getElementById('prob-close');
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}
+    });
+  },{threshold:0.15});
+  cards.forEach((c,i)=>{
+    c.style.transitionDelay = (i*0.1)+'s';
+    obs.observe(c);
+  });
+  const obs2 = new IntersectionObserver(entries=>{
+    if(entries[0].isIntersecting){closeEl.classList.add('visible');}
+  },{threshold:0.3});
+  obs2.observe(closeEl);
+})();
+</script>
+
 <!-- NECESITAS CONTADOR -->
 <style>
 .nc-section { max-width: 720px; margin: 0 auto 56px; padding: 0 20px; }
@@ -967,6 +1061,113 @@ function toggleBen(el) {
   document.querySelectorAll('.ben-card').forEach(c => c.classList.remove('open'));
   if (!isOpen) el.classList.add('open');
 }
+</script>
+
+<!-- PROCESO -->
+<style>
+.proceso-section{max-width:760px;margin:0 auto 64px;padding:0 20px;}
+.proceso-headline{text-align:center;font-size:clamp(1.5rem,4vw,2.2rem);font-weight:900;line-height:1.2;margin-bottom:10px;}
+.proceso-headline span{color:#00ff6d;}
+.proceso-sub{text-align:center;font-size:.88rem;color:#8C8C8C;margin-bottom:44px;}
+.proceso-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;position:relative;}
+.proceso-steps::before{
+  content:'';position:absolute;
+  top:52px;left:calc(16.6% + 16px);right:calc(16.6% + 16px);
+  height:2px;
+  background:linear-gradient(90deg,#00ff6d44,#00ff6d,#00ff6d44);
+  z-index:0;
+}
+.paso{
+  display:flex;flex-direction:column;align-items:center;
+  text-align:center;padding:0 16px;
+  position:relative;z-index:1;
+  opacity:0;transform:translateY(28px);
+  transition:opacity .5s ease,transform .5s ease;
+}
+.paso.visible{opacity:1;transform:translateY(0);}
+.paso-num-wrap{
+  width:64px;height:64px;border-radius:50%;
+  background:#151832;
+  border:2px solid #00ff6d;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:20px;position:relative;
+  box-shadow:0 0 24px rgba(0,255,109,.15);
+  transition:box-shadow .3s,transform .3s;
+}
+.paso:hover .paso-num-wrap{box-shadow:0 0 40px rgba(0,255,109,.35);transform:scale(1.08);}
+.paso-num{font-size:1.5rem;font-weight:900;color:#00ff6d;}
+.paso-icon{font-size:1.4rem;position:absolute;top:-10px;right:-10px;background:#0d1026;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:1rem;}
+.paso-card{
+  background:#151832;border:1px solid #1e2240;
+  border-radius:16px;padding:20px 16px;width:100%;
+  transition:border-color .3s,box-shadow .3s;
+}
+.paso:hover .paso-card{border-color:rgba(0,255,109,.35);box-shadow:0 8px 32px rgba(0,255,109,.07);}
+.paso-title{font-size:.95rem;font-weight:800;color:#fff;margin-bottom:8px;}
+.paso-desc{font-size:.78rem;color:#8C8C8C;line-height:1.6;}
+.proceso-cta{text-align:center;margin-top:36px;opacity:0;transform:translateY(12px);transition:opacity .5s .5s,transform .5s .5s;}
+.proceso-cta.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){
+  .proceso-steps{grid-template-columns:1fr;gap:16px;}
+  .proceso-steps::before{display:none;}
+  .paso{padding:0;}
+  .paso-num-wrap{margin-bottom:14px;}
+}
+</style>
+<div class="proceso-section">
+  <h2 class="proceso-headline">¿Cómo<br><span>trabajamos?</span></h2>
+  <p class="proceso-sub">Sin complicaciones, sin tecnicismos. Así es como ordenamos tu negocio juntos.</p>
+  <div class="proceso-steps">
+    <div class="paso" id="paso1">
+      <div class="paso-num-wrap">
+        <span class="paso-num">01</span>
+        <span class="paso-icon">🔍</span>
+      </div>
+      <div class="paso-card">
+        <div class="paso-title">Diagnóstico gratuito</div>
+        <div class="paso-desc">Platicamos tu situación sin costo. Revisamos dónde estás, qué riesgos tienes y qué necesitas ordenar primero.</div>
+      </div>
+    </div>
+    <div class="paso" id="paso2">
+      <div class="paso-num-wrap">
+        <span class="paso-num">02</span>
+        <span class="paso-icon">📋</span>
+      </div>
+      <div class="paso-card">
+        <div class="paso-title">Plan personalizado</div>
+        <div class="paso-desc">Diseñamos una estrategia fiscal y contable adaptada a tu tipo de negocio, tus ingresos y tus metas de crecimiento.</div>
+      </div>
+    </div>
+    <div class="paso" id="paso3">
+      <div class="paso-num-wrap">
+        <span class="paso-num">03</span>
+        <span class="paso-icon">🤝</span>
+      </div>
+      <div class="paso-card">
+        <div class="paso-title">Acompañamiento constante</div>
+        <div class="paso-desc">No desaparecemos. Estamos contigo todo el año, resolvemos tus dudas y te avisamos antes de que algo se complique.</div>
+      </div>
+    </div>
+  </div>
+  <div class="proceso-cta" id="proceso-cta">
+    <a href="https://wa.me/5214442522739" target="_blank" style="display:inline-block;background:#00ff6d;color:#0d1026;font-size:.9rem;font-weight:800;padding:14px 32px;border-radius:50px;text-decoration:none;transition:background .2s,transform .15s;box-shadow:0 6px 24px rgba(0,255,109,.25);" onmouseover="this.style.background='#00e060';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#00ff6d';this.style.transform='translateY(0)'">Quiero empezar →</a>
+  </div>
+</div>
+<script>
+(function(){
+  const pasos = [document.getElementById('paso1'),document.getElementById('paso2'),document.getElementById('paso3')];
+  const ctaEl = document.getElementById('proceso-cta');
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}
+    });
+  },{threshold:0.2});
+  pasos.forEach((p,i)=>{p.style.transitionDelay=(i*.15)+'s';obs.observe(p);});
+  const obs2 = new IntersectionObserver(entries=>{
+    if(entries[0].isIntersecting)ctaEl.classList.add('visible');
+  },{threshold:0.3});
+  obs2.observe(ctaEl);
+})();
 </script>
 
 <!-- CTA FINAL -->
