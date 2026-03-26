@@ -5,6 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Guía Fiscal Esencial para Emprendedores — C.P. Fernando Mendoza Ferreira</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- Open Graph -->
+  <meta property="og:title" content="Guía Fiscal Esencial para Emprendedores">
+  <meta property="og:description" content="Glosario fiscal, comparador de regímenes, calculadora de impuestos y tips prácticos. Recurso gratuito del C.P. Fernando Mendoza Ferreira.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://fisconegociomx.github.io/guia/">
+  <meta property="og:image" content="https://fisconegociomx.github.io/og-guia.jpg">
+  <meta property="og:site_name" content="Fisconegocio MX">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Guía Fiscal Esencial para Emprendedores">
+  <meta name="twitter:description" content="Todo lo que necesitas saber para cumplir con el SAT y optimizar tus impuestos. Gratis.">
+  <meta name="description" content="Guía fiscal gratuita para emprendedores mexicanos: glosario, regímenes fiscales, calculadora de ISR e IVA y tips prácticos del C.P. Fernando Mendoza Ferreira.">
   <style>
     :root {
       --green: #00ff6d;
@@ -67,6 +78,50 @@
     .glosario-empty { color:#333; font-size:0.85rem; text-align:center; padding:20px 0; }
     .glosario-tip { margin-top:12px; padding:10px 14px; background:rgba(0,255,109,0.05); border-left:3px solid var(--green); border-radius:0 8px 8px 0; font-size:0.78rem; color:#888; }
     .glosario-tip strong { color:var(--green); }
+
+    /* ── STICKY CTA ── */
+    .sticky-cta{position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(13,16,38,0.97);backdrop-filter:blur(12px);border-top:1px solid rgba(0,255,109,0.15);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;transform:translateY(100%);transition:transform 0.35s cubic-bezier(.4,0,.2,1);}
+    .sticky-cta.visible{transform:translateY(0);}
+    .sticky-cta-text{font-size:0.8rem;color:#888;line-height:1.4;flex:1;}
+    .sticky-cta-text strong{color:#fff;display:block;font-size:0.85rem;}
+    .sticky-cta-btn{background:var(--green);color:#0d1026;font-weight:800;font-size:0.82rem;padding:11px 20px;border-radius:10px;text-decoration:none;white-space:nowrap;transition:opacity 0.2s;flex-shrink:0;}
+    .sticky-cta-btn:hover{opacity:0.9;}
+    .sticky-close{background:none;border:none;color:#444;font-size:1.1rem;cursor:pointer;padding:4px;flex-shrink:0;}
+
+    /* ── QUIZ ── */
+    .quiz-box{background:var(--dark-3);border:1.5px solid rgba(0,255,109,0.15);border-radius:20px;padding:28px 24px;margin-bottom:0;}
+    .quiz-step{display:none;}.quiz-step.active{display:block;}
+    .quiz-q{font-size:1rem;font-weight:800;color:#fff;margin-bottom:6px;line-height:1.4;}
+    .quiz-hint{font-size:0.75rem;color:#555;margin-bottom:18px;}
+    .quiz-opts{display:flex;flex-direction:column;gap:10px;}
+    .quiz-opt{display:flex;align-items:center;gap:12px;background:var(--dark-2);border:1px solid #1e2244;border-radius:12px;padding:14px 16px;cursor:pointer;transition:all 0.18s;font-size:0.85rem;color:#ccc;font-weight:500;}
+    .quiz-opt:hover{border-color:rgba(0,255,109,0.3);color:#fff;}
+    .quiz-opt.selected{background:rgba(0,255,109,0.08);border-color:rgba(0,255,109,0.4);color:var(--green);}
+    .quiz-opt-icon{font-size:1.2rem;flex-shrink:0;}
+    .quiz-progress{display:flex;gap:6px;margin-bottom:20px;}
+    .quiz-dot{height:4px;flex:1;border-radius:4px;background:#1e2244;transition:background 0.3s;}
+    .quiz-dot.done{background:var(--green);}
+    .quiz-nav{display:flex;justify-content:flex-end;margin-top:20px;}
+    .quiz-next{background:var(--green);color:#0d1026;border:none;font-family:'Inter',sans-serif;font-weight:800;font-size:0.85rem;padding:11px 24px;border-radius:10px;cursor:pointer;opacity:0.4;pointer-events:none;transition:all 0.2s;}
+    .quiz-next.ready{opacity:1;pointer-events:all;}
+    .quiz-result{text-align:center;padding:8px 0;}
+    .quiz-result-icon{font-size:2.5rem;margin-bottom:10px;}
+    .quiz-result-title{font-size:1.1rem;font-weight:900;color:var(--green);margin-bottom:8px;}
+    .quiz-result-desc{font-size:0.83rem;color:#888;line-height:1.65;margin-bottom:20px;}
+    .quiz-result-cta{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:#0d1026;font-weight:800;font-size:0.85rem;padding:12px 24px;border-radius:10px;text-decoration:none;transition:all 0.2s;}
+    .quiz-restart{margin-top:12px;display:block;font-size:0.75rem;color:#555;cursor:pointer;text-decoration:underline;background:none;border:none;font-family:'Inter',sans-serif;}
+
+    /* ── CASOS DE ÉXITO ── */
+    .casos-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
+    @media(max-width:640px){.casos-grid{grid-template-columns:1fr;}}
+    .caso-card{background:var(--dark-3);border:1px solid #1e2244;border-radius:16px;padding:22px;position:relative;overflow:hidden;}
+    .caso-card::before{content:'';position:absolute;top:-20px;right:-20px;width:80px;height:80px;border-radius:50%;background:rgba(0,255,109,0.06);pointer-events:none;}
+    .caso-tag{font-size:0.62rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:10px;}
+    .caso-saving{font-size:1.5rem;font-weight:900;color:#fff;margin-bottom:4px;line-height:1;}
+    .caso-saving span{color:var(--green);}
+    .caso-sub{font-size:0.72rem;color:#555;margin-bottom:12px;}
+    .caso-desc{font-size:0.78rem;color:#777;line-height:1.65;}
+
   </style>
 </head>
 <body>
@@ -89,6 +144,58 @@
       <div class="hero-stat"><div class="hero-stat-num">3</div><div class="hero-stat-label">Regímenes fiscales</div></div>
       <div class="hero-stat"><div class="hero-stat-num">8</div><div class="hero-stat-label">Tips prácticos</div></div>
       <div class="hero-stat"><div class="hero-stat-num">100%</div><div class="hero-stat-label">Gratis</div></div>
+    </div>
+  </section>
+
+
+  <!-- ══ QUIZ DIAGNÓSTICO ══ -->
+  <section class="section" id="quiz" style="padding-top:40px;">
+    <div class="section-tag">¿Por dónde empezar?</div>
+    <div class="section-title">Descubre tu <span>régimen ideal</span></div>
+    <p class="section-intro">3 preguntas rápidas para orientarte. Sin datos personales, sin registro.</p>
+    <div class="quiz-box">
+      <div class="quiz-progress">
+        <div class="quiz-dot done" id="qd1"></div>
+        <div class="quiz-dot" id="qd2"></div>
+        <div class="quiz-dot" id="qd3"></div>
+      </div>
+
+      <div class="quiz-step active" id="qs1">
+        <div class="quiz-q">¿Cuánto facturas aproximadamente al mes?</div>
+        <div class="quiz-hint">Considera todos tus ingresos por ventas o servicios</div>
+        <div class="quiz-opts">
+          <div class="quiz-opt" onclick="selectOpt(this,1,'a')"><span class="quiz-opt-icon">🌱</span> Menos de $50,000 MXN</div>
+          <div class="quiz-opt" onclick="selectOpt(this,1,'b')"><span class="quiz-opt-icon">📈</span> Entre $50,000 y $150,000 MXN</div>
+          <div class="quiz-opt" onclick="selectOpt(this,1,'c')"><span class="quiz-opt-icon">🚀</span> Más de $150,000 MXN</div>
+        </div>
+        <div class="quiz-nav"><button class="quiz-next" id="qn1" onclick="nextStep(2)">Siguiente →</button></div>
+      </div>
+
+      <div class="quiz-step" id="qs2">
+        <div class="quiz-q">¿Tienes empleados o pagas nómina?</div>
+        <div class="quiz-hint">Incluye aunque sea una persona de tiempo parcial</div>
+        <div class="quiz-opts">
+          <div class="quiz-opt" onclick="selectOpt(this,2,'a')"><span class="quiz-opt-icon">👤</span> No, trabajo solo</div>
+          <div class="quiz-opt" onclick="selectOpt(this,2,'b')"><span class="quiz-opt-icon">👥</span> Sí, tengo 1-5 empleados</div>
+          <div class="quiz-opt" onclick="selectOpt(this,2,'c')"><span class="quiz-opt-icon">🏢</span> Sí, más de 5 empleados</div>
+        </div>
+        <div class="quiz-nav"><button class="quiz-next" id="qn2" onclick="nextStep(3)">Siguiente →</button></div>
+      </div>
+
+      <div class="quiz-step" id="qs3">
+        <div class="quiz-q">¿Tienes muchos gastos relacionados con tu negocio?</div>
+        <div class="quiz-hint">Renta, equipo, insumos, servicios — con factura</div>
+        <div class="quiz-opts">
+          <div class="quiz-opt" onclick="selectOpt(this,3,'a')"><span class="quiz-opt-icon">💡</span> Pocos — principalmente servicios o venta de tiempo</div>
+          <div class="quiz-opt" onclick="selectOpt(this,3,'b')"><span class="quiz-opt-icon">📦</span> Moderados — tengo algunos gastos deducibles</div>
+          <div class="quiz-opt" onclick="selectOpt(this,3,'c')"><span class="quiz-opt-icon">🏭</span> Muchos — insumos, renta, equipo, etc.</div>
+        </div>
+        <div class="quiz-nav"><button class="quiz-next" id="qn3" onclick="showQuizResult()">Ver mi resultado →</button></div>
+      </div>
+
+      <div class="quiz-step" id="qs-result">
+        <div class="quiz-result" id="quiz-result-content"></div>
+      </div>
     </div>
   </section>
 
@@ -137,6 +244,36 @@
 
   <div class="section-divider"></div>
 
+
+
+  <!-- ══ CASOS DE ÉXITO ══ -->
+  <section class="section" id="casos">
+    <div class="section-tag">Resultados reales</div>
+    <div class="section-title">Lo que cambia con <span>asesoría profesional</span></div>
+    <p class="section-intro">Casos de emprendedores reales (datos anonimizados). El ahorro fiscal no es magia — es planeación con conocimiento.</p>
+    <div class="casos-grid">
+      <div class="caso-card">
+        <div class="caso-tag">Freelancer · Diseño Digital</div>
+        <div class="caso-saving">$<span>8,400</span>/mes</div>
+        <div class="caso-sub">Ahorro fiscal mensual</div>
+        <div class="caso-desc">Estaba en Actividad Empresarial pagando 25% de ISR. Al migrar a RESICO con ingresos de $90k/mes, bajó a tasa del 1.6%. Ahorro anual de más de $100,000 MXN.</div>
+      </div>
+      <div class="caso-card">
+        <div class="caso-tag">Comercio · Tienda online</div>
+        <div class="caso-saving">$<span>23,000</span>/mes</div>
+        <div class="caso-sub">Ahorro fiscal mensual</div>
+        <div class="caso-desc">Dueño de tienda online con $200k/mes de ingresos. Sin contador deducía solo el 20% de sus gastos. Con asesoría identificó $140k/mes en deducciones correctas, bajando ISR de $42k a $19k.</div>
+      </div>
+      <div class="caso-card">
+        <div class="caso-tag">Consultoría · Persona Moral</div>
+        <div class="caso-saving">$<span>15,500</span>/mes</div>
+        <div class="caso-sub">Ahorro fiscal mensual</div>
+        <div class="caso-desc">Empresa con 3 socios pagaba ISR individual a 35% sin aprovechar la tasa corporativa del 30% ni distribuciones optimizadas. La reestructura fiscal generó $186,000 de ahorro anual.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
 
   <!-- ══ FASE 3: TIPS ══ -->
   <section class="section" id="tips">
@@ -393,8 +530,15 @@
           <div class="f-card-main">${fmtMXN(ing - total)}</div>
           <div class="f-card-sub">Lo que queda después de impuestos. Un contador puede optimizar legalmente esta cifra.</div>
         </div>
-        <p class="f-disclaimer">* Estimación orientativa. Los valores reales dependen de deducciones específicas, gastos de nómina, créditos fiscales y otros factores. Agenda una consulta para un cálculo exacto.</p>
-      </div>`;
+        <p class="f-disclaimer">* Estimación orientativa. Los valores reales dependen de deducciones específicas, gastos de nómina, créditos fiscales y otros factores.</p>
+        <a href="https://fisconegociomx.github.io/#contacto" style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:rgba(0,255,109,0.08);border:1px solid rgba(0,255,109,0.2);border-radius:12px;padding:14px 18px;text-decoration:none;margin-top:4px;">
+          <div style="text-align:left;">
+            <div style="font-size:0.75rem;font-weight:700;color:var(--green);">¿Quieres optimizar este número?</div>
+            <div style="font-size:0.72rem;color:#666;margin-top:2px;">Agenda una consulta gratuita — analizamos tu caso específico</div>
+          </div>
+          <div style="font-size:0.82rem;font-weight:800;color:var(--green);white-space:nowrap;">Agendar →</div>
+        </a>
+      </div>\`;
   }
 
   /* ── VS COMPARADOR ── */
@@ -630,6 +774,75 @@
   }
 
   renderChips();
+
+  /* ── QUIZ ── */
+  const quizAnswers = {};
+  function selectOpt(el, step, val) {
+    el.closest('.quiz-opts').querySelectorAll('.quiz-opt').forEach(o=>o.classList.remove('selected'));
+    el.classList.add('selected');
+    quizAnswers[step] = val;
+    const btn = document.getElementById('qn'+step);
+    if(btn) { btn.classList.add('ready'); }
+  }
+  function nextStep(n) {
+    document.querySelectorAll('.quiz-step').forEach(s=>s.classList.remove('active'));
+    document.getElementById('qs'+n).classList.add('active');
+    for(let i=1;i<n;i++) { const d=document.getElementById('qd'+i); if(d) d.classList.add('done'); }
+    const d=document.getElementById('qd'+n); if(d) d.classList.add('done');
+  }
+  function showQuizResult() {
+    const a1=quizAnswers[1], a2=quizAnswers[2], a3=quizAnswers[3];
+    let icon='', title='', desc='', reg='';
+    if(a1==='a' || (a1==='b' && a3!=='c')) {
+      icon='⚡'; title='Te conviene RESICO'; reg='RESICO';
+      desc='Con tus ingresos y perfil, RESICO es probablemente tu mejor opción. Tasas bajísimas (0.1%-2.5%), poca carga administrativa y sin necesidad de deducir gastos. Ideal para ti.';
+    } else if(a2==='c' || a1==='c') {
+      icon='🏛️'; title='Considera una Persona Moral'; reg='Régimen General';
+      desc='Con tu nivel de ingresos y/o empleados, constituir una empresa (SA de CV o SAS) puede darte ventajas fiscales y protección patrimonial importantes. Vale la pena analizarlo.';
+    } else {
+      icon='🏢'; title='Actividad Empresarial puede ser mejor'; reg='Actividad Empresarial';
+      desc='Con tus gastos deducibles, el régimen de Actividad Empresarial podría resultar más conveniente que RESICO. La clave está en cuánto puedes deducir legalmente cada mes.';
+    }
+    document.querySelectorAll('.quiz-step').forEach(s=>s.classList.remove('active'));
+    document.getElementById('qs-result').classList.add('active');
+    document.querySelectorAll('.quiz-dot').forEach(d=>d.classList.add('done'));
+    document.getElementById('quiz-result-content').innerHTML = \`
+      <div class="quiz-result-icon">\${icon}</div>
+      <div class="quiz-result-title">\${title}</div>
+      <div class="quiz-result-desc">\${desc}</div>
+      <a href="#comparador" class="quiz-result-cta">Ver detalle del régimen →</a>
+      <button class="quiz-restart" onclick="restartQuiz()">Volver a contestar</button>
+    \`;
+  }
+  function restartQuiz() {
+    Object.keys(quizAnswers).forEach(k=>delete quizAnswers[k]);
+    document.querySelectorAll('.quiz-step').forEach(s=>s.classList.remove('active'));
+    document.getElementById('qs1').classList.add('active');
+    document.querySelectorAll('.quiz-dot').forEach(d=>d.classList.remove('done'));
+    document.getElementById('qd1').classList.add('done');
+    document.querySelectorAll('.quiz-opt').forEach(o=>o.classList.remove('selected'));
+    document.querySelectorAll('.quiz-next').forEach(b=>b.classList.remove('ready'));
+  }
+
+  /* ── STICKY CTA SCROLL ── */
+  window.addEventListener('scroll', function() {
+    const sticky = document.getElementById('sticky-cta');
+    if(!sticky) return;
+    if(window.scrollY > 400) sticky.classList.add('visible');
+    else sticky.classList.remove('visible');
+  }, {passive:true});
+
   </script>
+
+  <!-- STICKY CTA -->
+  <div class="sticky-cta" id="sticky-cta">
+    <div class="sticky-cta-text">
+      <strong>¿Listo para optimizar tus impuestos?</strong>
+      Consulta gratuita de 30 min con el C.P. Fernando Mendoza
+    </div>
+    <a href="https://fisconegociomx.github.io/#contacto" class="sticky-cta-btn">Agendar →</a>
+    <button class="sticky-close" onclick="document.getElementById('sticky-cta').style.display='none'" aria-label="Cerrar">✕</button>
+  </div>
+
 </body>
 </html>
