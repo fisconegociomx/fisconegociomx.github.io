@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fernando Mendoza Ferreira — Perfil Profesional</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <meta property="og:title" content="Fernando Mendoza Ferreira — C.P. · Asesor Fiscal y Emprendedor">
+  <meta property="og:description" content="Contador Público, estratega de negocios, fundador de FiscoNegocio MX, Web3 Collective, AgentBase y Atiko Cowork.">
+  <meta property="og:image" content="https://fisconegociomx.github.io/fernando_profile.jpg">
+  <meta property="og:url" content="https://fisconegociomx.github.io/perfil/">
+  <meta name="description" content="Perfil profesional de Fernando Mendoza Ferreira — Contador Público, asesor fiscal, consultor Web3 y emprendedor en tecnología e innovación.">
+  <style>
+    :root {
+      --green: #00ff6d;
+      --dark: #0d1026;
+      --dark-2: #111430;
+      --dark-3: #151832;
+      --dark-4: #1a1e3a;
+      --gray: #8C8C8C;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { font-family:'Inter',sans-serif; background:var(--dark); color:#fff; min-height:100vh; }
+
+    /* NAV */
+    .nav {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:16px 24px; border-bottom:1px solid rgba(255,255,255,0.05);
+      position:sticky; top:0; background:rgba(13,16,38,0.95);
+      backdrop-filter:blur(12px); z-index:100;
+    }
+    .nav-logo { font-size:0.8rem; font-weight:700; color:var(--green); letter-spacing:0.06em; text-decoration:none; }
+    .nav-back { font-size:0.75rem; color:#444; text-decoration:none; transition:color 0.2s; }
+    .nav-back:hover { color:var(--green); }
+
+    /* HERO */
+    .hero {
+      max-width:760px; margin:0 auto; padding:60px 24px 48px;
+      display:flex; flex-direction:column; align-items:center; text-align:center;
+      position:relative;
+    }
+    .hero::before {
+      content:''; position:absolute; top:-80px; left:50%; transform:translateX(-50%);
+      width:600px; height:500px; border-radius:50%;
+      background:radial-gradient(circle,rgba(0,255,109,0.05),transparent 65%);
+      pointer-events:none;
+    }
+
+    /* AVATAR */
+    .avatar-wrap {
+      position:relative; margin-bottom:28px;
+    }
+    .avatar {
+      width:120px; height:120px; border-radius:50%;
+      object-fit:cover; object-position:center top;
+      border:2.5px solid rgba(0,255,109,0.3);
+      box-shadow:0 0 0 6px rgba(0,255,109,0.06);
+    }
+    .avatar-badge {
+      position:absolute; bottom:4px; right:4px;
+      width:22px; height:22px; border-radius:50%;
+      background:var(--green); border:2px solid var(--dark);
+      display:flex; align-items:center; justify-content:center;
+      font-size:10px;
+    }
+
+    /* NAME / TAGLINE */
+    .hero-tag {
+      display:inline-flex; align-items:center; gap:8px;
+      background:rgba(0,255,109,0.07); border:1px solid rgba(0,255,109,0.18);
+      border-radius:50px; padding:5px 14px;
+      font-size:0.7rem; font-weight:700; color:var(--green);
+      letter-spacing:0.1em; text-transform:uppercase; margin-bottom:16px;
+    }
+    .hero-name {
+      font-size:clamp(1.8rem,5vw,2.8rem); font-weight:900;
+      letter-spacing:-1px; color:#fff; line-height:1.1; margin-bottom:6px;
+    }
+    .hero-title {
+      font-size:1rem; font-weight:500; color:#555; margin-bottom:20px;
+      letter-spacing:0.02em;
+    }
+    .hero-tagline {
+      font-size:clamp(0.95rem,2.5vw,1.08rem); color:#aaa; font-weight:400;
+      line-height:1.75; max-width:520px; margin:0 auto 32px;
+    }
+    .hero-tagline strong { color:#ddd; font-weight:600; }
+
+    /* SOCIAL BUTTONS */
+    .social-row {
+      display:flex; align-items:center; justify-content:center;
+      gap:10px; flex-wrap:wrap; margin-bottom:48px;
+    }
+    .social-btn {
+      display:inline-flex; align-items:center; gap:8px;
+      background:var(--dark-3); border:1px solid #1e2244;
+      border-radius:50px; padding:9px 18px;
+      font-size:0.78rem; font-weight:600; color:#888;
+      text-decoration:none; transition:all 0.2s;
+    }
+    .social-btn:hover { border-color:rgba(0,255,109,0.35); color:#ccc; transform:translateY(-1px); }
+    .social-btn svg { width:15px; height:15px; flex-shrink:0; }
+    .social-btn.wa { }
+    .social-btn.wa:hover { border-color:rgba(37,211,102,0.4); color:#25d366; }
+    .social-btn.ig:hover { border-color:rgba(225,48,108,0.4); color:#e1306c; }
+    .social-btn.li:hover { border-color:rgba(0,119,181,0.4); color:#0077b5; }
+
+    /* DIVIDER */
+    .divider { height:1px; background:linear-gradient(90deg,transparent,rgba(0,255,109,0.08),transparent); margin:0 24px 48px; }
+
+    /* SECTION */
+    .section { max-width:760px; margin:0 auto; padding:0 24px 56px; }
+    .section-tag { font-size:0.68rem; font-weight:800; letter-spacing:0.16em; text-transform:uppercase; color:var(--green); margin-bottom:10px; }
+    .section-title { font-size:clamp(1.3rem,3vw,1.7rem); font-weight:900; letter-spacing:-0.5px; margin-bottom:20px; line-height:1.2; }
+    .section-title span { color:var(--green); }
+
+    /* VALUE CARDS */
+    .value-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    @media(max-width:520px){ .value-grid{grid-template-columns:1fr;} }
+    .value-card {
+      background:var(--dark-3); border:1px solid #1e2244;
+      border-radius:16px; padding:22px 20px;
+      transition:transform 0.2s, border-color 0.2s;
+    }
+    .value-card:hover { transform:translateY(-2px); border-color:rgba(0,255,109,0.2); }
+    .value-icon { font-size:1.5rem; margin-bottom:12px; display:block; }
+    .value-title { font-size:0.95rem; font-weight:800; color:#ddd; margin-bottom:6px; }
+    .value-desc { font-size:0.8rem; color:#555; line-height:1.65; }
+
+    /* BIO */
+    .bio-text {
+      font-size:0.92rem; color:#666; line-height:1.85;
+      text-align:justify; max-width:640px;
+    }
+    .bio-text p+p { margin-top:14px; }
+    .bio-text strong { color:#999; font-weight:600; }
+
+    /* FOOTER */
+    .footer {
+      text-align:center; padding:32px 24px 48px;
+      font-size:0.75rem; color:#222;
+      border-top:1px solid rgba(255,255,255,0.04);
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="/" class="nav-logo">fisconegociomx</a>
+    <a href="/" class="nav-back">← Inicio</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="avatar-wrap">
+      <img class="avatar" src="../fernando_profile.jpg" alt="Fernando Mendoza Ferreira">
+      <div class="avatar-badge">✓</div>
+    </div>
+
+    <div class="hero-tag">C.P. · Contador Público Certificado</div>
+    <h1 class="hero-name">Fernando Mendoza<br>Ferreira</h1>
+    <p class="hero-title">Asesor Fiscal · Consultor Web3 · Emprendedor</p>
+
+    <p class="hero-tagline">
+      Construyo negocios sólidos desde la <strong>estrategia fiscal</strong>, la <strong>tecnología</strong> y la <strong>innovación</strong>.
+      Fundador de cuatro empresas en México con enfoque en finanzas, blockchain, IA y espacios de trabajo.
+    </p>
+
+    <!-- SOCIAL BUTTONS -->
+    <div class="social-row">
+      <a href="https://wa.me/5214442522739" target="_blank" class="social-btn wa">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
+      </a>
+      <a href="https://www.instagram.com/fefe.mf1" target="_blank" class="social-btn ig">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        Instagram
+      </a>
+      <a href="https://www.linkedin.com/in/luis-fernando-mendoza-ferreira-a71b873b9" target="_blank" class="social-btn li">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- EN QUÉ TE PUEDO AYUDAR -->
+  <section class="section">
+    <div class="section-tag">¿En qué te puedo ayudar?</div>
+    <h2 class="section-title">Valor que <span>genero</span></h2>
+
+    <div class="value-grid">
+      <div class="value-card">
+        <span class="value-icon">🧾</span>
+        <div class="value-title">Estrategia Fiscal</div>
+        <div class="value-desc">Estructuro tu situación tributaria para que pagues lo justo, cumplas sin estrés y tu negocio sea más rentable.</div>
+      </div>
+      <div class="value-card">
+        <span class="value-icon">🏗️</span>
+        <div class="value-title">Construcción de Negocios</div>
+        <div class="value-desc">Te acompaño desde la idea hasta la operación: constitución, modelo de negocio, estructura legal y financiera.</div>
+      </div>
+      <div class="value-card">
+        <span class="value-icon">🌐</span>
+        <div class="value-title">Web3 y Tecnología</div>
+        <div class="value-desc">Consultoría en blockchain, criptoactivos e inteligencia artificial aplicada a empresas en crecimiento.</div>
+      </div>
+      <div class="value-card">
+        <span class="value-icon">🤝</span>
+        <div class="value-title">Conexiones Estratégicas</div>
+        <div class="value-desc">Acceso a un ecosistema de socios, inversionistas, tecnólogos y espacios de trabajo en México.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- BIO -->
+  <section class="section">
+    <div class="section-tag">Sobre mí</div>
+    <h2 class="section-title">Mi <span>historia</span></h2>
+    <div class="bio-text">
+      <p>Soy <strong>Contador Público</strong> con enfoque en estrategia fiscal y empresarial. A lo largo de los años he trabajado con emprendedores, PyMEs y empresas en crecimiento para ordenar sus finanzas, reducir riesgos fiscales y construir estructuras legales sólidas.</p>
+      <p>Paralelamente, he co-fundado y desarrollado cuatro empresas: <strong>FiscoNegocio MX</strong> (asesoría fiscal), <strong>Web3 Collective</strong> (consultoría en blockchain e IA), <strong>AgentBase</strong> (inteligencia artificial para negocios) y <strong>Atiko Cowork</strong> (espacios de trabajo colaborativo en San Luis Potosí).</p>
+      <p>Mi propósito es claro: <strong>ayudar a quienes construyen a hacerlo mejor</strong> — con menos riesgos, más claridad financiera y acceso a las herramientas del futuro.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <div class="footer">© 2026 Fernando Mendoza Ferreira · fisconegociomx.github.io</div>
+
+</body>
+</html>
