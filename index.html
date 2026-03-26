@@ -597,6 +597,129 @@
 })();
 </script>
 
+<!-- PROBLEMA -->
+<style>
+.prob-section{max-width:720px;margin:0 auto 64px;padding:0 20px;}
+.prob-headline{text-align:center;font-size:clamp(1.5rem,4vw,2.2rem);font-weight:900;line-height:1.2;margin-bottom:8px;}
+.prob-headline span{color:#00ff6d;}
+.prob-sub{text-align:center;font-size:0.88rem;color:#8C8C8C;margin-bottom:36px;}
+.prob-grid{display:flex;flex-direction:column;gap:12px;margin-bottom:32px;}
+.prob-card{
+  background:var(--dark-3);
+  border:1.5px solid #1e2240;
+  border-radius:16px;
+  padding:18px 20px;
+  display:flex;align-items:flex-start;gap:16px;
+  cursor:default;
+  opacity:0;transform:translateX(-24px);
+  transition:opacity 0.5s ease,transform 0.5s ease,border-color 0.3s,box-shadow 0.3s;
+  position:relative;overflow:hidden;
+}
+.prob-card.visible{opacity:1;transform:translateX(0);}
+.prob-card::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(180deg,#ff4444,#ff6b6b);
+  border-radius:0 2px 2px 0;
+  opacity:0;transition:opacity 0.3s;
+}
+.prob-card:hover{border-color:rgba(255,80,80,0.35);box-shadow:0 4px 24px rgba(255,60,60,0.08);}
+.prob-card:hover::before{opacity:1;}
+.prob-icon{font-size:1.5rem;flex-shrink:0;margin-top:2px;}
+.prob-text{flex:1;}
+.prob-text strong{display:block;font-size:0.92rem;font-weight:800;color:#fff;margin-bottom:4px;}
+.prob-text span{font-size:0.81rem;color:#8C8C8C;line-height:1.5;}
+.prob-x{font-size:1.1rem;color:#ff5050;font-weight:900;flex-shrink:0;margin-top:3px;}
+.prob-close{
+  text-align:center;
+  background:linear-gradient(135deg,rgba(0,255,109,0.06),rgba(0,255,109,0.02));
+  border:1.5px solid rgba(0,255,109,0.2);
+  border-radius:16px;padding:22px 24px;
+  opacity:0;transform:translateY(16px);
+  transition:opacity 0.5s ease 0.4s,transform 0.5s ease 0.4s;
+}
+.prob-close.visible{opacity:1;transform:translateY(0);}
+.prob-close p{font-size:0.95rem;font-weight:700;color:#fff;margin-bottom:14px;line-height:1.5;}
+.prob-close p em{color:#00ff6d;font-style:normal;}
+.prob-close a{
+  display:inline-block;background:#00ff6d;color:#0d1026;
+  font-size:0.88rem;font-weight:800;padding:13px 28px;
+  border-radius:50px;text-decoration:none;
+  transition:background 0.2s,transform 0.15s;
+  box-shadow:0 4px 20px rgba(0,255,109,0.25);
+}
+.prob-close a:hover{background:#00e060;transform:translateY(-2px);}
+</style>
+<div class="prob-section">
+  <h2 class="prob-headline">¿Te suena<br><span>familiar?</span></h2>
+  <p class="prob-sub">Situaciones que enfrentan muchos emprendedores antes de encontrar al contador correcto.</p>
+  <div class="prob-grid">
+    <div class="prob-card">
+      <div class="prob-icon">🧾</div>
+      <div class="prob-text">
+        <strong>No sabes si estás facturando correctamente</strong>
+        <span>Emites facturas pero no tienes certeza si el régimen, los conceptos o los impuestos están bien aplicados.</span>
+      </div>
+      <div class="prob-x">✕</div>
+    </div>
+    <div class="prob-card">
+      <div class="prob-icon">🏛️</div>
+      <div class="prob-text">
+        <strong>Recibes requerimientos del SAT sin entender por qué</strong>
+        <span>Cartas, notificaciones, multas que llegan y no sabes si ignorarlas, contestarlas o cuánto tiempo tienes.</span>
+      </div>
+      <div class="prob-x">✕</div>
+    </div>
+    <div class="prob-card">
+      <div class="prob-icon">👻</div>
+      <div class="prob-text">
+        <strong>Tu contador solo aparece en época de declaraciones</strong>
+        <span>El resto del año no sabes ni cómo contactarlo. Cuando lo necesitas, no hay respuesta.</span>
+      </div>
+      <div class="prob-x">✕</div>
+    </div>
+    <div class="prob-card">
+      <div class="prob-icon">🤯</div>
+      <div class="prob-text">
+        <strong>Nadie te explica en términos simples qué debes hacer</strong>
+        <span>Todo son siglas, artículos de ley y tecnicismos. Terminas firmando cosas que no entiendes del todo.</span>
+      </div>
+      <div class="prob-x">✕</div>
+    </div>
+    <div class="prob-card">
+      <div class="prob-icon">💸</div>
+      <div class="prob-text">
+        <strong>Sientes que pagas más impuestos de lo que deberías</strong>
+        <span>Nadie te ha explicado qué deducciones aplican a tu negocio ni cómo optimizar tu carga fiscal legalmente.</span>
+      </div>
+      <div class="prob-x">✕</div>
+    </div>
+  </div>
+  <div class="prob-close" id="prob-close">
+    <p>Si marcaste aunque sea uno… <em>necesitas un contador diferente.</em></p>
+    <a href="https://wa.me/5214442522739" target="_blank">Quiero resolverlo hoy →</a>
+  </div>
+</div>
+<script>
+(function(){
+  const cards = document.querySelectorAll('.prob-card');
+  const closeEl = document.getElementById('prob-close');
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const idx = Array.from(cards).indexOf(e.target);
+        setTimeout(()=>e.target.classList.add('visible'), idx*100);
+        obs.unobserve(e.target);
+      }
+    });
+  },{threshold:0.15});
+  cards.forEach(c=>obs.observe(c));
+  const obs2 = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{if(e.isIntersecting){closeEl.classList.add('visible');obs2.unobserve(e.target);}});
+  },{threshold:0.3});
+  obs2.observe(closeEl);
+})();
+</script>
+
 <!-- NECESITAS CONTADOR -->
 <style>
 .nc-section { max-width: 720px; margin: 0 auto 56px; padding: 0 20px; }
@@ -1167,6 +1290,135 @@ function toggleBen(el) {
     if(entries[0].isIntersecting)ctaEl.classList.add('visible');
   },{threshold:0.3});
   obs2.observe(ctaEl);
+})();
+</script>
+
+<!-- PROCESO -->
+<style>
+.proceso-section{max-width:720px;margin:0 auto 64px;padding:0 20px;}
+.proceso-headline{text-align:center;font-size:clamp(1.5rem,4vw,2.2rem);font-weight:900;line-height:1.2;margin-bottom:8px;}
+.proceso-headline span{color:#00ff6d;}
+.proceso-sub{text-align:center;font-size:0.88rem;color:#8C8C8C;margin-bottom:44px;}
+.proceso-steps{display:flex;flex-direction:column;gap:0;position:relative;}
+.proceso-step{
+  display:flex;gap:24px;align-items:flex-start;
+  opacity:0;transform:translateY(24px);
+  transition:opacity 0.55s ease,transform 0.55s ease;
+  position:relative;
+}
+.proceso-step.visible{opacity:1;transform:translateY(0);}
+.proceso-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0;}
+.proceso-num{
+  width:52px;height:52px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#00ff6d,#00cc57);
+  color:#0d1026;
+  font-size:1.3rem;font-weight:900;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 20px rgba(0,255,109,0.3);
+  position:relative;z-index:1;flex-shrink:0;
+}
+.proceso-line{
+  width:2px;flex:1;min-height:40px;
+  background:linear-gradient(180deg,rgba(0,255,109,0.4),rgba(0,255,109,0.05));
+  margin:0 auto;
+}
+.proceso-step:last-child .proceso-line{display:none;}
+.proceso-body{
+  background:var(--dark-3);
+  border:1.5px solid #1e2240;
+  border-radius:18px;
+  padding:22px 22px 22px;
+  flex:1;margin-bottom:28px;
+  transition:border-color 0.3s,box-shadow 0.3s,transform 0.3s;
+  cursor:default;
+  position:relative;overflow:hidden;
+}
+.proceso-body::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,#00ff6d,#00cc57);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform 0.4s ease;
+}
+.proceso-body:hover{border-color:rgba(0,255,109,0.4);box-shadow:0 8px 32px rgba(0,255,109,0.08);transform:translateY(-2px);}
+.proceso-body:hover::after{transform:scaleX(1);}
+.proceso-body-top{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+.proceso-icon{font-size:1.6rem;}
+.proceso-tag{
+  font-size:0.65rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;
+  color:#00ff6d;background:rgba(0,255,109,0.1);
+  padding:4px 10px;border-radius:20px;
+}
+.proceso-title{font-size:1rem;font-weight:800;color:#fff;margin-bottom:6px;}
+.proceso-desc{font-size:0.83rem;color:#aaa;line-height:1.65;}
+.proceso-desc strong{color:#ddd;}
+@media(max-width:560px){
+  .proceso-left{display:none;}
+  .proceso-step{gap:0;}
+  .proceso-body{margin-bottom:16px;}
+}
+</style>
+<div class="proceso-section">
+  <h2 class="proceso-headline">¿Cómo<br><span>trabajamos?</span></h2>
+  <p class="proceso-sub">Un proceso claro, sin sorpresas. Sabes exactamente qué esperar en cada etapa.</p>
+  <div class="proceso-steps">
+    <div class="proceso-step">
+      <div class="proceso-left">
+        <div class="proceso-num">1</div>
+        <div class="proceso-line"></div>
+      </div>
+      <div class="proceso-body">
+        <div class="proceso-body-top">
+          <div class="proceso-icon">🔍</div>
+          <div class="proceso-tag">Día 1</div>
+        </div>
+        <div class="proceso-title">Diagnóstico gratuito</div>
+        <div class="proceso-desc">Me cuentas la situación de tu negocio: <strong>qué actividad tienes, cómo estás registrado, qué problemas has tenido.</strong> Sin costo, sin compromiso. Solo platícame y te digo exactamente qué necesitas.</div>
+      </div>
+    </div>
+    <div class="proceso-step">
+      <div class="proceso-left">
+        <div class="proceso-num">2</div>
+        <div class="proceso-line"></div>
+      </div>
+      <div class="proceso-body">
+        <div class="proceso-body-top">
+          <div class="proceso-icon">📋</div>
+          <div class="proceso-tag">Semana 1</div>
+        </div>
+        <div class="proceso-title">Plan personalizado</div>
+        <div class="proceso-desc">Diseñamos juntos <strong>una estrategia fiscal adaptada a tu negocio y tus metas.</strong> Nada genérico. Definimos qué servicios necesitas, costos claros y un roadmap para ordenar todo.</div>
+      </div>
+    </div>
+    <div class="proceso-step">
+      <div class="proceso-left">
+        <div class="proceso-num">3</div>
+        <div class="proceso-line"></div>
+      </div>
+      <div class="proceso-body">
+        <div class="proceso-body-top">
+          <div class="proceso-icon">🤝</div>
+          <div class="proceso-tag">Siempre</div>
+        </div>
+        <div class="proceso-title">Acompañamiento constante</div>
+        <div class="proceso-desc">No desaparezco después de la firma. <strong>Estoy disponible para resolver tus dudas, avisarte de obligaciones, y ayudarte a tomar mejores decisiones financieras</strong> mes con mes.</div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  const steps = document.querySelectorAll('.proceso-step');
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const idx = Array.from(steps).indexOf(e.target);
+        setTimeout(()=>e.target.classList.add('visible'),idx*150);
+        obs.unobserve(e.target);
+      }
+    });
+  },{threshold:0.15});
+  steps.forEach(s=>obs.observe(s));
 })();
 </script>
 
