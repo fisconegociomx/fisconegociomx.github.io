@@ -600,6 +600,112 @@
 })();
 </script>
 
+<!-- RESICO -->
+<style>
+.resico-section{max-width:720px;margin:0 auto 64px;padding:0 20px;}
+.resico-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(0,255,109,0.1);border:1.5px solid rgba(0,255,109,0.3);border-radius:50px;padding:7px 18px;font-size:0.72rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#00ff6d;margin-bottom:20px;}
+.resico-headline{font-size:clamp(1.5rem,4vw,2.2rem);font-weight:900;line-height:1.2;margin-bottom:8px;}
+.resico-headline span{color:#00ff6d;}
+.resico-sub{font-size:0.88rem;color:#8C8C8C;line-height:1.6;margin-bottom:32px;max-width:560px;}
+.resico-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:28px;}
+@media(max-width:520px){.resico-grid{grid-template-columns:1fr;}}
+.resico-card{
+  background:var(--dark-3);border:1.5px solid #1e2240;border-radius:14px;
+  padding:18px 18px;display:flex;align-items:center;gap:14px;
+  opacity:0;transform:translateY(16px);
+  transition:opacity 0.4s ease,transform 0.4s ease,border-color 0.25s,box-shadow 0.25s;
+  cursor:default;
+}
+.resico-card.visible{opacity:1;transform:translateY(0);}
+.resico-card:hover{border-color:rgba(0,255,109,0.4);box-shadow:0 6px 24px rgba(0,255,109,0.08);}
+.resico-card-icon{font-size:1.6rem;flex-shrink:0;}
+.resico-card-text strong{display:block;font-size:0.88rem;font-weight:800;color:#fff;margin-bottom:3px;}
+.resico-card-text span{font-size:0.76rem;color:#8C8C8C;line-height:1.4;}
+.resico-highlight{
+  background:linear-gradient(135deg,rgba(0,255,109,0.07),rgba(0,255,109,0.02));
+  border:1.5px solid rgba(0,255,109,0.25);border-radius:16px;
+  padding:24px 24px;display:flex;align-items:flex-start;gap:18px;
+  opacity:0;transform:translateY(16px);
+  transition:opacity 0.5s ease 0.3s,transform 0.5s ease 0.3s;
+}
+.resico-highlight.visible{opacity:1;transform:translateY(0);}
+.resico-hl-icon{font-size:2rem;flex-shrink:0;margin-top:2px;}
+.resico-hl-text strong{display:block;font-size:1rem;font-weight:900;color:#00ff6d;margin-bottom:6px;}
+.resico-hl-text p{font-size:0.84rem;color:#aaa;line-height:1.65;margin-bottom:14px;}
+.resico-hl-cta{display:inline-block;background:#00ff6d;color:#0d1026;font-size:0.84rem;font-weight:800;padding:12px 26px;border-radius:50px;text-decoration:none;transition:background 0.2s,transform 0.15s;box-shadow:0 4px 18px rgba(0,255,109,0.25);}
+.resico-hl-cta:hover{background:#00e060;transform:translateY(-2px);}
+</style>
+<div class="resico-section">
+  <div style="text-align:center;margin-bottom:16px;">
+    <span class="resico-badge">⚡ Régimen Fiscal</span>
+  </div>
+  <h2 class="resico-headline" style="text-align:center;">¿Puedes aplicar al<br><span>RESICO?</span></h2>
+  <p class="resico-sub" style="text-align:center;margin:0 auto 32px;">El Régimen Simplificado de Confianza es el régimen fiscal por excelencia para emprendedores. Tasas más bajas, menos obligaciones y más control de tu dinero.</p>
+  <div class="resico-grid">
+    <div class="resico-card">
+      <div class="resico-card-icon">💻</div>
+      <div class="resico-card-text">
+        <strong>Freelancer</strong>
+        <span>Servicios digitales, diseño, desarrollo, consultoría y más</span>
+      </div>
+    </div>
+    <div class="resico-card">
+      <div class="resico-card-icon">🎓</div>
+      <div class="resico-card-text">
+        <strong>Profesionista Independiente</strong>
+        <span>Médicos, abogados, arquitectos, contadores, ingenieros</span>
+      </div>
+    </div>
+    <div class="resico-card">
+      <div class="resico-card-icon">🤝</div>
+      <div class="resico-card-text">
+        <strong>Comisionista</strong>
+        <span>Agentes, representantes, ventas por comisión</span>
+      </div>
+    </div>
+    <div class="resico-card">
+      <div class="resico-card-icon">🏠</div>
+      <div class="resico-card-text">
+        <strong>Arrendamiento de Inmuebles</strong>
+        <span>Renta de casas, locales, bodegas o departamentos</span>
+      </div>
+    </div>
+    <div class="resico-card" style="grid-column:1/-1;">
+      <div class="resico-card-icon">🏪</div>
+      <div class="resico-card-text">
+        <strong>Negocio Propio</strong>
+        <span>Tiendas, restaurantes, servicios locales y cualquier actividad empresarial con ingresos hasta $3.5 millones anuales</span>
+      </div>
+    </div>
+  </div>
+  <div class="resico-highlight" id="resico-hl">
+    <div class="resico-hl-icon">💡</div>
+    <div class="resico-hl-text">
+      <strong>¿Por qué el RESICO es tan conveniente?</strong>
+      <p>Pagas impuestos sobre lo que realmente recibes, con tasas desde el 1%. Sin declaraciones mensuales complicadas, sin cálculos difíciles. Es el régimen diseñado para que los emprendedores paguen justo — ni más, ni menos.</p>
+      <a href="https://wa.me/5214442522739" target="_blank" class="resico-hl-cta">¿Puedo aplicar al RESICO? Consúltame →</a>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  const cards=document.querySelectorAll('.resico-card');
+  const hl=document.getElementById('resico-hl');
+  const obs=new IntersectionObserver(e=>{
+    e.forEach(en=>{
+      if(en.isIntersecting){
+        const i=Array.from(cards).indexOf(en.target);
+        setTimeout(()=>en.target.classList.add('visible'),i*80);
+        obs.unobserve(en.target);
+      }
+    });
+  },{threshold:0.1});
+  cards.forEach(c=>obs.observe(c));
+  const obs2=new IntersectionObserver(e=>{if(e[0].isIntersecting){hl.classList.add('visible');obs2.unobserve(hl);}},{threshold:0.2});
+  obs2.observe(hl);
+})();
+</script>
+
 <!-- COMO SABER SI NECESITO CONTADOR -->
 <style>
 .csn-section{max-width:720px;margin:0 auto 64px;padding:0 20px;}
