@@ -505,371 +505,221 @@
 
 <!-- PROBLEMA -->
 <style>
-.prob-section{max-width:720px;margin:0 auto 64px;padding:0 20px;}
-.prob-headline{text-align:center;font-size:clamp(1.5rem,4vw,2.2rem);font-weight:900;line-height:1.2;margin-bottom:10px;}
-.prob-headline span{color:#00ff6d;}
-.prob-sub{text-align:center;font-size:.88rem;color:#8C8C8C;margin-bottom:36px;}
-.prob-grid{display:flex;flex-direction:column;gap:12px;margin-bottom:32px;}
-.prob-card{
-  background:#151832;
-  border:1.5px solid #1e2240;
-  border-radius:16px;
-  padding:18px 20px;
-  display:flex;align-items:center;gap:16px;
-  cursor:default;
-  opacity:0;transform:translateX(-24px);
-  transition:opacity .5s ease,transform .5s ease,border-color .3s,box-shadow .3s;
-}
-.prob-card.visible{opacity:1;transform:translateX(0);}
-.prob-card:hover{border-color:rgba(255,80,80,.5);box-shadow:0 0 24px rgba(255,80,80,.08);}
-.prob-card-x{
-  min-width:36px;height:36px;border-radius:50%;
-  background:rgba(255,80,80,.12);
-  border:1.5px solid rgba(255,80,80,.3);
-  display:flex;align-items:center;justify-content:center;
-  font-size:1rem;flex-shrink:0;
-  transition:background .3s,transform .3s;
-}
-.prob-card:hover .prob-card-x{background:rgba(255,80,80,.22);transform:scale(1.1);}
-.prob-card-text{font-size:.88rem;font-weight:600;color:#ccc;line-height:1.5;flex:1;}
-.prob-card-text strong{color:#fff;}
-.prob-close{
-  text-align:center;
-  background:#151832;
-  border:1px solid rgba(0,255,109,.25);
-  border-radius:14px;
-  padding:20px 24px;
-  font-size:.9rem;color:#aaa;line-height:1.6;
-  opacity:0;transform:translateY(12px);
-  transition:opacity .5s .6s ease,transform .5s .6s ease;
-}
-.prob-close.visible{opacity:1;transform:translateY(0);}
-.prob-close strong{color:#00ff6d;font-size:1rem;}
-@media(max-width:560px){.prob-card{padding:14px 16px;gap:12px;}.prob-card-text{font-size:.83rem;}}
-</style>
-<div class="prob-section">
-  <h2 class="prob-headline">¿Te suena<br><span>familiar?</span></h2>
-  <p class="prob-sub">Estas son las situaciones más comunes que enfrentan los emprendedores antes de trabajar con nosotros.</p>
-  <div class="prob-grid">
-    <div class="prob-card">
-      <div class="prob-card-x">✕</div>
-      <div class="prob-card-text"><strong>No sabes si estás facturando correctamente</strong> y tienes miedo de que el SAT te penalice por errores que ni conoces.</div>
-    </div>
-    <div class="prob-card">
-      <div class="prob-card-x">✕</div>
-      <div class="prob-card-text"><strong>Recibes requerimientos del SAT</strong> y no entiendes qué quieren ni qué consecuencias puede tener ignorarlos.</div>
-    </div>
-    <div class="prob-card">
-      <div class="prob-card-x">✕</div>
-      <div class="prob-card-text"><strong>Tu contador solo aparece en época de declaraciones.</strong> El resto del año estás solo con tus dudas.</div>
-    </div>
-    <div class="prob-card">
-      <div class="prob-card-x">✕</div>
-      <div class="prob-card-text"><strong>Nadie te explica en términos simples</strong> qué pagas, por qué lo pagas y cómo podrías pagar menos.</div>
-    </div>
-    <div class="prob-card">
-      <div class="prob-card-x">✕</div>
-      <div class="prob-card-text"><strong>Sientes que pagas más impuestos de lo que deberías</strong> pero no tienes a quién preguntarle si hay una forma legal de optimizarlo.</div>
-    </div>
-  </div>
-  <div class="prob-close" id="prob-close">
-    Si marcaste aunque sea uno… <strong>necesitas un contador diferente.</strong><br>
-    <span style="font-size:.82rem;color:#666;">Uno que esté contigo todo el año, no solo en abril.</span>
-  </div>
-</div>
-<script>
-(function(){
-  const cards = document.querySelectorAll('.prob-card');
-  const closeEl = document.getElementById('prob-close');
-  const obs = new IntersectionObserver(entries=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}
-    });
-  },{threshold:0.15});
-  cards.forEach((c,i)=>{
-    c.style.transitionDelay = (i*0.1)+'s';
-    obs.observe(c);
-  });
-  const obs2 = new IntersectionObserver(entries=>{
-    if(entries[0].isIntersecting){closeEl.classList.add('visible');}
-  },{threshold:0.3});
-  obs2.observe(closeEl);
-})();
-</script>
-
-<!-- PROBLEMA -->
-<style>
-.prob-section{max-width:720px;margin:0 auto 64px;padding:0 20px;}
-.prob-headline{text-align:center;font-size:clamp(1.5rem,4vw,2.2rem);font-weight:900;line-height:1.2;margin-bottom:8px;}
-.prob-headline span{color:#00ff6d;}
-.prob-sub{text-align:center;font-size:0.88rem;color:#8C8C8C;margin-bottom:36px;}
-.prob-grid{display:flex;flex-direction:column;gap:12px;margin-bottom:32px;}
-.prob-card{
-  background:var(--dark-3);
-  border:1.5px solid #1e2240;
-  border-radius:16px;
-  padding:18px 20px;
-  display:flex;align-items:flex-start;gap:16px;
-  cursor:default;
-  opacity:0;transform:translateX(-24px);
-  transition:opacity 0.5s ease,transform 0.5s ease,border-color 0.3s,box-shadow 0.3s;
-  position:relative;overflow:hidden;
-}
-.prob-card.visible{opacity:1;transform:translateX(0);}
-.prob-card::before{
-  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
-  background:linear-gradient(180deg,#ff4444,#ff6b6b);
-  border-radius:0 2px 2px 0;
-  opacity:0;transition:opacity 0.3s;
-}
-.prob-card:hover{border-color:rgba(255,80,80,0.35);box-shadow:0 4px 24px rgba(255,60,60,0.08);}
-.prob-card:hover::before{opacity:1;}
-.prob-icon{font-size:1.5rem;flex-shrink:0;margin-top:2px;}
-.prob-text{flex:1;}
-.prob-text strong{display:block;font-size:0.92rem;font-weight:800;color:#fff;margin-bottom:4px;}
-.prob-text span{font-size:0.81rem;color:#8C8C8C;line-height:1.5;}
-.prob-x{font-size:1.1rem;color:#ff5050;font-weight:900;flex-shrink:0;margin-top:3px;}
-.prob-close{
-  text-align:center;
-  background:linear-gradient(135deg,rgba(0,255,109,0.06),rgba(0,255,109,0.02));
-  border:1.5px solid rgba(0,255,109,0.2);
-  border-radius:16px;padding:22px 24px;
+.prob2-section{max-width:720px;margin:0 auto 64px;padding:0 20px;}
+.prob2-headline{text-align:center;font-size:clamp(1.4rem,4vw,2.1rem);font-weight:900;line-height:1.2;margin-bottom:8px;}
+.prob2-headline span{color:#00ff6d;}
+.prob2-sub{text-align:center;font-size:0.86rem;color:#8C8C8C;margin-bottom:32px;}
+.prob2-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px;}
+@media(max-width:520px){.prob2-grid{grid-template-columns:1fr;}}
+.prob2-card{
+  background:var(--dark-3);border:1.5px solid #1e2240;border-radius:14px;
+  padding:16px 16px;display:flex;align-items:flex-start;gap:12px;
+  cursor:pointer;
   opacity:0;transform:translateY(16px);
-  transition:opacity 0.5s ease 0.4s,transform 0.5s ease 0.4s;
+  transition:opacity 0.4s ease,transform 0.4s ease,border-color 0.25s,background 0.25s,box-shadow 0.25s;
+  user-select:none;
 }
-.prob-close.visible{opacity:1;transform:translateY(0);}
-.prob-close p{font-size:0.95rem;font-weight:700;color:#fff;margin-bottom:14px;line-height:1.5;}
-.prob-close p em{color:#00ff6d;font-style:normal;}
-.prob-close a{
-  display:inline-block;background:#00ff6d;color:#0d1026;
-  font-size:0.88rem;font-weight:800;padding:13px 28px;
-  border-radius:50px;text-decoration:none;
-  transition:background 0.2s,transform 0.15s;
-  box-shadow:0 4px 20px rgba(0,255,109,0.25);
-}
-.prob-close a:hover{background:#00e060;transform:translateY(-2px);}
+.prob2-card.visible{opacity:1;transform:translateY(0);}
+.prob2-card.on{border-color:#ff5050;background:rgba(255,60,60,0.07);box-shadow:0 4px 20px rgba(255,60,60,0.12);}
+.prob2-card:hover:not(.on){border-color:rgba(255,80,80,0.3);background:rgba(255,60,60,0.04);}
+.prob2-chk{min-width:22px;height:22px;border-radius:6px;border:2px solid #2a3050;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;font-size:0.78rem;font-weight:900;transition:border-color 0.2s,background 0.2s;}
+.prob2-card.on .prob2-chk{border-color:#ff5050;background:#ff5050;color:#fff;}
+.prob2-ico{font-size:1.25rem;flex-shrink:0;}
+.prob2-txt{font-size:0.82rem;font-weight:600;color:#ccc;line-height:1.45;}
+.prob2-card.on .prob2-txt{color:#fff;}
+.prob2-bar-wrap{max-width:100%;height:5px;border-radius:3px;background:#1e2240;overflow:hidden;margin-bottom:20px;}
+.prob2-bar{height:100%;border-radius:3px;background:linear-gradient(90deg,#ff5050,#ff8080);width:0%;transition:width 0.45s cubic-bezier(.4,0,.2,1);}
+.prob2-result{border-radius:16px;padding:22px 24px;text-align:center;border:1.5px solid #1e2240;background:var(--dark-3);transition:border-color 0.4s,box-shadow 0.4s;}
+.prob2-result.l1{border-color:rgba(255,200,0,0.4);box-shadow:0 0 24px rgba(255,200,0,0.05);}
+.prob2-result.l2{border-color:rgba(255,120,0,0.4);box-shadow:0 0 24px rgba(255,120,0,0.07);}
+.prob2-result.l3{border-color:rgba(255,60,60,0.5);box-shadow:0 0 28px rgba(255,60,60,0.09);}
+.prob2-r-emoji{font-size:1.8rem;margin-bottom:6px;}
+.prob2-r-title{font-size:0.95rem;font-weight:800;color:#fff;margin-bottom:6px;}
+.prob2-r-desc{font-size:0.8rem;color:#aaa;line-height:1.55;margin-bottom:14px;}
+.prob2-r-cta{display:inline-block;background:#00ff6d;color:#0d1026;font-size:0.84rem;font-weight:800;padding:12px 26px;border-radius:50px;text-decoration:none;transition:background 0.2s,transform 0.15s;box-shadow:0 4px 18px rgba(0,255,109,0.25);}
+.prob2-r-cta:hover{background:#00e060;transform:translateY(-2px);}
 </style>
-<div class="prob-section">
-  <h2 class="prob-headline">¿Te suena<br><span>familiar?</span></h2>
-  <p class="prob-sub">Situaciones que enfrentan muchos emprendedores antes de encontrar al contador correcto.</p>
-  <div class="prob-grid">
-    <div class="prob-card">
-      <div class="prob-icon">🧾</div>
-      <div class="prob-text">
-        <strong>No sabes si estás facturando correctamente</strong>
-        <span>Emites facturas pero no tienes certeza si el régimen, los conceptos o los impuestos están bien aplicados.</span>
-      </div>
-      <div class="prob-x">✕</div>
+<div class="prob2-section">
+  <h2 class="prob2-headline">¿Te suena<br><span>familiar?</span></h2>
+  <p class="prob2-sub">Selecciona las situaciones que reconoces en tu negocio.</p>
+  <div class="prob2-grid">
+    <div class="prob2-card" onclick="p2Toggle(this)">
+      <div class="prob2-chk"></div><div class="prob2-ico">🧾</div>
+      <div class="prob2-txt">No sabes si estás facturando correctamente</div>
     </div>
-    <div class="prob-card">
-      <div class="prob-icon">🏛️</div>
-      <div class="prob-text">
-        <strong>Recibes requerimientos del SAT sin entender por qué</strong>
-        <span>Cartas, notificaciones, multas que llegan y no sabes si ignorarlas, contestarlas o cuánto tiempo tienes.</span>
-      </div>
-      <div class="prob-x">✕</div>
+    <div class="prob2-card" onclick="p2Toggle(this)">
+      <div class="prob2-chk"></div><div class="prob2-ico">🏛️</div>
+      <div class="prob2-txt">Recibes requerimientos del SAT sin entender por qué</div>
     </div>
-    <div class="prob-card">
-      <div class="prob-icon">👻</div>
-      <div class="prob-text">
-        <strong>Tu contador solo aparece en época de declaraciones</strong>
-        <span>El resto del año no sabes ni cómo contactarlo. Cuando lo necesitas, no hay respuesta.</span>
-      </div>
-      <div class="prob-x">✕</div>
+    <div class="prob2-card" onclick="p2Toggle(this)">
+      <div class="prob2-chk"></div><div class="prob2-ico">👻</div>
+      <div class="prob2-txt">Tu contador solo aparece en época de declaraciones</div>
     </div>
-    <div class="prob-card">
-      <div class="prob-icon">🤯</div>
-      <div class="prob-text">
-        <strong>Nadie te explica en términos simples qué debes hacer</strong>
-        <span>Todo son siglas, artículos de ley y tecnicismos. Terminas firmando cosas que no entiendes del todo.</span>
-      </div>
-      <div class="prob-x">✕</div>
+    <div class="prob2-card" onclick="p2Toggle(this)">
+      <div class="prob2-chk"></div><div class="prob2-ico">🤯</div>
+      <div class="prob2-txt">Nadie te explica en términos simples qué debes hacer</div>
     </div>
-    <div class="prob-card">
-      <div class="prob-icon">💸</div>
-      <div class="prob-text">
-        <strong>Sientes que pagas más impuestos de lo que deberías</strong>
-        <span>Nadie te ha explicado qué deducciones aplican a tu negocio ni cómo optimizar tu carga fiscal legalmente.</span>
-      </div>
-      <div class="prob-x">✕</div>
+    <div class="prob2-card" onclick="p2Toggle(this)" style="grid-column:1/-1;">
+      <div class="prob2-chk"></div><div class="prob2-ico">💸</div>
+      <div class="prob2-txt">Sientes que pagas más impuestos de lo que deberías</div>
     </div>
   </div>
-  <div class="prob-close" id="prob-close">
-    <p>Si marcaste aunque sea uno… <em>necesitas un contador diferente.</em></p>
-    <a href="https://wa.me/5214442522739" target="_blank">Quiero resolverlo hoy →</a>
+  <div class="prob2-bar-wrap"><div class="prob2-bar" id="p2bar"></div></div>
+  <div class="prob2-result" id="p2result">
+    <div class="prob2-r-emoji" id="p2emoji">👆</div>
+    <div class="prob2-r-title" id="p2title">Selecciona las que aplican a tu negocio</div>
+    <div class="prob2-r-desc" id="p2desc">Haz clic en cada situación que reconozcas para ver tu resultado.</div>
   </div>
 </div>
 <script>
+const p2data=[
+  {cls:'',emoji:'👆',title:'Selecciona las que aplican a tu negocio',desc:'Haz clic en cada situación que reconozcas para ver tu resultado.',cta:false},
+  {cls:'l1',emoji:'🤔',title:'Hay algo por atender',desc:'Una situación ya es señal. Una consulta rápida puede evitarte problemas futuros.',cta:true},
+  {cls:'l1',emoji:'⚠️',title:'Hay señales de alerta',desc:'Dos situaciones indican áreas de riesgo que conviene revisar pronto.',cta:true},
+  {cls:'l2',emoji:'🚨',title:'Necesitas un contador ahora',desc:'Tres situaciones activas significan riesgos fiscales acumulándose. Actúa antes de que se compliquen.',cta:true},
+  {cls:'l3',emoji:'🔥',title:'Es urgente regularizarte',desc:'Cuatro situaciones es señal clara. Tu negocio necesita orden fiscal de inmediato.',cta:true},
+  {cls:'l3',emoji:'💡',title:'¡Definitivamente necesitas apoyo!',desc:'Tu negocio tiene todo para crecer — solo le falta el soporte fiscal correcto. Hablemos hoy.',cta:true},
+];
+function p2Toggle(el){
+  el.classList.toggle('on');
+  el.querySelector('.prob2-chk').textContent=el.classList.contains('on')?'✓':'';
+  const n=document.querySelectorAll('.prob2-card.on').length;
+  document.getElementById('p2bar').style.width=(n/5*100)+'%';
+  const d=p2data[n];
+  const res=document.getElementById('p2result');
+  res.className='prob2-result '+d.cls;
+  document.getElementById('p2emoji').textContent=d.emoji;
+  document.getElementById('p2title').textContent=d.title;
+  document.getElementById('p2desc').textContent=d.desc;
+  const ex=res.querySelector('.prob2-r-cta');if(ex)ex.remove();
+  if(d.cta){const a=document.createElement('a');a.href='https://wa.me/5214442522739';a.target='_blank';a.className='prob2-r-cta';a.textContent='Quiero una consulta gratuita →';res.appendChild(a);}
+}
 (function(){
-  const cards = document.querySelectorAll('.prob-card');
-  const closeEl = document.getElementById('prob-close');
-  const obs = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){
-        const idx = Array.from(cards).indexOf(e.target);
-        setTimeout(()=>e.target.classList.add('visible'), idx*100);
-        obs.unobserve(e.target);
+  const cards=document.querySelectorAll('.prob2-card');
+  const obs=new IntersectionObserver((e)=>{
+    e.forEach(en=>{
+      if(en.isIntersecting){
+        const i=Array.from(cards).indexOf(en.target);
+        setTimeout(()=>en.target.classList.add('visible'),i*80);
+        obs.unobserve(en.target);
       }
     });
-  },{threshold:0.15});
+  },{threshold:0.1});
   cards.forEach(c=>obs.observe(c));
-  const obs2 = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{if(e.isIntersecting){closeEl.classList.add('visible');obs2.unobserve(e.target);}});
-  },{threshold:0.3});
-  obs2.observe(closeEl);
 })();
 </script>
 
-<!-- NECESITAS CONTADOR -->
+<!-- COMO SABER SI NECESITO CONTADOR -->
 <style>
-.nc-section { max-width: 720px; margin: 0 auto 56px; padding: 0 20px; }
-.nc-headline { text-align: center; font-size: clamp(1.5rem, 4vw, 2.2rem); font-weight: 900; line-height: 1.2; margin-bottom: 8px; }
-.nc-headline span { color: #00ff6d; }
-.nc-sub { text-align: center; font-size: 0.88rem; color: var(--gray); margin-bottom: 10px; }
-.nc-instruction { text-align: center; font-size: 0.78rem; color: rgba(0,255,109,0.7); margin-bottom: 28px; font-weight: 600; letter-spacing: 0.05em; }
-.nc-cards { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
-.nc-card {
-  background: var(--dark-3);
-  border: 1.5px solid #1e2240;
-  border-radius: 14px;
-  padding: 16px 18px;
-  display: flex; align-items: center; gap: 14px;
-  cursor: pointer;
-  transition: border-color 0.2s, background 0.2s, transform 0.15s;
-  user-select: none;
+.csn-section{max-width:720px;margin:0 auto 64px;padding:0 20px;}
+.csn-headline{text-align:center;font-size:clamp(1.4rem,4vw,2.1rem);font-weight:900;line-height:1.2;margin-bottom:8px;}
+.csn-headline span{color:#00ff6d;}
+.csn-sub{text-align:center;font-size:0.86rem;color:#8C8C8C;margin-bottom:32px;}
+.csn-cards{display:flex;flex-direction:column;gap:10px;margin-bottom:24px;}
+.csn-card{
+  background:var(--dark-3);border:1.5px solid #1e2240;border-radius:14px;
+  padding:15px 18px;display:flex;align-items:center;gap:14px;
+  cursor:pointer;transition:border-color 0.2s,background 0.2s,transform 0.2s;user-select:none;
 }
-.nc-card:hover { border-color: rgba(0,255,109,0.4); background: #1a2040; transform: translateX(3px); }
-.nc-card.selected { border-color: #00ff6d; background: rgba(0,255,109,0.06); }
-.nc-checkbox {
-  min-width: 24px; height: 24px;
-  border-radius: 6px;
-  border: 2px solid #2a3050;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  transition: border-color 0.2s, background 0.2s;
-  font-size: 0.8rem;
+.csn-card:hover{border-color:rgba(0,255,109,0.35);transform:translateX(4px);}
+.csn-card.on{border-color:#00ff6d;background:rgba(0,255,109,0.07);transform:translateX(4px);}
+.csn-cb{
+  min-width:24px;height:24px;border-radius:7px;border:2px solid #2a3050;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  font-size:0.8rem;font-weight:900;
+  transition:border-color 0.2s,background 0.2s;
 }
-.nc-card.selected .nc-checkbox { border-color: #00ff6d; background: #00ff6d; color: #0d1026; font-weight: 900; }
-.nc-card-icon { font-size: 1.3rem; flex-shrink: 0; }
-.nc-card-text { flex: 1; font-size: 0.86rem; font-weight: 600; color: #ddd; line-height: 1.4; }
-.nc-card.selected .nc-card-text { color: #fff; }
-.nc-counter-wrap { text-align: center; margin-bottom: 20px; }
-.nc-counter-bar {
-  max-width: 400px; margin: 0 auto 10px;
-  height: 6px; border-radius: 3px;
-  background: #1e2240;
-  overflow: hidden;
+.csn-card.on .csn-cb{border-color:#00ff6d;background:#00ff6d;color:#0d1026;}
+.csn-ci{font-size:1.25rem;flex-shrink:0;}
+.csn-ct{flex:1;font-size:0.85rem;font-weight:600;color:#ccc;line-height:1.4;}
+.csn-card.on .csn-ct{color:#fff;}
+.csn-score-wrap{margin-bottom:20px;}
+.csn-score-bar{height:8px;border-radius:4px;background:#1e2240;overflow:hidden;margin-bottom:8px;}
+.csn-score-fill{
+  height:100%;border-radius:4px;
+  background:linear-gradient(90deg,#00cc57,#00ff6d);
+  width:0%;transition:width 0.5s cubic-bezier(.4,0,.2,1);
 }
-.nc-counter-fill {
-  height: 100%;
-  border-radius: 3px;
-  background: linear-gradient(90deg, #00cc57, #00ff6d);
-  width: 0%;
-  transition: width 0.4s ease;
+.csn-score-label{display:flex;justify-content:space-between;font-size:0.72rem;color:#555;font-weight:600;}
+.csn-result-panel{
+  border-radius:18px;padding:28px 24px;text-align:center;
+  background:linear-gradient(135deg,var(--dark-3),#1a1e3a);
+  border:1.5px solid #1e2240;
+  transition:border-color 0.4s,box-shadow 0.4s;
 }
-.nc-counter-text { font-size: 0.78rem; color: var(--gray); }
-.nc-result {
-  background: var(--dark-3);
-  border: 1px solid #1e2240;
-  border-radius: 16px;
-  padding: 24px 20px;
-  text-align: center;
-  transition: border-color 0.3s;
+.csn-result-panel.r1{border-color:rgba(255,200,0,0.35);box-shadow:0 0 32px rgba(255,200,0,0.06);}
+.csn-result-panel.r2{border-color:rgba(255,120,0,0.4);box-shadow:0 0 32px rgba(255,120,0,0.07);}
+.csn-result-panel.r3{border-color:rgba(0,255,109,0.5);box-shadow:0 0 32px rgba(0,255,109,0.1);}
+.csn-r-emoji{font-size:2.2rem;margin-bottom:10px;}
+.csn-r-title{font-size:1.05rem;font-weight:900;color:#fff;margin-bottom:8px;}
+.csn-r-desc{font-size:0.83rem;color:#aaa;line-height:1.6;margin-bottom:18px;max-width:440px;margin-left:auto;margin-right:auto;}
+.csn-r-cta{
+  display:inline-block;background:#00ff6d;color:#0d1026;
+  font-size:0.88rem;font-weight:800;padding:13px 30px;border-radius:50px;
+  text-decoration:none;transition:background 0.2s,transform 0.15s;
+  box-shadow:0 4px 20px rgba(0,255,109,0.3);
 }
-.nc-result.show-0 { border-color: #1e2240; }
-.nc-result.show-low { border-color: rgba(255,200,0,0.4); }
-.nc-result.show-mid { border-color: rgba(255,100,0,0.4); }
-.nc-result.show-high { border-color: #00ff6d; }
-.nc-result-emoji { font-size: 2rem; margin-bottom: 8px; }
-.nc-result-title { font-size: 1rem; font-weight: 800; margin-bottom: 6px; color: #fff; }
-.nc-result-desc { font-size: 0.82rem; color: #aaa; line-height: 1.6; margin-bottom: 16px; }
-.nc-result-cta {
-  display: inline-block;
-  background: #00ff6d; color: #0d1026;
-  font-size: 0.85rem; font-weight: 800;
-  padding: 12px 26px; border-radius: 50px;
-  text-decoration: none;
-  transition: background 0.2s, transform 0.15s;
-  box-shadow: 0 4px 16px rgba(0,255,109,0.2);
-}
-.nc-result-cta:hover { background: #00e060; transform: translateY(-1px); }
+.csn-r-cta:hover{background:#00e060;transform:translateY(-2px);}
 </style>
-<div class="nc-section">
-  <h2 class="nc-headline">¿No sabes si necesitas<br><span>un contador?</span></h2>
-  <p class="nc-sub">Haz el diagnóstico rápido de tu negocio.</p>
-  <p class="nc-instruction">✓ Selecciona las situaciones que aplican a ti</p>
-  <div class="nc-cards">
-    <div class="nc-card" onclick="toggleNcCard(this)">
-      <div class="nc-checkbox"></div>
-      <div class="nc-card-icon">🧾</div>
-      <div class="nc-card-text">Emito facturas pero no estoy seguro de hacerlo correctamente</div>
+<div class="csn-section">
+  <h2 class="csn-headline">¿Cómo saber si<br><span>necesito un contador?</span></h2>
+  <p class="csn-sub">Responde honestamente. En segundos sabes si es momento de actuar.</p>
+  <div class="csn-cards">
+    <div class="csn-card" onclick="csnToggle(this)">
+      <div class="csn-cb"></div><div class="csn-ci">🧾</div>
+      <div class="csn-ct">Emito facturas pero no estoy seguro de hacerlo bien</div>
     </div>
-    <div class="nc-card" onclick="toggleNcCard(this)">
-      <div class="nc-checkbox"></div>
-      <div class="nc-card-icon">🏛️</div>
-      <div class="nc-card-text">El SAT me mandó un aviso y no sé cómo responderlo</div>
+    <div class="csn-card" onclick="csnToggle(this)">
+      <div class="csn-cb"></div><div class="csn-ci">🏛️</div>
+      <div class="csn-ct">El SAT me mandó un aviso y no sé cómo responderlo</div>
     </div>
-    <div class="nc-card" onclick="toggleNcCard(this)">
-      <div class="nc-checkbox"></div>
-      <div class="nc-card-icon">👥</div>
-      <div class="nc-card-text">Tengo empleados y no sé si los estoy pagando bien ante el IMSS</div>
+    <div class="csn-card" onclick="csnToggle(this)">
+      <div class="csn-cb"></div><div class="csn-ci">👥</div>
+      <div class="csn-ct">Tengo empleados y no sé si los estoy pagando bien ante el IMSS</div>
     </div>
-    <div class="nc-card" onclick="toggleNcCard(this)">
-      <div class="nc-checkbox"></div>
-      <div class="nc-card-icon">📈</div>
-      <div class="nc-card-text">Mi negocio está creciendo pero no sé si realmente es rentable</div>
+    <div class="csn-card" onclick="csnToggle(this)">
+      <div class="csn-cb"></div><div class="csn-ci">📈</div>
+      <div class="csn-ct">Mi negocio está creciendo pero no sé si realmente es rentable</div>
     </div>
-    <div class="nc-card" onclick="toggleNcCard(this)">
-      <div class="nc-checkbox"></div>
-      <div class="nc-card-icon">⏱️</div>
-      <div class="nc-card-text">Ya no tengo tiempo de llevar mis propios números y contabilidad</div>
+    <div class="csn-card" onclick="csnToggle(this)">
+      <div class="csn-cb"></div><div class="csn-ci">⏱️</div>
+      <div class="csn-ct">Ya no tengo tiempo de llevar mis propios números y contabilidad</div>
     </div>
   </div>
-  <div class="nc-counter-wrap">
-    <div class="nc-counter-bar"><div class="nc-counter-fill" id="nc-fill"></div></div>
-    <div class="nc-counter-text" id="nc-counter-text">0 de 5 situaciones seleccionadas</div>
+  <div class="csn-score-wrap">
+    <div class="csn-score-bar"><div class="csn-score-fill" id="csn-fill"></div></div>
+    <div class="csn-score-label"><span>0%</span><span id="csn-pct">0%</span><span>100%</span></div>
   </div>
-  <div class="nc-result show-0" id="nc-result">
-    <div class="nc-result-emoji" id="nc-emoji">☝️</div>
-    <div class="nc-result-title" id="nc-rtitle">Selecciona las situaciones que aplican</div>
-    <div class="nc-result-desc" id="nc-rdesc">Marca las que reconoces en tu negocio para ver tu diagnóstico.</div>
+  <div class="csn-result-panel" id="csn-panel">
+    <div class="csn-r-emoji" id="csn-emoji">☝️</div>
+    <div class="csn-r-title" id="csn-title">Selecciona las situaciones que aplican</div>
+    <div class="csn-r-desc" id="csn-desc">Marca cada una que reconozcas en tu negocio para ver tu diagnóstico personalizado.</div>
   </div>
 </div>
 <script>
-const ncResults = [
-  { cls: 'show-0', emoji: '☝️', title: 'Selecciona las situaciones que aplican', desc: 'Marca las que reconoces en tu negocio para ver tu diagnóstico.', cta: false },
-  { cls: 'show-low', emoji: '🤔', title: 'Podrías beneficiarte de orientación', desc: 'Una situación ya es señal de que hay algo por ordenar. Una consulta rápida puede ahorrarte problemas futuros.', cta: true },
-  { cls: 'show-low', emoji: '⚠️', title: 'Ya hay señales de alerta', desc: 'Dos situaciones indican que hay áreas de tu negocio que necesitan atención fiscal o financiera pronto.', cta: true },
-  { cls: 'show-mid', emoji: '🚨', title: 'Necesitas un contador ahora', desc: 'Con tres situaciones activas, tu negocio está acumulando riesgos fiscales y financieros que pueden costar caro. Actúa antes de que se compliquen.', cta: true },
-  { cls: 'show-high', emoji: '🔥', title: 'Necesitas un contador urgente', desc: 'Cuatro situaciones es una señal clara de que tu negocio necesita orden fiscal y financiero de inmediato. No lo dejes para después.', cta: true },
-  { cls: 'show-high', emoji: '💡', title: '¡Definitivamente necesitas apoyo profesional!', desc: 'Tu negocio tiene todo para crecer — solo necesita el soporte fiscal y financiero correcto. Hablemos hoy.', cta: true },
+const csnData=[
+  {cls:'',emoji:'☝️',title:'Selecciona las situaciones que aplican',desc:'Marca cada una que reconozcas en tu negocio para ver tu diagnóstico personalizado.',cta:false},
+  {cls:'r1',emoji:'🤔',title:'Podrías beneficiarte de orientación',desc:'Una situación ya es señal de que hay algo por ordenar. Una consulta rápida puede ahorrarte problemas futuros.',cta:true},
+  {cls:'r1',emoji:'⚠️',title:'Hay señales de alerta en tu negocio',desc:'Dos situaciones indican que hay áreas que necesitan atención fiscal o financiera pronto.',cta:true},
+  {cls:'r2',emoji:'🚨',title:'Necesitas un contador ahora',desc:'Con tres situaciones activas, tu negocio acumula riesgos fiscales que pueden costar caro. Actúa antes de que se compliquen.',cta:true},
+  {cls:'r3',emoji:'🔥',title:'Necesitas un contador urgente',desc:'Cuatro situaciones es una señal clara de que tu negocio necesita orden fiscal de inmediato. No lo dejes para después.',cta:true},
+  {cls:'r3',emoji:'💡',title:'¡Definitivamente necesitas apoyo profesional!',desc:'Tu negocio tiene todo para crecer — solo necesita el soporte fiscal y financiero correcto. Hablemos hoy.',cta:true},
 ];
-function toggleNcCard(el) {
-  el.classList.toggle('selected');
-  el.querySelector('.nc-checkbox').textContent = el.classList.contains('selected') ? '✓' : '';
-  updateNcResult();
-}
-function updateNcResult() {
-  const count = document.querySelectorAll('.nc-card.selected').length;
-  const r = ncResults[count];
-  const pct = (count / 5) * 100;
-  document.getElementById('nc-fill').style.width = pct + '%';
-  document.getElementById('nc-counter-text').textContent = count + ' de 5 situaciones seleccionadas';
-  const res = document.getElementById('nc-result');
-  res.className = 'nc-result ' + r.cls;
-  document.getElementById('nc-emoji').textContent = r.emoji;
-  document.getElementById('nc-rtitle').textContent = r.title;
-  document.getElementById('nc-rdesc').textContent = r.desc;
-  const existing = res.querySelector('.nc-result-cta');
-  if (existing) existing.remove();
-  if (r.cta) {
-    const btn = document.createElement('a');
-    btn.href = 'https://wa.me/5214442522739';
-    btn.target = '_blank';
-    btn.className = 'nc-result-cta';
-    btn.textContent = 'Quiero una consulta gratuita →';
-    res.appendChild(btn);
-  }
+function csnToggle(el){
+  el.classList.toggle('on');
+  el.querySelector('.csn-cb').textContent=el.classList.contains('on')?'✓':'';
+  const n=document.querySelectorAll('.csn-card.on').length;
+  const pct=Math.round(n/5*100);
+  document.getElementById('csn-fill').style.width=pct+'%';
+  document.getElementById('csn-pct').textContent=pct+'%';
+  const d=csnData[n];
+  const panel=document.getElementById('csn-panel');
+  panel.className='csn-result-panel '+d.cls;
+  document.getElementById('csn-emoji').textContent=d.emoji;
+  document.getElementById('csn-title').textContent=d.title;
+  document.getElementById('csn-desc').textContent=d.desc;
+  const ex=panel.querySelector('.csn-r-cta');if(ex)ex.remove();
+  if(d.cta){const a=document.createElement('a');a.href='https://wa.me/5214442522739';a.target='_blank';a.className='csn-r-cta';a.textContent='Quiero mi consulta gratuita →';panel.appendChild(a);}
 }
 </script>
 
