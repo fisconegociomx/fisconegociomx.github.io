@@ -505,107 +505,98 @@
 
 <!-- PROBLEMA -->
 <style>
-.prob2-section{max-width:720px;margin:0 auto 64px;padding:0 20px;}
-.prob2-headline{text-align:center;font-size:clamp(1.4rem,4vw,2.1rem);font-weight:900;line-height:1.2;margin-bottom:8px;}
-.prob2-headline span{color:#00ff6d;}
-.prob2-sub{text-align:center;font-size:0.86rem;color:#8C8C8C;margin-bottom:32px;}
-.prob2-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px;}
-@media(max-width:520px){.prob2-grid{grid-template-columns:1fr;}}
-.prob2-card{
+.prob-vis{max-width:720px;margin:0 auto 64px;padding:0 20px;}
+.prob-vis-hl{text-align:center;font-size:clamp(1.4rem,4vw,2.1rem);font-weight:900;line-height:1.2;margin-bottom:8px;}
+.prob-vis-hl span{color:#00ff6d;}
+.prob-vis-sub{text-align:center;font-size:0.86rem;color:#8C8C8C;margin-bottom:36px;}
+.prob-vis-grid{display:flex;flex-direction:column;gap:12px;margin-bottom:28px;}
+.prob-vis-item{
   background:var(--dark-3);border:1.5px solid #1e2240;border-radius:14px;
-  padding:16px 16px;display:flex;align-items:flex-start;gap:12px;
-  cursor:pointer;
-  opacity:0;transform:translateY(16px);
-  transition:opacity 0.4s ease,transform 0.4s ease,border-color 0.25s,background 0.25s,box-shadow 0.25s;
-  user-select:none;
+  padding:18px 20px;display:flex;align-items:center;gap:16px;
+  opacity:0;transform:translateX(-20px);
+  transition:opacity 0.45s ease,transform 0.45s ease;
 }
-.prob2-card.visible{opacity:1;transform:translateY(0);}
-.prob2-card.on{border-color:#ff5050;background:rgba(255,60,60,0.07);box-shadow:0 4px 20px rgba(255,60,60,0.12);}
-.prob2-card:hover:not(.on){border-color:rgba(255,80,80,0.3);background:rgba(255,60,60,0.04);}
-.prob2-chk{min-width:22px;height:22px;border-radius:6px;border:2px solid #2a3050;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;font-size:0.78rem;font-weight:900;transition:border-color 0.2s,background 0.2s;}
-.prob2-card.on .prob2-chk{border-color:#ff5050;background:#ff5050;color:#fff;}
-.prob2-ico{font-size:1.25rem;flex-shrink:0;}
-.prob2-txt{font-size:0.82rem;font-weight:600;color:#ccc;line-height:1.45;}
-.prob2-card.on .prob2-txt{color:#fff;}
-.prob2-bar-wrap{max-width:100%;height:5px;border-radius:3px;background:#1e2240;overflow:hidden;margin-bottom:20px;}
-.prob2-bar{height:100%;border-radius:3px;background:linear-gradient(90deg,#ff5050,#ff8080);width:0%;transition:width 0.45s cubic-bezier(.4,0,.2,1);}
-.prob2-result{border-radius:16px;padding:22px 24px;text-align:center;border:1.5px solid #1e2240;background:var(--dark-3);transition:border-color 0.4s,box-shadow 0.4s;}
-.prob2-result.l1{border-color:rgba(255,200,0,0.4);box-shadow:0 0 24px rgba(255,200,0,0.05);}
-.prob2-result.l2{border-color:rgba(255,120,0,0.4);box-shadow:0 0 24px rgba(255,120,0,0.07);}
-.prob2-result.l3{border-color:rgba(255,60,60,0.5);box-shadow:0 0 28px rgba(255,60,60,0.09);}
-.prob2-r-emoji{font-size:1.8rem;margin-bottom:6px;}
-.prob2-r-title{font-size:0.95rem;font-weight:800;color:#fff;margin-bottom:6px;}
-.prob2-r-desc{font-size:0.8rem;color:#aaa;line-height:1.55;margin-bottom:14px;}
-.prob2-r-cta{display:inline-block;background:#00ff6d;color:#0d1026;font-size:0.84rem;font-weight:800;padding:12px 26px;border-radius:50px;text-decoration:none;transition:background 0.2s,transform 0.15s;box-shadow:0 4px 18px rgba(0,255,109,0.25);}
-.prob2-r-cta:hover{background:#00e060;transform:translateY(-2px);}
+.prob-vis-item.visible{opacity:1;transform:translateX(0);}
+.prob-vis-left{display:flex;align-items:center;gap:14px;flex:1;}
+.prob-vis-icon{font-size:1.5rem;flex-shrink:0;}
+.prob-vis-text{font-size:0.88rem;font-weight:700;color:#ddd;line-height:1.4;}
+.prob-vis-x{
+  width:28px;height:28px;border-radius:50%;
+  background:rgba(255,60,60,0.12);border:1.5px solid rgba(255,60,60,0.3);
+  display:flex;align-items:center;justify-content:center;
+  color:#ff5050;font-size:0.9rem;font-weight:900;flex-shrink:0;
+}
+.prob-vis-close{
+  text-align:center;
+  background:linear-gradient(135deg,rgba(0,255,109,0.07),rgba(0,255,109,0.02));
+  border:1.5px solid rgba(0,255,109,0.2);border-radius:16px;padding:22px 24px;
+  opacity:0;transform:translateY(12px);
+  transition:opacity 0.5s ease 0.3s,transform 0.5s ease 0.3s;
+}
+.prob-vis-close.visible{opacity:1;transform:translateY(0);}
+.prob-vis-close p{font-size:0.95rem;font-weight:700;color:#fff;line-height:1.5;margin-bottom:0;}
+.prob-vis-close em{color:#00ff6d;font-style:normal;}
 </style>
-<div class="prob2-section">
-  <h2 class="prob2-headline">¿Te suena<br><span>familiar?</span></h2>
-  <p class="prob2-sub">Selecciona las situaciones que reconoces en tu negocio.</p>
-  <div class="prob2-grid">
-    <div class="prob2-card" onclick="p2Toggle(this)">
-      <div class="prob2-chk"></div><div class="prob2-ico">🧾</div>
-      <div class="prob2-txt">No sabes si estás facturando correctamente</div>
+<div class="prob-vis">
+  <h2 class="prob-vis-hl">¿Te suena<br><span>familiar?</span></h2>
+  <p class="prob-vis-sub">Estas son las situaciones más comunes que enfrentan los emprendedores antes de contar con el apoyo correcto.</p>
+  <div class="prob-vis-grid">
+    <div class="prob-vis-item">
+      <div class="prob-vis-left">
+        <div class="prob-vis-icon">🧾</div>
+        <div class="prob-vis-text">No sabes si estás facturando correctamente</div>
+      </div>
+      <div class="prob-vis-x">✕</div>
     </div>
-    <div class="prob2-card" onclick="p2Toggle(this)">
-      <div class="prob2-chk"></div><div class="prob2-ico">🏛️</div>
-      <div class="prob2-txt">Recibes requerimientos del SAT sin entender por qué</div>
+    <div class="prob-vis-item">
+      <div class="prob-vis-left">
+        <div class="prob-vis-icon">🏛️</div>
+        <div class="prob-vis-text">Recibes requerimientos del SAT sin entender por qué</div>
+      </div>
+      <div class="prob-vis-x">✕</div>
     </div>
-    <div class="prob2-card" onclick="p2Toggle(this)">
-      <div class="prob2-chk"></div><div class="prob2-ico">👻</div>
-      <div class="prob2-txt">Tu contador solo aparece en época de declaraciones</div>
+    <div class="prob-vis-item">
+      <div class="prob-vis-left">
+        <div class="prob-vis-icon">👻</div>
+        <div class="prob-vis-text">Tu contador solo aparece en época de declaraciones</div>
+      </div>
+      <div class="prob-vis-x">✕</div>
     </div>
-    <div class="prob2-card" onclick="p2Toggle(this)">
-      <div class="prob2-chk"></div><div class="prob2-ico">🤯</div>
-      <div class="prob2-txt">Nadie te explica en términos simples qué debes hacer</div>
+    <div class="prob-vis-item">
+      <div class="prob-vis-left">
+        <div class="prob-vis-icon">🤯</div>
+        <div class="prob-vis-text">Nadie te explica en términos simples qué debes hacer</div>
+      </div>
+      <div class="prob-vis-x">✕</div>
     </div>
-    <div class="prob2-card" onclick="p2Toggle(this)" style="grid-column:1/-1;">
-      <div class="prob2-chk"></div><div class="prob2-ico">💸</div>
-      <div class="prob2-txt">Sientes que pagas más impuestos de lo que deberías</div>
+    <div class="prob-vis-item">
+      <div class="prob-vis-left">
+        <div class="prob-vis-icon">💸</div>
+        <div class="prob-vis-text">Sientes que pagas más impuestos de lo que deberías</div>
+      </div>
+      <div class="prob-vis-x">✕</div>
     </div>
   </div>
-  <div class="prob2-bar-wrap"><div class="prob2-bar" id="p2bar"></div></div>
-  <div class="prob2-result" id="p2result">
-    <div class="prob2-r-emoji" id="p2emoji">👆</div>
-    <div class="prob2-r-title" id="p2title">Selecciona las que aplican a tu negocio</div>
-    <div class="prob2-r-desc" id="p2desc">Haz clic en cada situación que reconozcas para ver tu resultado.</div>
+  <div class="prob-vis-close" id="prob-vis-close">
+    <p>Si te identificas con alguno… <em>necesitas un contador diferente.</em></p>
   </div>
 </div>
 <script>
-const p2data=[
-  {cls:'',emoji:'👆',title:'Selecciona las que aplican a tu negocio',desc:'Haz clic en cada situación que reconozcas para ver tu resultado.',cta:false},
-  {cls:'l1',emoji:'🤔',title:'Hay algo por atender',desc:'Una situación ya es señal. Una consulta rápida puede evitarte problemas futuros.',cta:true},
-  {cls:'l1',emoji:'⚠️',title:'Hay señales de alerta',desc:'Dos situaciones indican áreas de riesgo que conviene revisar pronto.',cta:true},
-  {cls:'l2',emoji:'🚨',title:'Necesitas un contador ahora',desc:'Tres situaciones activas significan riesgos fiscales acumulándose. Actúa antes de que se compliquen.',cta:true},
-  {cls:'l3',emoji:'🔥',title:'Es urgente regularizarte',desc:'Cuatro situaciones es señal clara. Tu negocio necesita orden fiscal de inmediato.',cta:true},
-  {cls:'l3',emoji:'💡',title:'¡Definitivamente necesitas apoyo!',desc:'Tu negocio tiene todo para crecer — solo le falta el soporte fiscal correcto. Hablemos hoy.',cta:true},
-];
-function p2Toggle(el){
-  el.classList.toggle('on');
-  el.querySelector('.prob2-chk').textContent=el.classList.contains('on')?'✓':'';
-  const n=document.querySelectorAll('.prob2-card.on').length;
-  document.getElementById('p2bar').style.width=(n/5*100)+'%';
-  const d=p2data[n];
-  const res=document.getElementById('p2result');
-  res.className='prob2-result '+d.cls;
-  document.getElementById('p2emoji').textContent=d.emoji;
-  document.getElementById('p2title').textContent=d.title;
-  document.getElementById('p2desc').textContent=d.desc;
-  const ex=res.querySelector('.prob2-r-cta');if(ex)ex.remove();
-  if(d.cta){const a=document.createElement('a');a.href='https://wa.me/5214442522739';a.target='_blank';a.className='prob2-r-cta';a.textContent='Quiero una consulta gratuita →';res.appendChild(a);}
-}
 (function(){
-  const cards=document.querySelectorAll('.prob2-card');
-  const obs=new IntersectionObserver((e)=>{
+  const items=document.querySelectorAll('.prob-vis-item');
+  const closeEl=document.getElementById('prob-vis-close');
+  const obs=new IntersectionObserver(e=>{
     e.forEach(en=>{
       if(en.isIntersecting){
-        const i=Array.from(cards).indexOf(en.target);
-        setTimeout(()=>en.target.classList.add('visible'),i*80);
+        const i=Array.from(items).indexOf(en.target);
+        setTimeout(()=>en.target.classList.add('visible'),i*90);
         obs.unobserve(en.target);
       }
     });
   },{threshold:0.1});
-  cards.forEach(c=>obs.observe(c));
+  items.forEach(it=>obs.observe(it));
+  const obs2=new IntersectionObserver(e=>{if(e[0].isIntersecting){closeEl.classList.add('visible');obs2.unobserve(closeEl);}},{threshold:0.3});
+  obs2.observe(closeEl);
 })();
 </script>
 
@@ -1042,233 +1033,110 @@ function toggleBen(el) {
 .proceso-headline{text-align:center;font-size:clamp(1.5rem,4vw,2.2rem);font-weight:900;line-height:1.2;margin-bottom:10px;}
 .proceso-headline span{color:#00ff6d;}
 .proceso-sub{text-align:center;font-size:.88rem;color:#8C8C8C;margin-bottom:44px;}
-.proceso-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;position:relative;}
-.proceso-steps::before{
+.proceso-steps4{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;}
+.proceso-steps4::before{
   content:'';position:absolute;
-  top:52px;left:calc(16.6% + 16px);right:calc(16.6% + 16px);
+  top:52px;left:calc(12.5% + 12px);right:calc(12.5% + 12px);
   height:2px;
-  background:linear-gradient(90deg,#00ff6d44,#00ff6d,#00ff6d44);
+  background:linear-gradient(90deg,#00ff6d33,#00ff6d,#00ff6d33);
   z-index:0;
 }
-.paso{
+.paso4{
   display:flex;flex-direction:column;align-items:center;
-  text-align:center;padding:0 16px;
+  text-align:center;padding:0 10px;
   position:relative;z-index:1;
   opacity:0;transform:translateY(28px);
   transition:opacity .5s ease,transform .5s ease;
 }
-.paso.visible{opacity:1;transform:translateY(0);}
-.paso-num-wrap{
+.paso4.visible{opacity:1;transform:translateY(0);}
+.paso4-num-wrap{
   width:64px;height:64px;border-radius:50%;
-  background:#151832;
-  border:2px solid #00ff6d;
+  background:#151832;border:2px solid #00ff6d;
   display:flex;align-items:center;justify-content:center;
   margin-bottom:20px;position:relative;
   box-shadow:0 0 24px rgba(0,255,109,.15);
   transition:box-shadow .3s,transform .3s;
 }
-.paso:hover .paso-num-wrap{box-shadow:0 0 40px rgba(0,255,109,.35);transform:scale(1.08);}
-.paso-num{font-size:1.5rem;font-weight:900;color:#00ff6d;}
-.paso-icon{font-size:1.4rem;position:absolute;top:-10px;right:-10px;background:#0d1026;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:1rem;}
-.paso-card{
-  background:#151832;border:1px solid #1e2240;
-  border-radius:16px;padding:20px 16px;width:100%;
+.paso4:hover .paso4-num-wrap{box-shadow:0 0 40px rgba(0,255,109,.35);transform:scale(1.08);}
+.paso4-num{font-size:1.4rem;font-weight:900;color:#00ff6d;}
+.paso4-icon{font-size:1rem;position:absolute;top:-8px;right:-8px;background:#0d1026;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;}
+.paso4-card{
+  background:#151832;border:1px solid #1e2240;border-radius:16px;padding:18px 14px;width:100%;
   transition:border-color .3s,box-shadow .3s;
 }
-.paso:hover .paso-card{border-color:rgba(0,255,109,.35);box-shadow:0 8px 32px rgba(0,255,109,.07);}
-.paso-title{font-size:.95rem;font-weight:800;color:#fff;margin-bottom:8px;}
-.paso-desc{font-size:.78rem;color:#8C8C8C;line-height:1.6;}
-.proceso-cta{text-align:center;margin-top:36px;opacity:0;transform:translateY(12px);transition:opacity .5s .5s,transform .5s .5s;}
-.proceso-cta.visible{opacity:1;transform:translateY(0);}
-@media(max-width:600px){
-  .proceso-steps{grid-template-columns:1fr;gap:16px;}
-  .proceso-steps::before{display:none;}
-  .paso{padding:0;}
-  .paso-num-wrap{margin-bottom:14px;}
+.paso4:hover .paso4-card{border-color:rgba(0,255,109,.35);box-shadow:0 8px 32px rgba(0,255,109,.07);}
+.paso4-title{font-size:.82rem;font-weight:800;color:#fff;margin-bottom:8px;line-height:1.35;}
+.paso4-desc{font-size:.73rem;color:#8C8C8C;line-height:1.55;}
+.proceso-cta4{text-align:center;margin-top:36px;opacity:0;transform:translateY(12px);transition:opacity .5s .5s,transform .5s .5s;}
+.proceso-cta4.visible{opacity:1;transform:translateY(0);}
+@media(max-width:680px){
+  .proceso-steps4{grid-template-columns:1fr 1fr;gap:16px;}
+  .proceso-steps4::before{display:none;}
+  .paso4{padding:0;}
+}
+@media(max-width:420px){
+  .proceso-steps4{grid-template-columns:1fr;gap:14px;}
 }
 </style>
 <div class="proceso-section">
   <h2 class="proceso-headline">¿Cómo<br><span>trabajamos?</span></h2>
   <p class="proceso-sub">Sin complicaciones, sin tecnicismos. Así es como ordenamos tu negocio juntos.</p>
-  <div class="proceso-steps">
-    <div class="paso" id="paso1">
-      <div class="paso-num-wrap">
-        <span class="paso-num">01</span>
-        <span class="paso-icon">🔍</span>
+  <div class="proceso-steps4">
+    <div class="paso4" id="paso4-1">
+      <div class="paso4-num-wrap">
+        <span class="paso4-num">01</span>
+        <span class="paso4-icon">🔍</span>
       </div>
-      <div class="paso-card">
-        <div class="paso-title">Diagnóstico gratuito</div>
-        <div class="paso-desc">Platicamos tu situación sin costo. Revisamos dónde estás, qué riesgos tienes y qué necesitas ordenar primero.</div>
-      </div>
-    </div>
-    <div class="paso" id="paso2">
-      <div class="paso-num-wrap">
-        <span class="paso-num">02</span>
-        <span class="paso-icon">📋</span>
-      </div>
-      <div class="paso-card">
-        <div class="paso-title">Plan personalizado</div>
-        <div class="paso-desc">Diseñamos una estrategia fiscal y contable adaptada a tu tipo de negocio, tus ingresos y tus metas de crecimiento.</div>
+      <div class="paso4-card">
+        <div class="paso4-title">Diagnóstico gratuito</div>
+        <div class="paso4-desc">Platicamos tu situación sin costo. Revisamos riesgos y qué necesitas ordenar primero.</div>
       </div>
     </div>
-    <div class="paso" id="paso3">
-      <div class="paso-num-wrap">
-        <span class="paso-num">03</span>
-        <span class="paso-icon">🤝</span>
+    <div class="paso4" id="paso4-2">
+      <div class="paso4-num-wrap">
+        <span class="paso4-num">02</span>
+        <span class="paso4-icon">📋</span>
       </div>
-      <div class="paso-card">
-        <div class="paso-title">Acompañamiento constante</div>
-        <div class="paso-desc">No desaparecemos. Estamos contigo todo el año, resolvemos tus dudas y te avisamos antes de que algo se complique.</div>
+      <div class="paso4-card">
+        <div class="paso4-title">Plan personalizado y contratación</div>
+        <div class="paso4-desc">Diseñamos la estrategia fiscal adaptada a tu negocio y formalizamos los servicios.</div>
+      </div>
+    </div>
+    <div class="paso4" id="paso4-3">
+      <div class="paso4-num-wrap">
+        <span class="paso4-num">03</span>
+        <span class="paso4-icon">📁</span>
+      </div>
+      <div class="paso4-card">
+        <div class="paso4-title">Trámites y altas iniciales</div>
+        <div class="paso4-desc">Realizamos todas las gestiones ante el SAT, IMSS y demás organismos necesarios.</div>
+      </div>
+    </div>
+    <div class="paso4" id="paso4-4">
+      <div class="paso4-num-wrap">
+        <span class="paso4-num">04</span>
+        <span class="paso4-icon">🤝</span>
+      </div>
+      <div class="paso4-card">
+        <div class="paso4-title">Acompañamiento estratégico constante</div>
+        <div class="paso4-desc">Estamos contigo todo el año. Resolvemos dudas y te avisamos antes de que algo se complique.</div>
       </div>
     </div>
   </div>
-  <div class="proceso-cta" id="proceso-cta">
-    <a href="https://wa.me/5214442522739" target="_blank" style="display:inline-block;background:#00ff6d;color:#0d1026;font-size:.9rem;font-weight:800;padding:14px 32px;border-radius:50px;text-decoration:none;transition:background .2s,transform .15s;box-shadow:0 6px 24px rgba(0,255,109,.25);" onmouseover="this.style.background='#00e060';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#00ff6d';this.style.transform='translateY(0)'">Quiero empezar →</a>
+  <div class="proceso-cta4" id="proceso-cta4">
+    <a href="https://wa.me/5214442522739" target="_blank" style="display:inline-block;background:#00ff6d;color:#0d1026;font-size:.9rem;font-weight:800;padding:14px 32px;border-radius:50px;text-decoration:none;box-shadow:0 6px 24px rgba(0,255,109,.25);">Quiero empezar →</a>
   </div>
 </div>
 <script>
 (function(){
-  const pasos = [document.getElementById('paso1'),document.getElementById('paso2'),document.getElementById('paso3')];
-  const ctaEl = document.getElementById('proceso-cta');
-  const obs = new IntersectionObserver(entries=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}
-    });
+  const pasos=[document.getElementById('paso4-1'),document.getElementById('paso4-2'),document.getElementById('paso4-3'),document.getElementById('paso4-4')];
+  const ctaEl=document.getElementById('proceso-cta4');
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
   },{threshold:0.2});
-  pasos.forEach((p,i)=>{p.style.transitionDelay=(i*.15)+'s';obs.observe(p);});
-  const obs2 = new IntersectionObserver(entries=>{
-    if(entries[0].isIntersecting)ctaEl.classList.add('visible');
-  },{threshold:0.3});
+  pasos.forEach((p,i)=>{p.style.transitionDelay=(i*.12)+'s';obs.observe(p);});
+  const obs2=new IntersectionObserver(entries=>{if(entries[0].isIntersecting)ctaEl.classList.add('visible');},{threshold:0.3});
   obs2.observe(ctaEl);
-})();
-</script>
-
-<!-- PROCESO -->
-<style>
-.proceso-section{max-width:720px;margin:0 auto 64px;padding:0 20px;}
-.proceso-headline{text-align:center;font-size:clamp(1.5rem,4vw,2.2rem);font-weight:900;line-height:1.2;margin-bottom:8px;}
-.proceso-headline span{color:#00ff6d;}
-.proceso-sub{text-align:center;font-size:0.88rem;color:#8C8C8C;margin-bottom:44px;}
-.proceso-steps{display:flex;flex-direction:column;gap:0;position:relative;}
-.proceso-step{
-  display:flex;gap:24px;align-items:flex-start;
-  opacity:0;transform:translateY(24px);
-  transition:opacity 0.55s ease,transform 0.55s ease;
-  position:relative;
-}
-.proceso-step.visible{opacity:1;transform:translateY(0);}
-.proceso-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0;}
-.proceso-num{
-  width:52px;height:52px;
-  border-radius:50%;
-  background:linear-gradient(135deg,#00ff6d,#00cc57);
-  color:#0d1026;
-  font-size:1.3rem;font-weight:900;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 4px 20px rgba(0,255,109,0.3);
-  position:relative;z-index:1;flex-shrink:0;
-}
-.proceso-line{
-  width:2px;flex:1;min-height:40px;
-  background:linear-gradient(180deg,rgba(0,255,109,0.4),rgba(0,255,109,0.05));
-  margin:0 auto;
-}
-.proceso-step:last-child .proceso-line{display:none;}
-.proceso-body{
-  background:var(--dark-3);
-  border:1.5px solid #1e2240;
-  border-radius:18px;
-  padding:22px 22px 22px;
-  flex:1;margin-bottom:28px;
-  transition:border-color 0.3s,box-shadow 0.3s,transform 0.3s;
-  cursor:default;
-  position:relative;overflow:hidden;
-}
-.proceso-body::after{
-  content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,#00ff6d,#00cc57);
-  transform:scaleX(0);transform-origin:left;
-  transition:transform 0.4s ease;
-}
-.proceso-body:hover{border-color:rgba(0,255,109,0.4);box-shadow:0 8px 32px rgba(0,255,109,0.08);transform:translateY(-2px);}
-.proceso-body:hover::after{transform:scaleX(1);}
-.proceso-body-top{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
-.proceso-icon{font-size:1.6rem;}
-.proceso-tag{
-  font-size:0.65rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;
-  color:#00ff6d;background:rgba(0,255,109,0.1);
-  padding:4px 10px;border-radius:20px;
-}
-.proceso-title{font-size:1rem;font-weight:800;color:#fff;margin-bottom:6px;}
-.proceso-desc{font-size:0.83rem;color:#aaa;line-height:1.65;}
-.proceso-desc strong{color:#ddd;}
-@media(max-width:560px){
-  .proceso-left{display:none;}
-  .proceso-step{gap:0;}
-  .proceso-body{margin-bottom:16px;}
-}
-</style>
-<div class="proceso-section">
-  <h2 class="proceso-headline">¿Cómo<br><span>trabajamos?</span></h2>
-  <p class="proceso-sub">Un proceso claro, sin sorpresas. Sabes exactamente qué esperar en cada etapa.</p>
-  <div class="proceso-steps">
-    <div class="proceso-step">
-      <div class="proceso-left">
-        <div class="proceso-num">1</div>
-        <div class="proceso-line"></div>
-      </div>
-      <div class="proceso-body">
-        <div class="proceso-body-top">
-          <div class="proceso-icon">🔍</div>
-          <div class="proceso-tag">Día 1</div>
-        </div>
-        <div class="proceso-title">Diagnóstico gratuito</div>
-        <div class="proceso-desc">Me cuentas la situación de tu negocio: <strong>qué actividad tienes, cómo estás registrado, qué problemas has tenido.</strong> Sin costo, sin compromiso. Solo platícame y te digo exactamente qué necesitas.</div>
-      </div>
-    </div>
-    <div class="proceso-step">
-      <div class="proceso-left">
-        <div class="proceso-num">2</div>
-        <div class="proceso-line"></div>
-      </div>
-      <div class="proceso-body">
-        <div class="proceso-body-top">
-          <div class="proceso-icon">📋</div>
-          <div class="proceso-tag">Semana 1</div>
-        </div>
-        <div class="proceso-title">Plan personalizado</div>
-        <div class="proceso-desc">Diseñamos juntos <strong>una estrategia fiscal adaptada a tu negocio y tus metas.</strong> Nada genérico. Definimos qué servicios necesitas, costos claros y un roadmap para ordenar todo.</div>
-      </div>
-    </div>
-    <div class="proceso-step">
-      <div class="proceso-left">
-        <div class="proceso-num">3</div>
-        <div class="proceso-line"></div>
-      </div>
-      <div class="proceso-body">
-        <div class="proceso-body-top">
-          <div class="proceso-icon">🤝</div>
-          <div class="proceso-tag">Siempre</div>
-        </div>
-        <div class="proceso-title">Acompañamiento constante</div>
-        <div class="proceso-desc">No desaparezco después de la firma. <strong>Estoy disponible para resolver tus dudas, avisarte de obligaciones, y ayudarte a tomar mejores decisiones financieras</strong> mes con mes.</div>
-      </div>
-    </div>
-  </div>
-</div>
-<script>
-(function(){
-  const steps = document.querySelectorAll('.proceso-step');
-  const obs = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){
-        const idx = Array.from(steps).indexOf(e.target);
-        setTimeout(()=>e.target.classList.add('visible'),idx*150);
-        obs.unobserve(e.target);
-      }
-    });
-  },{threshold:0.15});
-  steps.forEach(s=>obs.observe(s));
 })();
 </script>
 
