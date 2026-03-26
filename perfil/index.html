@@ -230,6 +230,195 @@
 
   <div class="divider"></div>
 
+
+  <!-- EMPRESAS -->
+  <style>
+    .emp-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    @media(max-width:540px){ .emp-grid{ grid-template-columns:1fr; } }
+
+    .emp-card {
+      background:var(--dark-3); border:1px solid #1e2244;
+      border-radius:18px; overflow:hidden;
+      transition:transform 0.2s, border-color 0.2s;
+      display:flex; flex-direction:column;
+    }
+    .emp-card:hover { transform:translateY(-3px); border-color:rgba(0,255,109,0.2); }
+
+    .emp-card-header {
+      padding:24px 22px 16px;
+      display:flex; align-items:center; gap:14px;
+    }
+    .emp-logo-wrap {
+      width:52px; height:52px; border-radius:12px;
+      background:#111; overflow:hidden; flex-shrink:0;
+      display:flex; align-items:center; justify-content:center;
+      border:1px solid #1e2244;
+    }
+    .emp-logo-wrap img { width:100%; height:100%; object-fit:contain; padding:6px; }
+    .emp-logo-icon {
+      font-size:1.5rem;
+    }
+    .emp-info {}
+    .emp-name {
+      font-size:0.95rem; font-weight:800; color:#ddd;
+      line-height:1.2; margin-bottom:3px;
+    }
+    .emp-category {
+      font-size:0.65rem; font-weight:700; letter-spacing:0.12em;
+      text-transform:uppercase; color:#333;
+    }
+    .emp-category.fiscal { color:#00cc57; }
+    .emp-category.web3   { color:#a78bfa; }
+    .emp-category.ai     { color:#38bdf8; }
+    .emp-category.cowork { color:#fb923c; }
+
+    .emp-divider { height:1px; background:#111; margin:0 22px; }
+
+    .emp-body { padding:16px 22px 22px; flex:1; display:flex; flex-direction:column; gap:12px; }
+    .emp-desc {
+      font-size:0.82rem; color:#555; line-height:1.7; flex:1;
+    }
+    .emp-tags { display:flex; flex-wrap:wrap; gap:6px; }
+    .emp-tag {
+      font-size:0.62rem; font-weight:700; letter-spacing:0.08em;
+      text-transform:uppercase; padding:3px 10px; border-radius:20px;
+      background:#111; border:1px solid #1e2244; color:#444;
+    }
+    .emp-link {
+      display:inline-flex; align-items:center; gap:6px;
+      font-size:0.75rem; font-weight:700; color:#444;
+      text-decoration:none; transition:color 0.2s;
+      margin-top:4px;
+    }
+    .emp-link:hover { color:var(--green); }
+    .emp-link svg { width:12px; height:12px; }
+
+    /* Accent top border per company */
+    .emp-card.fiscal { border-top:2px solid #00cc57; }
+    .emp-card.web3   { border-top:2px solid #a78bfa; }
+    .emp-card.ai     { border-top:2px solid #38bdf8; }
+    .emp-card.cowork { border-top:2px solid #fb923c; }
+  </style>
+
+  <section class="section">
+    <div class="section-tag">Ecosistema empresarial</div>
+    <h2 class="section-title">Las empresas en las que <span>trabajo</span></h2>
+
+    <div class="emp-grid">
+
+      <!-- FISCONEGOCIO MX -->
+      <div class="emp-card fiscal">
+        <div class="emp-card-header">
+          <div class="emp-logo-wrap">
+            <img src="../logo_flores.jpg" alt="FiscoNegocio MX">
+          </div>
+          <div class="emp-info">
+            <div class="emp-name">FiscoNegocio MX</div>
+            <div class="emp-category fiscal">Asesoría Fiscal</div>
+          </div>
+        </div>
+        <div class="emp-divider"></div>
+        <div class="emp-body">
+          <div class="emp-desc">Firma de consultoría fiscal y empresarial. Ayudamos a emprendedores y PyMEs a cumplir con el SAT, optimizar su carga tributaria y construir finanzas sólidas desde el inicio.</div>
+          <div class="emp-tags">
+            <span class="emp-tag">ISR · IVA</span>
+            <span class="emp-tag">RESICO</span>
+            <span class="emp-tag">Contabilidad</span>
+            <span class="emp-tag">Personas Morales</span>
+          </div>
+          <a href="https://fisconegociomx.github.io" target="_blank" class="emp-link">
+            Visitar sitio
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- WEB3 COLLECTIVE -->
+      <div class="emp-card web3">
+        <div class="emp-card-header">
+          <div class="emp-logo-wrap">
+            <img src="../logo_web3.jpg" alt="Web3 Collective">
+          </div>
+          <div class="emp-info">
+            <div class="emp-name">Web3 Collective</div>
+            <div class="emp-category web3">Blockchain · IA</div>
+          </div>
+        </div>
+        <div class="emp-divider"></div>
+        <div class="emp-body">
+          <div class="emp-desc">Firma de consultoría especializada en estrategia e implementación de soluciones basadas en blockchain, Web3 e inteligencia artificial, con enfoque educativo y empresarial.</div>
+          <div class="emp-tags">
+            <span class="emp-tag">Blockchain</span>
+            <span class="emp-tag">DeFi</span>
+            <span class="emp-tag">Tokenización</span>
+            <span class="emp-tag">Consultoría IA</span>
+          </div>
+          <a href="https://web3collective.mx" target="_blank" class="emp-link">
+            Visitar sitio
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- AGENTBASE -->
+      <div class="emp-card ai">
+        <div class="emp-card-header">
+          <div class="emp-logo-wrap" style="background:#0a0d1a;">
+            <img src="../agentbase_logo_white.png" onerror="this.style.display='none';this.parentNode.querySelector('.emp-logo-icon').style.display='flex';" alt="AgentBase">
+            <div class="emp-logo-icon" style="display:none;">🤖</div>
+          </div>
+          <div class="emp-info">
+            <div class="emp-name">AgentBase</div>
+            <div class="emp-category ai">Inteligencia Artificial</div>
+          </div>
+        </div>
+        <div class="emp-divider"></div>
+        <div class="emp-body">
+          <div class="emp-desc">Plataforma mexicana de agentes de IA para negocios. Hardware dedicado dentro de tu empresa, conectado a WhatsApp, que automatiza ventas, atención y procesos operativos 24/7.</div>
+          <div class="emp-tags">
+            <span class="emp-tag">Agentes IA</span>
+            <span class="emp-tag">WhatsApp</span>
+            <span class="emp-tag">Automatización</span>
+            <span class="emp-tag">AgentBox</span>
+          </div>
+          <a href="https://agentbase.mx" target="_blank" class="emp-link">
+            Visitar sitio
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- ATIKO COWORK -->
+      <div class="emp-card cowork">
+        <div class="emp-card-header">
+          <div class="emp-logo-wrap" style="background:#000;">
+            <img src="../atiko_logo.jpg" alt="Atiko Cowork">
+          </div>
+          <div class="emp-info">
+            <div class="emp-name">Atiko Cowork</div>
+            <div class="emp-category cowork">Espacios de Trabajo</div>
+          </div>
+        </div>
+        <div class="emp-divider"></div>
+        <div class="emp-body">
+          <div class="emp-desc">Espacio de coworking en San Luis Potosí para emprendedores, freelancers y empresas en crecimiento. Oficinas privadas, salas de juntas y membresías flexibles con presencia profesional.</div>
+          <div class="emp-tags">
+            <span class="emp-tag">Coworking</span>
+            <span class="emp-tag">Oficinas SLP</span>
+            <span class="emp-tag">Salas de juntas</span>
+          </div>
+          <a href="https://www.instagram.com/atikocoworkmx" target="_blank" class="emp-link">
+            Ver en Instagram
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
   <div class="footer">© 2026 Fernando Mendoza Ferreira · fisconegociomx.github.io</div>
 
 </body>
