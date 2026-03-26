@@ -377,112 +377,111 @@ const diagAnswers = {};
 const diagScore = { low:0, mid:1, high:2 };
 
 function diagSel(el, step, level) {
-  el.closest('.diag-opts').querySelectorAll('.diag-opt').forEach(o => {
+  el.closest('.diag-opts').querySelectorAll('.diag-opt').forEach(function(o) {
     o.classList.remove('sel-low','sel-mid','sel-high');
   });
   el.classList.add('sel-'+level);
   diagAnswers[step] = level;
-  const btn = document.getElementById('dn'+step);
+  var btn = document.getElementById('dn'+step);
   if(btn) btn.classList.add('ready');
 }
 
 function diagNext(n) {
-  document.querySelectorAll('.diag-step').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.diag-step').forEach(function(s){ s.classList.remove('active'); });
   document.getElementById('dp'+n).classList.add('active');
-  const pct = Math.round((n-1)/5*100);
+  var pct = Math.round((n-1)/5*100);
   document.getElementById('dpfill').style.width = pct+'%';
   document.getElementById('dp-label').textContent = 'Pregunta '+n+' de 5';
   document.getElementById('dp-pct').textContent = pct+'%';
 }
 
 function diagShowResult() {
-  // Calculate score
-  const total = Object.values(diagAnswers).reduce((sum,v) => sum + diagScore[v], 0);
-  // 0-3: bajo, 4-6: medio, 7-10: alto
-  let nivel, icon, title, desc, items, ctaText;
+  var total = 0;
+  Object.values(diagAnswers).forEach(function(v){ total += diagScore[v]; });
+
+  var nivel, icon, title, desc, items, ctaText;
 
   document.getElementById('dpfill').style.width = '100%';
   document.getElementById('dp-label').textContent = 'Diagnóstico completo';
   document.getElementById('dp-pct').textContent = '100%';
 
-  const pct = Math.round((total / 10) * 100);
+  var pct = Math.round((total / 10) * 100);
 
   if(total <= 3) {
-    nivel = 'bajo';
-    icon = '✅';
+    nivel = 'bajo'; icon = '✅';
     title = 'Tu negocio tiene buenas bases fiscales';
     desc = 'Estás en el camino correcto. Tienes control sobre tus obligaciones y los riesgos son bajos. El siguiente paso es optimizar — reducir legalmente tu carga fiscal y blindar lo que ya construiste.';
     items = [
       {i:'💡', t:'<strong>Optimización fiscal:</strong> Probablemente estás pagando más impuestos de lo necesario. Un análisis de deducciones puede liberar flujo de caja.'},
       {i:'📈', t:'<strong>Planeación a futuro:</strong> A medida que tu negocio crece, tu estructura fiscal debe evolucionar contigo.'},
-      {i:'🔒', t:'<strong>Blindaje:</strong> Tener todo en orden no significa que estés protegido ante una auditoría sin respaldo documental sólido.'},
+      {i:'🔒', t:'<strong>Blindaje:</strong> Tener todo en orden no significa que estés protegido ante una auditoría sin respaldo documental sólido.'}
     ];
     ctaText = 'Quiero optimizar mis impuestos →';
   } else if(total <= 6) {
-    nivel = 'medio';
-    icon = '⚠️';
+    nivel = 'medio'; icon = '⚠️';
     title = 'Tienes áreas de riesgo que atender';
     desc = 'Tu negocio opera, pero hay brechas fiscales que podrían volverse problemas costosos. El SAT cruza información automáticamente — las inconsistencias se detectan más rápido de lo que imaginas.';
     items = [
       {i:'🏛️', t:'<strong>Riesgo de requerimientos:</strong> Discrepancias entre lo que facturas y lo que declaras activan revisiones automáticas del SAT.'},
       {i:'💸', t:'<strong>Acumulación de multas:</strong> Cada mes sin declarar o sin cumplir genera recargos que crecen con inflación.'},
-      {i:'🩺', t:'<strong>Diagnóstico urgente:</strong> Es el momento de regularizarte antes de que el problema sea mayor y más costoso de resolver.'},
+      {i:'🩺', t:'<strong>Diagnóstico urgente:</strong> Es el momento de regularizarte antes de que el problema sea mayor y más costoso de resolver.'}
     ];
     ctaText = 'Quiero regularizarme →';
   } else {
-    nivel = 'alto';
-    icon = '🚨';
+    nivel = 'alto'; icon = '🚨';
     title = 'Tu negocio tiene exposición fiscal significativa';
     desc = 'Los indicadores apuntan a riesgos reales: multas acumuladas, posibilidad de cancelación de sellos digitales, o incluso embargo de cuentas. El SAT no espera. Actuar hoy es notablemente más barato que actuar después.';
     items = [
       {i:'🔴', t:'<strong>Cancelación de sellos:</strong> Sin cumplimiento fiscal, el SAT puede bloquearte para facturar — paralizando tu operación por completo.'},
       {i:'💳', t:'<strong>Embargo de cuentas:</strong> El SAT puede embargar cuentas bancarias sin previo aviso ante adeudos no atendidos.'},
-      {i:'⚖️', t:'<strong>Responsabilidad patronal:</strong> Si tienes personal sin registro formal, cualquier conflicto laboral puede derivar en demandas costosas.'},
+      {i:'⚖️', t:'<strong>Responsabilidad patronal:</strong> Si tienes personal sin registro formal, cualquier conflicto laboral puede derivar en demandas costosas.'}
     ];
     ctaText = 'Necesito asesoría urgente →';
   }
 
-  const waMsg = encodeURIComponent('Hola Fernando, hice el diagnóstico fiscal en tu guía y mi nivel de riesgo es ' + nivel + '. Me gustaría agendar una consulta gratuita para analizar mi situación.');
+  var waMsg = encodeURIComponent('Hola Fernando, hice el diagnóstico fiscal en tu guía y mi nivel de riesgo es ' + nivel + '. Me gustaría agendar una consulta gratuita para analizar mi situación.');
+  var nivelLabel = nivel === 'bajo' ? 'Bajo' : nivel === 'medio' ? 'Moderado' : 'Alto';
 
-  const resultEl = document.getElementById('diag-result');
-  resultEl.className = 'diag-result active ' + 'nivel-' + nivel;
-  resultEl.innerHTML = \`
-    <div class="diag-meter-wrap">
-      <div class="diag-meter-label"><span>Sin riesgo</span><span>Riesgo alto</span></div>
-      <div class="diag-meter-track">
-        <div class="diag-meter-fill nivel-\${nivel}" id="dmfill" style="width:0%"></div>
-      </div>
-    </div>
-    <div class="diag-result-icon">\${icon}</div>
-    <span class="diag-result-nivel">Riesgo \${nivel === 'bajo' ? 'Bajo' : nivel === 'medio' ? 'Moderado' : 'Alto'}</span>
-    <div class="diag-result-title">\${title}</div>
-    <div class="diag-result-desc">\${desc}</div>
-    <div class="diag-result-items">
-      \${items.map(it => \`<div class="diag-result-item"><div class="diag-result-item-icon">\${it.i}</div><div class="diag-result-item-text">\${it.t}</div></div>\`).join('')}
-    </div>
-    <a href="https://wa.me/5214442522739?text=\${waMsg}" target="_blank" class="diag-result-cta">\${ctaText}</a>
-    <button class="diag-restart-btn" onclick="diagReset()">↩ Volver a responder</button>
-  \`;
+  var itemsHTML = '';
+  items.forEach(function(it){
+    itemsHTML += '<div class="diag-result-item"><div class="diag-result-item-icon">'+it.i+'</div><div class="diag-result-item-text">'+it.t+'</div></div>';
+  });
 
-  document.querySelectorAll('.diag-step').forEach(s => s.classList.remove('active'));
+  var resultEl = document.getElementById('diag-result');
+  resultEl.className = 'diag-result active nivel-'+nivel;
+  resultEl.innerHTML =
+    '<div class="diag-meter-wrap">' +
+      '<div class="diag-meter-label"><span>Sin riesgo</span><span>Riesgo alto</span></div>' +
+      '<div class="diag-meter-track"><div class="diag-meter-fill nivel-'+nivel+'" id="dmfill" style="width:0%"></div></div>' +
+    '</div>' +
+    '<div class="diag-result-icon">'+icon+'</div>' +
+    '<span class="diag-result-nivel">Riesgo '+nivelLabel+'</span>' +
+    '<div class="diag-result-title">'+title+'</div>' +
+    '<div class="diag-result-desc">'+desc+'</div>' +
+    '<div class="diag-result-items">'+itemsHTML+'</div>' +
+    '<a href="https://wa.me/5214442522739?text='+waMsg+'" target="_blank" class="diag-result-cta">'+ctaText+'</a>' +
+    '<button class="diag-restart-btn" onclick="diagReset()">↩ Volver a responder</button>';
 
-  setTimeout(() => {
-    document.getElementById('dmfill').style.width = pct + '%';
+  document.querySelectorAll('.diag-step').forEach(function(s){ s.classList.remove('active'); });
+
+  setTimeout(function(){
+    var fill = document.getElementById('dmfill');
+    if(fill) fill.style.width = pct + '%';
   }, 100);
 
   resultEl.scrollIntoView({behavior:'smooth', block:'nearest'});
 }
 
 function diagReset() {
-  Object.keys(diagAnswers).forEach(k => delete diagAnswers[k]);
-  document.querySelectorAll('.diag-step').forEach(s => s.classList.remove('active'));
+  Object.keys(diagAnswers).forEach(function(k){ delete diagAnswers[k]; });
+  document.querySelectorAll('.diag-step').forEach(function(s){ s.classList.remove('active'); });
   document.getElementById('dp1').classList.add('active');
   document.getElementById('diag-result').className = 'diag-result';
   document.getElementById('dpfill').style.width = '0%';
   document.getElementById('dp-label').textContent = 'Pregunta 1 de 5';
   document.getElementById('dp-pct').textContent = '0%';
-  document.querySelectorAll('.diag-opt').forEach(o => o.classList.remove('sel-low','sel-mid','sel-high'));
-  document.querySelectorAll('.diag-next').forEach(b => b.classList.remove('ready'));
+  document.querySelectorAll('.diag-opt').forEach(function(o){ o.classList.remove('sel-low','sel-mid','sel-high'); });
+  document.querySelectorAll('.diag-next').forEach(function(b){ b.classList.remove('ready'); });
 }
 </script>
 
