@@ -531,14 +531,32 @@
           <div class="f-card-sub">Lo que queda después de impuestos. Un contador puede optimizar legalmente esta cifra.</div>
         </div>
         <p class="f-disclaimer">* Estimación orientativa. Los valores reales dependen de deducciones específicas, gastos de nómina, créditos fiscales y otros factores.</p>
-        <a href="https://fisconegociomx.github.io/#contacto" style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:rgba(0,255,109,0.08);border:1px solid rgba(0,255,109,0.2);border-radius:12px;padding:14px 18px;text-decoration:none;margin-top:4px;">
+        <a id="calc-wa-btn" href="https://wa.me/5214442522739" target="_blank" style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:rgba(0,255,109,0.1);border:1.5px solid rgba(0,255,109,0.35);border-radius:12px;padding:16px 18px;text-decoration:none;margin-top:4px;transition:background 0.2s;">
           <div style="text-align:left;">
-            <div style="font-size:0.75rem;font-weight:700;color:var(--green);">¿Quieres optimizar este número?</div>
-            <div style="font-size:0.72rem;color:#666;margin-top:2px;">Agenda una consulta gratuita — analizamos tu caso específico</div>
+            <div style="font-size:0.72rem;font-weight:800;color:var(--green);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:4px;">💡 Quiero optimizar mis impuestos</div>
+            <div id="calc-wa-label" style="font-size:1rem;font-weight:900;color:#fff;margin-bottom:2px;"></div>
+            <div style="font-size:0.72rem;color:#666;">Consulta gratuita con Fernando — analizamos tu caso real</div>
           </div>
-          <div style="font-size:0.82rem;font-weight:800;color:var(--green);white-space:nowrap;">Agendar →</div>
+          <div style="background:#00ff6d;color:#0d1026;font-weight:800;font-size:0.82rem;padding:10px 18px;border-radius:8px;white-space:nowrap;flex-shrink:0;">Agendar →</div>
         </a>
-      </div>\`;
+      </div>`;
+    // Update sticky CTA with calculated amount
+    const stickyTxt = document.querySelector('#sticky-cta .sticky-cta-text strong');
+    const stickyBtn = document.querySelector('#sticky-cta .sticky-cta-btn');
+    if(stickyTxt) stickyTxt.textContent = `Pago ${fmtMXN(total)}/mes — ¿Quieres reducirlo?`;
+    if(stickyBtn) {
+      const waMsg = encodeURIComponent(`Hola Fernando, calculé mis impuestos en la guía: pago aprox ${fmtMXN(total)}/mes en ISR+IVA (${reg === 'resico' ? 'RESICO' : reg === 'ae' ? 'Actividad Empresarial' : 'Régimen General'}). Quiero agendar una consulta gratuita para optimizarlos.`);
+      stickyBtn.href = `https://wa.me/5214442522739?text=${waMsg}`;
+      stickyBtn.textContent = 'Optimizar →';
+    }
+    // Update calc WA btn
+    const waBtn = document.getElementById('calc-wa-btn');
+    const waLabel = document.getElementById('calc-wa-label');
+    if(waBtn && waLabel) {
+      waLabel.textContent = `Pago ${fmtMXN(total)}/mes — ayúdame a bajar esto`;
+      const waMsg2 = encodeURIComponent(`Hola Fernando, calculé mis impuestos en tu guía: pago aprox ${fmtMXN(total)}/mes en ISR+IVA con régimen ${reg === 'resico' ? 'RESICO' : reg === 'ae' ? 'Actividad Empresarial' : 'Régimen General'}. Ingresos: ${fmtMXN(ing)}/mes. Quiero agendar una consulta gratuita.`);
+      waBtn.href = `https://wa.me/5214442522739?text=${waMsg2}`;
+    }
   }
 
   /* ── VS COMPARADOR ── */
@@ -840,7 +858,7 @@
       <strong>¿Listo para optimizar tus impuestos?</strong>
       Consulta gratuita de 30 min con el C.P. Fernando Mendoza
     </div>
-    <a href="https://fisconegociomx.github.io/#contacto" class="sticky-cta-btn">Agendar →</a>
+    <a href="https://wa.me/5214442522739" id="sticky-cta-link" class="sticky-cta-btn" target="_blank">Agendar →</a>
     <button class="sticky-close" onclick="document.getElementById('sticky-cta').style.display='none'" aria-label="Cerrar">✕</button>
   </div>
 
