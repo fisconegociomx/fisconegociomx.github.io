@@ -148,117 +148,341 @@
   </section>
 
 
-  <!-- COMO SABER SI NECESITO CONTADOR -->
+  <!-- DIAGNÓSTICO FISCAL INTERACTIVO -->
 <style>
-.csn-section{max-width:720px;margin:0 auto 64px;padding:0 20px;}
-.csn-headline{text-align:center;font-size:clamp(1.4rem,4vw,2.1rem);font-weight:900;line-height:1.2;margin-bottom:8px;}
-.csn-headline span{color:#00ff6d;}
-.csn-sub{text-align:center;font-size:0.86rem;color:#8C8C8C;margin-bottom:32px;}
-.csn-cards{display:flex;flex-direction:column;gap:10px;margin-bottom:24px;}
-.csn-card{
-  background:var(--dark-3);border:1.5px solid #1e2240;border-radius:14px;
-  padding:15px 18px;display:flex;align-items:center;gap:14px;
-  cursor:pointer;transition:border-color 0.2s,background 0.2s,transform 0.2s;user-select:none;
+.diag-section{max-width:760px;margin:0 auto 64px;padding:0 20px;}
+.diag-headline{text-align:center;font-size:clamp(1.5rem,4vw,2.2rem);font-weight:900;line-height:1.2;margin-bottom:8px;}
+.diag-headline span{color:var(--green);}
+.diag-sub{text-align:center;font-size:0.88rem;color:#8C8C8C;margin-bottom:36px;max-width:540px;margin-left:auto;margin-right:auto;}
+
+/* Progress */
+.diag-progress-wrap{margin-bottom:28px;}
+.diag-progress-track{height:5px;background:#1e2244;border-radius:3px;overflow:hidden;margin-bottom:10px;}
+.diag-progress-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#00ff6d,#00cc57);transition:width 0.5s cubic-bezier(.4,0,.2,1);width:0%;}
+.diag-progress-labels{display:flex;justify-content:space-between;font-size:0.68rem;color:#333;font-weight:700;}
+
+/* Question card */
+.diag-card{background:var(--dark-3);border:1.5px solid #1e2244;border-radius:20px;padding:32px 28px;min-height:280px;display:flex;flex-direction:column;justify-content:space-between;}
+.diag-step{display:none;flex-direction:column;gap:20px;}
+.diag-step.active{display:flex;}
+.diag-q-num{font-size:0.68rem;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:#333;}
+.diag-q-text{font-size:1.05rem;font-weight:800;color:#fff;line-height:1.4;margin-bottom:4px;}
+.diag-q-hint{font-size:0.76rem;color:#555;line-height:1.5;}
+
+.diag-opts{display:flex;flex-direction:column;gap:10px;}
+.diag-opt{
+  display:flex;align-items:center;gap:14px;
+  background:var(--dark-2);border:1.5px solid #1e2244;border-radius:12px;
+  padding:14px 18px;cursor:pointer;
+  transition:all 0.18s;user-select:none;
 }
-.csn-card:hover{border-color:rgba(0,255,109,0.35);transform:translateX(4px);}
-.csn-card.on{border-color:#00ff6d;background:rgba(0,255,109,0.07);transform:translateX(4px);}
-.csn-cb{
-  min-width:24px;height:24px;border-radius:7px;border:2px solid #2a3050;
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;
-  font-size:0.8rem;font-weight:900;
-  transition:border-color 0.2s,background 0.2s;
+.diag-opt:hover{border-color:rgba(0,255,109,0.3);background:#131828;}
+.diag-opt.sel-low{border-color:rgba(0,255,109,0.5);background:rgba(0,255,109,0.07);}
+.diag-opt.sel-mid{border-color:rgba(255,180,0,0.5);background:rgba(255,180,0,0.06);}
+.diag-opt.sel-high{border-color:rgba(255,60,60,0.5);background:rgba(255,60,60,0.06);}
+.diag-opt-letter{
+  min-width:30px;height:30px;border-radius:8px;
+  background:#1e2244;border:1px solid #2a3050;
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.78rem;font-weight:800;color:#555;flex-shrink:0;
+  transition:all 0.18s;
 }
-.csn-card.on .csn-cb{border-color:#00ff6d;background:#00ff6d;color:#0d1026;}
-.csn-ci{font-size:1.25rem;flex-shrink:0;}
-.csn-ct{flex:1;font-size:0.85rem;font-weight:600;color:#ccc;line-height:1.4;}
-.csn-card.on .csn-ct{color:#fff;}
-.csn-score-wrap{margin-bottom:20px;}
-.csn-score-bar{height:8px;border-radius:4px;background:#1e2240;overflow:hidden;margin-bottom:8px;}
-.csn-score-fill{
-  height:100%;border-radius:4px;
-  background:linear-gradient(90deg,#00cc57,#00ff6d);
-  width:0%;transition:width 0.5s cubic-bezier(.4,0,.2,1);
-}
-.csn-score-label{display:flex;justify-content:space-between;font-size:0.72rem;color:#555;font-weight:600;}
-.csn-result-panel{
-  border-radius:18px;padding:28px 24px;text-align:center;
-  background:linear-gradient(135deg,var(--dark-3),#1a1e3a);
-  border:1.5px solid #1e2240;
-  transition:border-color 0.4s,box-shadow 0.4s;
-}
-.csn-result-panel.r1{border-color:rgba(255,200,0,0.35);box-shadow:0 0 32px rgba(255,200,0,0.06);}
-.csn-result-panel.r2{border-color:rgba(255,120,0,0.4);box-shadow:0 0 32px rgba(255,120,0,0.07);}
-.csn-result-panel.r3{border-color:rgba(0,255,109,0.5);box-shadow:0 0 32px rgba(0,255,109,0.1);}
-.csn-r-emoji{font-size:2.2rem;margin-bottom:10px;}
-.csn-r-title{font-size:1.05rem;font-weight:900;color:#fff;margin-bottom:8px;}
-.csn-r-desc{font-size:0.83rem;color:#aaa;line-height:1.6;margin-bottom:18px;max-width:440px;margin-left:auto;margin-right:auto;}
-.csn-r-cta{
-  display:inline-block;background:#00ff6d;color:#0d1026;
-  font-size:0.88rem;font-weight:800;padding:13px 30px;border-radius:50px;
-  text-decoration:none;transition:background 0.2s,transform 0.15s;
-  box-shadow:0 4px 20px rgba(0,255,109,0.3);
-}
-.csn-r-cta:hover{background:#00e060;transform:translateY(-2px);}
+.diag-opt.sel-low .diag-opt-letter{background:rgba(0,255,109,0.15);border-color:rgba(0,255,109,0.4);color:#00ff6d;}
+.diag-opt.sel-mid .diag-opt-letter{background:rgba(255,180,0,0.15);border-color:rgba(255,180,0,0.4);color:#ffb400;}
+.diag-opt.sel-high .diag-opt-letter{background:rgba(255,60,60,0.15);border-color:rgba(255,60,60,0.4);color:#ff3c3c;}
+.diag-opt-text{font-size:0.86rem;color:#bbb;font-weight:500;flex:1;line-height:1.4;}
+.diag-opt.sel-low .diag-opt-text,.diag-opt.sel-mid .diag-opt-text,.diag-opt.sel-high .diag-opt-text{color:#fff;}
+
+.diag-nav{display:flex;justify-content:flex-end;margin-top:4px;}
+.diag-next{background:var(--green);color:#0d1026;border:none;font-family:'Inter',sans-serif;font-weight:800;font-size:0.85rem;padding:11px 26px;border-radius:10px;cursor:pointer;opacity:0.35;pointer-events:none;transition:all 0.2s;}
+.diag-next.ready{opacity:1;pointer-events:all;}
+
+/* RESULTADO */
+.diag-result{display:none;flex-direction:column;align-items:center;text-align:center;gap:0;}
+.diag-result.active{display:flex;}
+
+.diag-meter-wrap{width:100%;margin-bottom:28px;}
+.diag-meter-label{display:flex;justify-content:space-between;font-size:0.68rem;color:#333;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px;}
+.diag-meter-track{height:14px;background:#1e2244;border-radius:7px;overflow:hidden;position:relative;}
+.diag-meter-fill{height:100%;border-radius:7px;transition:width 1.2s cubic-bezier(.4,0,.2,1);width:0%;}
+.diag-meter-fill.nivel-bajo{background:linear-gradient(90deg,#00ff6d,#00cc57);}
+.diag-meter-fill.nivel-medio{background:linear-gradient(90deg,#ffb400,#ff8c00);}
+.diag-meter-fill.nivel-alto{background:linear-gradient(90deg,#ff4444,#cc0000);}
+
+.diag-result-icon{font-size:3rem;margin-bottom:12px;}
+.diag-result-nivel{font-size:0.7rem;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;padding:5px 16px;border-radius:20px;margin-bottom:12px;display:inline-block;}
+.nivel-bajo .diag-result-nivel{background:rgba(0,255,109,0.12);color:#00ff6d;}
+.nivel-medio .diag-result-nivel{background:rgba(255,180,0,0.12);color:#ffb400;}
+.nivel-alto .diag-result-nivel{background:rgba(255,68,68,0.12);color:#ff4444;}
+.diag-result-title{font-size:1.2rem;font-weight:900;color:#fff;margin-bottom:10px;line-height:1.3;}
+.diag-result-desc{font-size:0.84rem;color:#888;line-height:1.7;max-width:520px;margin:0 auto 8px;}
+.diag-result-items{display:flex;flex-direction:column;gap:8px;width:100%;margin:16px 0 20px;}
+.diag-result-item{display:flex;align-items:flex-start;gap:10px;background:var(--dark-2);border:1px solid #1e2244;border-radius:10px;padding:10px 14px;text-align:left;}
+.diag-result-item-icon{font-size:1rem;flex-shrink:0;}
+.diag-result-item-text{font-size:0.78rem;color:#777;line-height:1.5;}
+.diag-result-item-text strong{color:#aaa;}
+.diag-result-cta{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:#0d1026;font-weight:800;font-size:0.88rem;padding:13px 28px;border-radius:10px;text-decoration:none;transition:all 0.2s;box-shadow:0 4px 20px rgba(0,255,109,0.25);}
+.diag-result-cta:hover{background:#00e060;transform:translateY(-2px);}
+.diag-restart-btn{margin-top:14px;background:none;border:none;font-family:'Inter',sans-serif;font-size:0.75rem;color:#333;cursor:pointer;text-decoration:underline;}
+.diag-restart-btn:hover{color:#00ff6d;}
 </style>
-<div class="csn-section">
-  <h2 class="csn-headline">¿Cómo saber si<br><span>necesito un contador?</span></h2>
-  <p class="csn-sub">Responde honestamente. En segundos sabes si es momento de actuar.</p>
-  <div class="csn-cards">
-    <div class="csn-card" onclick="csnToggle(this)">
-      <div class="csn-cb"></div><div class="csn-ci">🧾</div>
-      <div class="csn-ct">Emito facturas pero no estoy seguro de hacerlo bien</div>
+
+<div class="diag-section">
+  <div style="text-align:center;margin-bottom:20px;">
+    <span class="section-tag">🩺 Diagnóstico Fiscal</span>
+  </div>
+  <h2 class="diag-headline">¿Cuál es tu <span>nivel de riesgo</span><br>fiscal hoy?</h2>
+  <p class="diag-sub">5 preguntas clave para medir dónde estás parado. Sin datos personales, sin registro. Solo honestidad.</p>
+
+  <div class="diag-progress-wrap">
+    <div class="diag-progress-track">
+      <div class="diag-progress-fill" id="dpfill"></div>
     </div>
-    <div class="csn-card" onclick="csnToggle(this)">
-      <div class="csn-cb"></div><div class="csn-ci">🏛️</div>
-      <div class="csn-ct">El SAT me mandó un aviso y no sé cómo responderlo</div>
-    </div>
-    <div class="csn-card" onclick="csnToggle(this)">
-      <div class="csn-cb"></div><div class="csn-ci">👥</div>
-      <div class="csn-ct">Tengo colaboradores y no estoy seguro de cumplir correctamente con el IMSS</div>
-    </div>
-    <div class="csn-card" onclick="csnToggle(this)">
-      <div class="csn-cb"></div><div class="csn-ci">📈</div>
-      <div class="csn-ct">Mi negocio está creciendo pero no sé si realmente es rentable</div>
-    </div>
-    <div class="csn-card" onclick="csnToggle(this)">
-      <div class="csn-cb"></div><div class="csn-ci">⏱️</div>
-      <div class="csn-ct">Ya no tengo tiempo de llevar mis propios números y contabilidad</div>
+    <div class="diag-progress-labels">
+      <span id="dp-label">Pregunta 1 de 5</span>
+      <span id="dp-pct">0%</span>
     </div>
   </div>
-  <div class="csn-score-wrap">
-    <div class="csn-score-bar"><div class="csn-score-fill" id="csn-fill"></div></div>
-    <div class="csn-score-label"><span>0%</span><span id="csn-pct">0%</span><span>100%</span></div>
-  </div>
-  <div class="csn-result-panel" id="csn-panel">
-    <div class="csn-r-emoji" id="csn-emoji">☝️</div>
-    <div class="csn-r-title" id="csn-title">Selecciona las situaciones que aplican</div>
-    <div class="csn-r-desc" id="csn-desc">Marca cada una que reconozcas en tu negocio para ver tu diagnóstico personalizado.</div>
+
+  <div class="diag-card" id="diag-card">
+
+    <!-- P1: RFC / Declaraciones -->
+    <div class="diag-step active" id="dp1">
+      <div>
+        <div class="diag-q-num">Pregunta 01 de 05 · Situación ante el SAT</div>
+        <div class="diag-q-text">¿Tienes RFC activo y presentas tus declaraciones al corriente?</div>
+        <div class="diag-q-hint">Incluye declaraciones mensuales de ISR e IVA, y declaración anual.</div>
+      </div>
+      <div class="diag-opts">
+        <div class="diag-opt" onclick="diagSel(this,1,'low')">
+          <div class="diag-opt-letter">A</div>
+          <div class="diag-opt-text">Sí, tengo RFC activo y estoy al corriente con todas mis declaraciones</div>
+        </div>
+        <div class="diag-opt" onclick="diagSel(this,1,'mid')">
+          <div class="diag-opt-letter">B</div>
+          <div class="diag-opt-text">Tengo RFC pero me he atrasado o tengo declaraciones pendientes</div>
+        </div>
+        <div class="diag-opt" onclick="diagSel(this,1,'high')">
+          <div class="diag-opt-letter">C</div>
+          <div class="diag-opt-text">No tengo RFC o nunca he presentado declaraciones</div>
+        </div>
+      </div>
+      <div class="diag-nav"><button class="diag-next" id="dn1" onclick="diagNext(2)">Siguiente →</button></div>
+    </div>
+
+    <!-- P2: Facturación -->
+    <div class="diag-step" id="dp2">
+      <div>
+        <div class="diag-q-num">Pregunta 02 de 05 · Facturación</div>
+        <div class="diag-q-text">¿Emites facturas (CFDI) a todos tus clientes por los pagos que recibes?</div>
+        <div class="diag-q-hint">Los ingresos sin factura son ingresos no declarados ante el SAT.</div>
+      </div>
+      <div class="diag-opts">
+        <div class="diag-opt" onclick="diagSel(this,2,'low')">
+          <div class="diag-opt-letter">A</div>
+          <div class="diag-opt-text">Sí, facturo todos mis ingresos correctamente con CFDI</div>
+        </div>
+        <div class="diag-opt" onclick="diagSel(this,2,'mid')">
+          <div class="diag-opt-letter">B</div>
+          <div class="diag-opt-text">Facturo a algunos clientes pero no a todos, depende si lo piden</div>
+        </div>
+        <div class="diag-opt" onclick="diagSel(this,2,'high')">
+          <div class="diag-opt-letter">C</div>
+          <div class="diag-opt-text">No emito facturas o rara vez lo hago</div>
+        </div>
+      </div>
+      <div class="diag-nav"><button class="diag-next" id="dn2" onclick="diagNext(3)">Siguiente →</button></div>
+    </div>
+
+    <!-- P3: Registro de ingresos/gastos -->
+    <div class="diag-step" id="dp3">
+      <div>
+        <div class="diag-q-num">Pregunta 03 de 05 · Control Financiero</div>
+        <div class="diag-q-text">¿Llevas un registro claro de tus ingresos, gastos y deducciones del negocio?</div>
+        <div class="diag-q-hint">Incluye guardar facturas de gastos, estados de cuenta separados del negocio, etc.</div>
+      </div>
+      <div class="diag-opts">
+        <div class="diag-opt" onclick="diagSel(this,3,'low')">
+          <div class="diag-opt-letter">A</div>
+          <div class="diag-opt-text">Sí, tengo mi contabilidad ordenada y mis gastos respaldados con CFDI</div>
+        </div>
+        <div class="diag-opt" onclick="diagSel(this,3,'mid')">
+          <div class="diag-opt-letter">B</div>
+          <div class="diag-opt-text">Llevo un control básico pero mezclado con finanzas personales</div>
+        </div>
+        <div class="diag-opt" onclick="diagSel(this,3,'high')">
+          <div class="diag-opt-letter">C</div>
+          <div class="diag-opt-text">No llevo registro formal — manejo todo de memoria o en efectivo</div>
+        </div>
+      </div>
+      <div class="diag-nav"><button class="diag-next" id="dn3" onclick="diagNext(4)">Siguiente →</button></div>
+    </div>
+
+    <!-- P4: Empleados / IMSS -->
+    <div class="diag-step" id="dp4">
+      <div>
+        <div class="diag-q-num">Pregunta 04 de 05 · Obligaciones Patronales</div>
+        <div class="diag-q-text">Si tienes colaboradores o personal de apoyo, ¿cómo gestionas sus obligaciones?</div>
+        <div class="diag-q-hint">Tener personas trabajando para ti sin registro ante el IMSS genera responsabilidad patronal.</div>
+      </div>
+      <div class="diag-opts">
+        <div class="diag-opt" onclick="diagSel(this,4,'low')">
+          <div class="diag-opt-letter">A</div>
+          <div class="diag-opt-text">Tengo a mi personal registrado en el IMSS y pago nómina correctamente</div>
+        </div>
+        <div class="diag-opt" onclick="diagSel(this,4,'mid')">
+          <div class="diag-opt-letter">B</div>
+          <div class="diag-opt-text">No tengo personal a cargo — opero solo o con servicios externos</div>
+        </div>
+        <div class="diag-opt" onclick="diagSel(this,4,'high')">
+          <div class="diag-opt-letter">C</div>
+          <div class="diag-opt-text">Tengo personas que me apoyan pero sin contratos ni registro ante el IMSS</div>
+        </div>
+      </div>
+      <div class="diag-nav"><button class="diag-next" id="dn4" onclick="diagNext(5)">Siguiente →</button></div>
+    </div>
+
+    <!-- P5: Buzón / SAT -->
+    <div class="diag-step" id="dp5">
+      <div>
+        <div class="diag-q-num">Pregunta 05 de 05 · Vigilancia Fiscal</div>
+        <div class="diag-q-text">¿Tienes activo tu Buzón Tributario y sabes si el SAT tiene algún requerimiento hacia ti?</div>
+        <div class="diag-q-hint">El SAT notifica requerimientos y auditorías por Buzón Tributario. Ignorarlos tiene consecuencias legales.</div>
+      </div>
+      <div class="diag-opts">
+        <div class="diag-opt" onclick="diagSel(this,5,'low')">
+          <div class="diag-opt-letter">A</div>
+          <div class="diag-opt-text">Sí, tengo el buzón activo y lo reviso regularmente — estoy al tanto</div>
+        </div>
+        <div class="diag-opt" onclick="diagSel(this,5,'mid')">
+          <div class="diag-opt-letter">B</div>
+          <div class="diag-opt-text">Tengo el buzón activo pero casi no lo reviso o no sé bien cómo usarlo</div>
+        </div>
+        <div class="diag-opt" onclick="diagSel(this,5,'high')">
+          <div class="diag-opt-letter">C</div>
+          <div class="diag-opt-text">No tengo Buzón Tributario activo o nunca lo he configurado</div>
+        </div>
+      </div>
+      <div class="diag-nav"><button class="diag-next" id="dn5" onclick="diagShowResult()">Ver mi diagnóstico →</button></div>
+    </div>
+
+    <!-- RESULTADO -->
+    <div class="diag-result" id="diag-result"></div>
+
   </div>
 </div>
+
 <script>
-const csnData=[
-  {cls:'',emoji:'☝️',title:'Selecciona las situaciones que aplican',desc:'Marca cada una que reconozcas en tu negocio para ver tu diagnóstico personalizado.',cta:false},
-  {cls:'r1',emoji:'🤔',title:'Podrías beneficiarte de orientación',desc:'Una situación ya es señal de que hay algo por ordenar. Una consulta rápida puede ahorrarte problemas futuros.',cta:true},
-  {cls:'r1',emoji:'⚠️',title:'Hay señales de alerta en tu negocio',desc:'Dos situaciones indican que hay áreas que necesitan atención fiscal o financiera pronto.',cta:true},
-  {cls:'r2',emoji:'🚨',title:'Necesitas un contador ahora',desc:'Con tres situaciones activas, tu negocio acumula riesgos fiscales que pueden costar caro. Actúa antes de que se compliquen.',cta:true},
-  {cls:'r3',emoji:'🔥',title:'Necesitas un contador urgente',desc:'Cuatro situaciones es una señal clara de que tu negocio necesita orden fiscal de inmediato. No lo dejes para después.',cta:true},
-  {cls:'r3',emoji:'💡',title:'¡Definitivamente necesitas apoyo profesional!',desc:'Tu negocio tiene todo para crecer — solo necesita el soporte fiscal y financiero correcto. Hablemos hoy.',cta:true},
-];
-function csnToggle(el){
-  el.classList.toggle('on');
-  el.querySelector('.csn-cb').textContent=el.classList.contains('on')?'✓':'';
-  const n=document.querySelectorAll('.csn-card.on').length;
-  const pct=Math.round(n/5*100);
-  document.getElementById('csn-fill').style.width=pct+'%';
-  document.getElementById('csn-pct').textContent=pct+'%';
-  const d=csnData[n];
-  const panel=document.getElementById('csn-panel');
-  panel.className='csn-result-panel '+d.cls;
-  document.getElementById('csn-emoji').textContent=d.emoji;
-  document.getElementById('csn-title').textContent=d.title;
-  document.getElementById('csn-desc').textContent=d.desc;
-  const ex=panel.querySelector('.csn-r-cta');if(ex)ex.remove();
-  if(d.cta){const a=document.createElement('a');a.href='https://wa.me/5214442522739';a.target='_blank';a.className='csn-r-cta';a.textContent='Quiero mi consulta gratuita →';panel.appendChild(a);}
+const diagAnswers = {};
+const diagScore = { low:0, mid:1, high:2 };
+
+function diagSel(el, step, level) {
+  el.closest('.diag-opts').querySelectorAll('.diag-opt').forEach(o => {
+    o.classList.remove('sel-low','sel-mid','sel-high');
+  });
+  el.classList.add('sel-'+level);
+  diagAnswers[step] = level;
+  const btn = document.getElementById('dn'+step);
+  if(btn) btn.classList.add('ready');
+}
+
+function diagNext(n) {
+  document.querySelectorAll('.diag-step').forEach(s => s.classList.remove('active'));
+  document.getElementById('dp'+n).classList.add('active');
+  const pct = Math.round((n-1)/5*100);
+  document.getElementById('dpfill').style.width = pct+'%';
+  document.getElementById('dp-label').textContent = 'Pregunta '+n+' de 5';
+  document.getElementById('dp-pct').textContent = pct+'%';
+}
+
+function diagShowResult() {
+  // Calculate score
+  const total = Object.values(diagAnswers).reduce((sum,v) => sum + diagScore[v], 0);
+  // 0-3: bajo, 4-6: medio, 7-10: alto
+  let nivel, icon, title, desc, items, ctaText;
+
+  document.getElementById('dpfill').style.width = '100%';
+  document.getElementById('dp-label').textContent = 'Diagnóstico completo';
+  document.getElementById('dp-pct').textContent = '100%';
+
+  const pct = Math.round((total / 10) * 100);
+
+  if(total <= 3) {
+    nivel = 'bajo';
+    icon = '✅';
+    title = 'Tu negocio tiene buenas bases fiscales';
+    desc = 'Estás en el camino correcto. Tienes control sobre tus obligaciones y los riesgos son bajos. El siguiente paso es optimizar — reducir legalmente tu carga fiscal y blindar lo que ya construiste.';
+    items = [
+      {i:'💡', t:'<strong>Optimización fiscal:</strong> Probablemente estás pagando más impuestos de lo necesario. Un análisis de deducciones puede liberar flujo de caja.'},
+      {i:'📈', t:'<strong>Planeación a futuro:</strong> A medida que tu negocio crece, tu estructura fiscal debe evolucionar contigo.'},
+      {i:'🔒', t:'<strong>Blindaje:</strong> Tener todo en orden no significa que estés protegido ante una auditoría sin respaldo documental sólido.'},
+    ];
+    ctaText = 'Quiero optimizar mis impuestos →';
+  } else if(total <= 6) {
+    nivel = 'medio';
+    icon = '⚠️';
+    title = 'Tienes áreas de riesgo que atender';
+    desc = 'Tu negocio opera, pero hay brechas fiscales que podrían volverse problemas costosos. El SAT cruza información automáticamente — las inconsistencias se detectan más rápido de lo que imaginas.';
+    items = [
+      {i:'🏛️', t:'<strong>Riesgo de requerimientos:</strong> Discrepancias entre lo que facturas y lo que declaras activan revisiones automáticas del SAT.'},
+      {i:'💸', t:'<strong>Acumulación de multas:</strong> Cada mes sin declarar o sin cumplir genera recargos que crecen con inflación.'},
+      {i:'🩺', t:'<strong>Diagnóstico urgente:</strong> Es el momento de regularizarte antes de que el problema sea mayor y más costoso de resolver.'},
+    ];
+    ctaText = 'Quiero regularizarme →';
+  } else {
+    nivel = 'alto';
+    icon = '🚨';
+    title = 'Tu negocio tiene exposición fiscal significativa';
+    desc = 'Los indicadores apuntan a riesgos reales: multas acumuladas, posibilidad de cancelación de sellos digitales, o incluso embargo de cuentas. El SAT no espera. Actuar hoy es notablemente más barato que actuar después.';
+    items = [
+      {i:'🔴', t:'<strong>Cancelación de sellos:</strong> Sin cumplimiento fiscal, el SAT puede bloquearte para facturar — paralizando tu operación por completo.'},
+      {i:'💳', t:'<strong>Embargo de cuentas:</strong> El SAT puede embargar cuentas bancarias sin previo aviso ante adeudos no atendidos.'},
+      {i:'⚖️', t:'<strong>Responsabilidad patronal:</strong> Si tienes personal sin registro formal, cualquier conflicto laboral puede derivar en demandas costosas.'},
+    ];
+    ctaText = 'Necesito asesoría urgente →';
+  }
+
+  const waMsg = encodeURIComponent('Hola Fernando, hice el diagnóstico fiscal en tu guía y mi nivel de riesgo es ' + nivel + '. Me gustaría agendar una consulta gratuita para analizar mi situación.');
+
+  const resultEl = document.getElementById('diag-result');
+  resultEl.className = 'diag-result active ' + 'nivel-' + nivel;
+  resultEl.innerHTML = \`
+    <div class="diag-meter-wrap">
+      <div class="diag-meter-label"><span>Sin riesgo</span><span>Riesgo alto</span></div>
+      <div class="diag-meter-track">
+        <div class="diag-meter-fill nivel-\${nivel}" id="dmfill" style="width:0%"></div>
+      </div>
+    </div>
+    <div class="diag-result-icon">\${icon}</div>
+    <span class="diag-result-nivel">Riesgo \${nivel === 'bajo' ? 'Bajo' : nivel === 'medio' ? 'Moderado' : 'Alto'}</span>
+    <div class="diag-result-title">\${title}</div>
+    <div class="diag-result-desc">\${desc}</div>
+    <div class="diag-result-items">
+      \${items.map(it => \`<div class="diag-result-item"><div class="diag-result-item-icon">\${it.i}</div><div class="diag-result-item-text">\${it.t}</div></div>\`).join('')}
+    </div>
+    <a href="https://wa.me/5214442522739?text=\${waMsg}" target="_blank" class="diag-result-cta">\${ctaText}</a>
+    <button class="diag-restart-btn" onclick="diagReset()">↩ Volver a responder</button>
+  \`;
+
+  document.querySelectorAll('.diag-step').forEach(s => s.classList.remove('active'));
+
+  setTimeout(() => {
+    document.getElementById('dmfill').style.width = pct + '%';
+  }, 100);
+
+  resultEl.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function diagReset() {
+  Object.keys(diagAnswers).forEach(k => delete diagAnswers[k]);
+  document.querySelectorAll('.diag-step').forEach(s => s.classList.remove('active'));
+  document.getElementById('dp1').classList.add('active');
+  document.getElementById('diag-result').className = 'diag-result';
+  document.getElementById('dpfill').style.width = '0%';
+  document.getElementById('dp-label').textContent = 'Pregunta 1 de 5';
+  document.getElementById('dp-pct').textContent = '0%';
+  document.querySelectorAll('.diag-opt').forEach(o => o.classList.remove('sel-low','sel-mid','sel-high'));
+  document.querySelectorAll('.diag-next').forEach(b => b.classList.remove('ready'));
 }
 </script>
 
