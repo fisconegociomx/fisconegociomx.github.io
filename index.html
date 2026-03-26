@@ -5,6 +5,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>C.P. Fernando Mendoza Ferreira — Asesoría Fiscal y Empresarial</title>
   <style>
+    /* STICKY CTA BAR */
+    .sticky-cta {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 999;
+      background: #00ff6d;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 -4px 24px rgba(0,255,109,0.35);
+      transform: translateY(100%);
+      transition: transform 0.4s cubic-bezier(.4,0,.2,1);
+    }
+    .sticky-cta.visible { transform: translateY(0); }
+    .sticky-cta a {
+      color: #0d1026;
+      font-size: 0.92rem;
+      font-weight: 800;
+      text-decoration: none;
+      flex: 1;
+      text-align: center;
+    }
+    .sticky-cta-close {
+      background: rgba(0,0,0,0.12);
+      border: none;
+      color: #0d1026;
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      font-size: 0.75rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      font-weight: 900;
+    }
+    @media (min-width: 768px) { .sticky-cta { display: none; } }
+  </style>
+  <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
     :root {
@@ -704,6 +743,211 @@
   const obs2=new IntersectionObserver(e=>{if(e[0].isIntersecting){hl.classList.add('visible');obs2.unobserve(hl);}},{threshold:0.2});
   obs2.observe(hl);
 })();
+</script>
+
+<!-- QUIZ DIAGNOSTICO REGIMEN -->
+<style>
+.quiz-section{max-width:720px;margin:0 auto 64px;padding:0 20px;}
+.quiz-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(0,255,109,0.1);border:1.5px solid rgba(0,255,109,0.3);border-radius:50px;padding:7px 18px;font-size:0.72rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#00ff6d;margin-bottom:20px;}
+.quiz-headline{font-size:clamp(1.5rem,4vw,2.2rem);font-weight:900;line-height:1.2;margin-bottom:8px;text-align:center;}
+.quiz-headline span{color:#00ff6d;}
+.quiz-sub{text-align:center;font-size:0.88rem;color:#8C8C8C;margin-bottom:36px;}
+.quiz-progress-wrap{margin-bottom:32px;}
+.quiz-progress-bar{height:4px;border-radius:2px;background:#1e2240;overflow:hidden;margin-bottom:10px;}
+.quiz-progress-fill{height:100%;border-radius:2px;background:#00ff6d;transition:width 0.5s cubic-bezier(.4,0,.2,1);}
+.quiz-step-label{display:flex;justify-content:space-between;font-size:0.7rem;color:#555;font-weight:600;}
+.quiz-step{display:none;}
+.quiz-step.active{display:block;}
+.quiz-q{font-size:1.05rem;font-weight:800;color:#fff;margin-bottom:6px;text-align:center;}
+.quiz-q-hint{font-size:0.8rem;color:#8C8C8C;margin-bottom:24px;text-align:center;}
+.quiz-options{display:flex;flex-direction:column;gap:10px;}
+.quiz-opt{
+  display:flex;align-items:center;gap:14px;
+  background:#151832;border:1.5px solid #1e2240;border-radius:14px;
+  padding:16px 18px;cursor:pointer;transition:border-color 0.2s,background 0.2s,transform 0.15s;
+  font-size:0.9rem;font-weight:600;color:#ddd;
+}
+.quiz-opt:hover{border-color:rgba(0,255,109,0.4);transform:translateX(4px);}
+.quiz-opt.selected{border-color:#00ff6d;background:rgba(0,255,109,0.07);color:#fff;}
+.quiz-opt-icon{font-size:1.3rem;flex-shrink:0;}
+.quiz-opt-radio{
+  min-width:20px;height:20px;border-radius:50%;border:2px solid #2a3050;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  transition:border-color 0.2s,background 0.2s;margin-left:auto;
+}
+.quiz-opt.selected .quiz-opt-radio{border-color:#00ff6d;background:#00ff6d;}
+.quiz-opt.selected .quiz-opt-radio::after{content:'';width:8px;height:8px;border-radius:50%;background:#0d1026;display:block;}
+.quiz-result{
+  background:linear-gradient(135deg,rgba(0,255,109,0.07),rgba(0,255,109,0.02));
+  border:1.5px solid rgba(0,255,109,0.3);border-radius:20px;
+  padding:32px 26px;text-align:center;display:none;
+}
+.quiz-result.visible{display:block;}
+.quiz-result-icon{font-size:2.8rem;margin-bottom:12px;}
+.quiz-result-regime{font-size:0.72rem;font-weight:800;letter-spacing:0.15em;text-transform:uppercase;color:#00ff6d;margin-bottom:8px;}
+.quiz-result-title{font-size:1.3rem;font-weight:900;color:#fff;margin-bottom:12px;}
+.quiz-result-desc{font-size:0.86rem;color:#aaa;line-height:1.7;margin-bottom:8px;max-width:500px;margin-left:auto;margin-right:auto;}
+.quiz-result-benefit{font-size:0.82rem;color:#00ff6d;font-weight:700;margin-bottom:24px;}
+.quiz-result-cta{display:inline-block;background:#00ff6d;color:#0d1026;font-size:0.9rem;font-weight:800;padding:14px 32px;border-radius:50px;text-decoration:none;box-shadow:0 4px 20px rgba(0,255,109,0.3);transition:background 0.2s,transform 0.15s;}
+.quiz-result-cta:hover{background:#00e060;transform:translateY(-2px);}
+.quiz-restart{display:inline-block;margin-top:14px;font-size:0.78rem;color:#555;cursor:pointer;transition:color 0.2s;}
+.quiz-restart:hover{color:#00ff6d;}
+</style>
+<div class="quiz-section">
+  <div style="text-align:center;margin-bottom:16px;">
+    <span class="quiz-badge">🧭 Diagnóstico Fiscal</span>
+  </div>
+  <h2 class="quiz-headline">¿Cuál régimen fiscal<br><span>te conviene?</span></h2>
+  <p class="quiz-sub">3 preguntas. Menos de 1 minuto. Resultado personalizado.</p>
+
+  <div class="quiz-progress-wrap">
+    <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="qpfill" style="width:0%"></div></div>
+    <div class="quiz-step-label"><span id="qsteplabel">Pregunta 1 de 3</span><span id="qsteppct">0%</span></div>
+  </div>
+
+  <!-- PREGUNTA 1: PF o PM -->
+  <div class="quiz-step active" id="qstep1">
+    <div class="quiz-q">¿Cómo operas tu negocio?</div>
+    <div class="quiz-q-hint">Persona física = tú como individuo. Persona moral = empresa constituida (SA, SAPI, etc.)</div>
+    <div class="quiz-options">
+      <div class="quiz-opt" onclick="qSelect(1,'pf',this)">
+        <span class="quiz-opt-icon">👤</span>
+        <span>Persona Física — yo directamente, sin empresa constituida</span>
+        <div class="quiz-opt-radio"></div>
+      </div>
+      <div class="quiz-opt" onclick="qSelect(1,'pm',this)">
+        <span class="quiz-opt-icon">🏢</span>
+        <span>Persona Moral — tengo empresa (SA de CV, SAPI, SRL, etc.)</span>
+        <div class="quiz-opt-radio"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PREGUNTA 2: Ingresos -->
+  <div class="quiz-step" id="qstep2">
+    <div class="quiz-q">¿Cuánto facturas al año aproximadamente?</div>
+    <div class="quiz-q-hint">Considera tus ingresos brutos totales anuales</div>
+    <div class="quiz-options">
+      <div class="quiz-opt" onclick="qSelect(2,'menos1m',this)">
+        <span class="quiz-opt-icon">💰</span>
+        <span>Menos de $1,000,000 al año (~$83K/mes)</span>
+        <div class="quiz-opt-radio"></div>
+      </div>
+      <div class="quiz-opt" onclick="qSelect(2,'hasta3.5m',this)">
+        <span class="quiz-opt-icon">💵</span>
+        <span>Entre $1,000,000 y $3,500,000 al año</span>
+        <div class="quiz-opt-radio"></div>
+      </div>
+      <div class="quiz-opt" onclick="qSelect(2,'mas3.5m',this)">
+        <span class="quiz-opt-icon">🏦</span>
+        <span>Más de $3,500,000 al año</span>
+        <div class="quiz-opt-radio"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PREGUNTA 3: Empleados -->
+  <div class="quiz-step" id="qstep3">
+    <div class="quiz-q">¿Tienes empleados registrados ante el IMSS?</div>
+    <div class="quiz-q-hint">Incluye trabajadores de planta, tiempo completo o parcial</div>
+    <div class="quiz-options">
+      <div class="quiz-opt" onclick="qSelect(3,'no_emp',this)">
+        <span class="quiz-opt-icon">🙋</span>
+        <span>No, trabajo solo o con colaboradores sin nómina formal</span>
+        <div class="quiz-opt-radio"></div>
+      </div>
+      <div class="quiz-opt" onclick="qSelect(3,'si_emp',this)">
+        <span class="quiz-opt-icon">👥</span>
+        <span>Sí, tengo 1 o más empleados en nómina</span>
+        <div class="quiz-opt-radio"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTADO -->
+  <div class="quiz-result" id="qresult">
+    <div class="quiz-result-icon" id="qr-icon"></div>
+    <div class="quiz-result-regime" id="qr-regime"></div>
+    <div class="quiz-result-title" id="qr-title"></div>
+    <div class="quiz-result-desc" id="qr-desc"></div>
+    <div class="quiz-result-benefit" id="qr-benefit"></div>
+    <a href="https://wa.me/5214442522739" target="_blank" class="quiz-result-cta">Confirmar mi régimen con Fernando →</a>
+    <div><span class="quiz-restart" onclick="qReset()">↩ Volver a responder</span></div>
+  </div>
+</div>
+<script>
+const qAnswers = {};
+function qSelect(step, val, el) {
+  document.querySelectorAll('#qstep'+step+' .quiz-opt').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+  qAnswers['q'+step] = val;
+  setTimeout(()=>qNext(step), 350);
+}
+function qNext(step) {
+  if (step < 3) {
+    document.getElementById('qstep'+step).classList.remove('active');
+    document.getElementById('qstep'+(step+1)).classList.add('active');
+    const pct = Math.round(step/3*100);
+    document.getElementById('qpfill').style.width = pct+'%';
+    document.getElementById('qsteplabel').textContent = 'Pregunta '+(step+1)+' de 3';
+    document.getElementById('qsteppct').textContent = pct+'%';
+  } else {
+    document.getElementById('qstep3').classList.remove('active');
+    document.getElementById('qpfill').style.width = '100%';
+    document.getElementById('qsteplabel').textContent = 'Diagnóstico completo';
+    document.getElementById('qsteppct').textContent = '100%';
+    qShowResult();
+  }
+}
+function qShowResult() {
+  const q1 = qAnswers.q1, q2 = qAnswers.q2, q3 = qAnswers.q3;
+  let icon, regime, title, desc, benefit;
+  if (q1 === 'pm') {
+    icon = '🏢'; regime = 'Persona Moral — Régimen General';
+    title = 'Tu empresa tributa en el Régimen General de Ley';
+    desc = 'Las personas morales (SA de CV, SAPI, SRL, etc.) tributan bajo el Régimen General con una tasa fija del 30% sobre utilidades. La clave está en la correcta deducción de gastos y en una contabilidad ordenada para pagar solo lo justo.';
+    benefit = '✦ Con una estrategia fiscal bien estructurada puedes reducir significativamente tu carga fiscal.';
+  } else if (q2 === 'mas3.5m') {
+    icon = '📊'; regime = 'Persona Física — Régimen General de Actividad Empresarial';
+    title = 'Por tus ingresos, aplicas al Régimen General';
+    desc = 'Con ingresos mayores a $3.5 millones anuales ya no puedes estar en RESICO. Tributas en el Régimen de Actividad Empresarial con tasas progresivas hasta el 35%. Aquí la planeación fiscal es crítica — las deducciones correctas hacen una diferencia enorme.';
+    benefit = q3 === 'si_emp' ? '✦ Con empleados, también tienes obligaciones de nómina y IMSS que deben integrarse a tu estrategia.' : '✦ La diferencia entre pagar bien o pagar de más está en la calidad de tu asesoría fiscal.';
+  } else if (q2 === 'menos1m' && q3 === 'no_emp') {
+    icon = '⚡'; regime = 'RESICO — Régimen Simplificado de Confianza';
+    title = '¡Calificas para el RESICO!';
+    desc = 'Con ingresos menores a $3.5M y sin nómina formal, el RESICO es tu régimen ideal. Pagas sobre ingresos reales con tasas desde el 1% hasta el 2.5%. Sin declaraciones complicadas, sin cálculos difíciles. El régimen más conveniente para emprendedores.';
+    benefit = '✦ Con RESICO podrías pagar hasta 10 veces menos impuestos que en el Régimen General.';
+  } else if (q2 === 'hasta3.5m' && q3 === 'no_emp') {
+    icon = '⚡'; regime = 'RESICO — Régimen Simplificado de Confianza';
+    title = '¡Calificas para el RESICO!';
+    desc = 'Tus ingresos están dentro del límite de $3.5M anuales y sin empleados, aplicas al RESICO. Tasas bajas (1%–2.5%), menos obligaciones y más control de tu dinero. Es el régimen diseñado para que los emprendedores paguen justo.';
+    benefit = '✦ El RESICO puede representar un ahorro de decenas de miles de pesos al año frente a otros regímenes.';
+  } else {
+    // tiene empleados pero ingresos menores a 3.5m
+    icon = '🧾'; regime = 'RESICO con Nómina';
+    title = 'RESICO es posible, pero hay que revisar tu situación';
+    desc = 'Con empleados registrados en nómina, puedes seguir en RESICO siempre que tus ingresos no superen $3.5M y cumplas con todas las obligaciones patronales (IMSS, INFONAVIT, SUA). Es viable pero requiere un manejo más cuidadoso.';
+    benefit = '✦ Vale la pena una revisión personalizada para asegurarnos de que tu estructura sea la más eficiente.';
+  }
+  document.getElementById('qr-icon').textContent = icon;
+  document.getElementById('qr-regime').textContent = regime;
+  document.getElementById('qr-title').textContent = title;
+  document.getElementById('qr-desc').textContent = desc;
+  document.getElementById('qr-benefit').textContent = benefit;
+  const r = document.getElementById('qresult');
+  r.classList.add('visible');
+  r.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+function qReset() {
+  Object.keys(qAnswers).forEach(k=>delete qAnswers[k]);
+  document.querySelectorAll('.quiz-step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('qstep1').classList.add('active');
+  document.getElementById('qresult').classList.remove('visible');
+  document.getElementById('qpfill').style.width = '0%';
+  document.getElementById('qsteplabel').textContent = 'Pregunta 1 de 3';
+  document.getElementById('qsteppct').textContent = '0%';
+  document.querySelectorAll('.quiz-opt').forEach(o=>o.classList.remove('selected'));
+}
 </script>
 
 <!-- COMO SABER SI NECESITO CONTADOR -->
@@ -1937,6 +2181,23 @@ function toggleAcc(el) {
 </script>
 
 <div class="footer">© 2026 C.P. Fernando Mendoza Ferreira · fisconegociomx@gmail.com</div>
+
+<!-- STICKY CTA BAR (mobile) -->
+<div class="sticky-cta" id="sticky-cta">
+  <a href="https://wa.me/5214442522739" target="_blank">📲 Agendar consulta gratuita →</a>
+  <button class="sticky-cta-close" onclick="document.getElementById('sticky-cta').style.display='none'">✕</button>
+</div>
+<script>
+(function(){
+  let shown = false;
+  window.addEventListener('scroll', function() {
+    if (!shown && window.scrollY > 300) {
+      shown = true;
+      document.getElementById('sticky-cta').classList.add('visible');
+    }
+  });
+})();
+</script>
 
 </body>
 </html>
