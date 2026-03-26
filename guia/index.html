@@ -148,56 +148,120 @@
   </section>
 
 
-  <!-- ══ QUIZ DIAGNÓSTICO ══ -->
-  <section class="section" id="quiz" style="padding-top:40px;">
-    <div class="section-tag">¿Por dónde empezar?</div>
-    <div class="section-title">Descubre tu <span>régimen ideal</span></div>
-    <p class="section-intro">3 preguntas rápidas para orientarte. Sin datos personales, sin registro.</p>
-    <div class="quiz-box">
-      <div class="quiz-progress">
-        <div class="quiz-dot done" id="qd1"></div>
-        <div class="quiz-dot" id="qd2"></div>
-        <div class="quiz-dot" id="qd3"></div>
-      </div>
-
-      <div class="quiz-step active" id="qs1">
-        <div class="quiz-q">¿Cuánto facturas aproximadamente al mes?</div>
-        <div class="quiz-hint">Considera todos tus ingresos por ventas o servicios</div>
-        <div class="quiz-opts">
-          <div class="quiz-opt" onclick="selectOpt(this,1,'a')"><span class="quiz-opt-icon">🌱</span> Menos de $50,000 MXN</div>
-          <div class="quiz-opt" onclick="selectOpt(this,1,'b')"><span class="quiz-opt-icon">📈</span> Entre $50,000 y $150,000 MXN</div>
-          <div class="quiz-opt" onclick="selectOpt(this,1,'c')"><span class="quiz-opt-icon">🚀</span> Más de $150,000 MXN</div>
-        </div>
-        <div class="quiz-nav"><button class="quiz-next" id="qn1" onclick="nextStep(2)">Siguiente →</button></div>
-      </div>
-
-      <div class="quiz-step" id="qs2">
-        <div class="quiz-q">¿Tienes empleados o pagas nómina?</div>
-        <div class="quiz-hint">Incluye aunque sea una persona de tiempo parcial</div>
-        <div class="quiz-opts">
-          <div class="quiz-opt" onclick="selectOpt(this,2,'a')"><span class="quiz-opt-icon">👤</span> No, trabajo solo</div>
-          <div class="quiz-opt" onclick="selectOpt(this,2,'b')"><span class="quiz-opt-icon">👥</span> Sí, tengo 1-5 empleados</div>
-          <div class="quiz-opt" onclick="selectOpt(this,2,'c')"><span class="quiz-opt-icon">🏢</span> Sí, más de 5 empleados</div>
-        </div>
-        <div class="quiz-nav"><button class="quiz-next" id="qn2" onclick="nextStep(3)">Siguiente →</button></div>
-      </div>
-
-      <div class="quiz-step" id="qs3">
-        <div class="quiz-q">¿Tienes muchos gastos relacionados con tu negocio?</div>
-        <div class="quiz-hint">Renta, equipo, insumos, servicios — con factura</div>
-        <div class="quiz-opts">
-          <div class="quiz-opt" onclick="selectOpt(this,3,'a')"><span class="quiz-opt-icon">💡</span> Pocos — principalmente servicios o venta de tiempo</div>
-          <div class="quiz-opt" onclick="selectOpt(this,3,'b')"><span class="quiz-opt-icon">📦</span> Moderados — tengo algunos gastos deducibles</div>
-          <div class="quiz-opt" onclick="selectOpt(this,3,'c')"><span class="quiz-opt-icon">🏭</span> Muchos — insumos, renta, equipo, etc.</div>
-        </div>
-        <div class="quiz-nav"><button class="quiz-next" id="qn3" onclick="showQuizResult()">Ver mi resultado →</button></div>
-      </div>
-
-      <div class="quiz-step" id="qs-result">
-        <div class="quiz-result" id="quiz-result-content"></div>
-      </div>
+  <!-- COMO SABER SI NECESITO CONTADOR -->
+<style>
+.csn-section{max-width:720px;margin:0 auto 64px;padding:0 20px;}
+.csn-headline{text-align:center;font-size:clamp(1.4rem,4vw,2.1rem);font-weight:900;line-height:1.2;margin-bottom:8px;}
+.csn-headline span{color:#00ff6d;}
+.csn-sub{text-align:center;font-size:0.86rem;color:#8C8C8C;margin-bottom:32px;}
+.csn-cards{display:flex;flex-direction:column;gap:10px;margin-bottom:24px;}
+.csn-card{
+  background:var(--dark-3);border:1.5px solid #1e2240;border-radius:14px;
+  padding:15px 18px;display:flex;align-items:center;gap:14px;
+  cursor:pointer;transition:border-color 0.2s,background 0.2s,transform 0.2s;user-select:none;
+}
+.csn-card:hover{border-color:rgba(0,255,109,0.35);transform:translateX(4px);}
+.csn-card.on{border-color:#00ff6d;background:rgba(0,255,109,0.07);transform:translateX(4px);}
+.csn-cb{
+  min-width:24px;height:24px;border-radius:7px;border:2px solid #2a3050;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  font-size:0.8rem;font-weight:900;
+  transition:border-color 0.2s,background 0.2s;
+}
+.csn-card.on .csn-cb{border-color:#00ff6d;background:#00ff6d;color:#0d1026;}
+.csn-ci{font-size:1.25rem;flex-shrink:0;}
+.csn-ct{flex:1;font-size:0.85rem;font-weight:600;color:#ccc;line-height:1.4;}
+.csn-card.on .csn-ct{color:#fff;}
+.csn-score-wrap{margin-bottom:20px;}
+.csn-score-bar{height:8px;border-radius:4px;background:#1e2240;overflow:hidden;margin-bottom:8px;}
+.csn-score-fill{
+  height:100%;border-radius:4px;
+  background:linear-gradient(90deg,#00cc57,#00ff6d);
+  width:0%;transition:width 0.5s cubic-bezier(.4,0,.2,1);
+}
+.csn-score-label{display:flex;justify-content:space-between;font-size:0.72rem;color:#555;font-weight:600;}
+.csn-result-panel{
+  border-radius:18px;padding:28px 24px;text-align:center;
+  background:linear-gradient(135deg,var(--dark-3),#1a1e3a);
+  border:1.5px solid #1e2240;
+  transition:border-color 0.4s,box-shadow 0.4s;
+}
+.csn-result-panel.r1{border-color:rgba(255,200,0,0.35);box-shadow:0 0 32px rgba(255,200,0,0.06);}
+.csn-result-panel.r2{border-color:rgba(255,120,0,0.4);box-shadow:0 0 32px rgba(255,120,0,0.07);}
+.csn-result-panel.r3{border-color:rgba(0,255,109,0.5);box-shadow:0 0 32px rgba(0,255,109,0.1);}
+.csn-r-emoji{font-size:2.2rem;margin-bottom:10px;}
+.csn-r-title{font-size:1.05rem;font-weight:900;color:#fff;margin-bottom:8px;}
+.csn-r-desc{font-size:0.83rem;color:#aaa;line-height:1.6;margin-bottom:18px;max-width:440px;margin-left:auto;margin-right:auto;}
+.csn-r-cta{
+  display:inline-block;background:#00ff6d;color:#0d1026;
+  font-size:0.88rem;font-weight:800;padding:13px 30px;border-radius:50px;
+  text-decoration:none;transition:background 0.2s,transform 0.15s;
+  box-shadow:0 4px 20px rgba(0,255,109,0.3);
+}
+.csn-r-cta:hover{background:#00e060;transform:translateY(-2px);}
+</style>
+<div class="csn-section">
+  <h2 class="csn-headline">¿Cómo saber si<br><span>necesito un contador?</span></h2>
+  <p class="csn-sub">Responde honestamente. En segundos sabes si es momento de actuar.</p>
+  <div class="csn-cards">
+    <div class="csn-card" onclick="csnToggle(this)">
+      <div class="csn-cb"></div><div class="csn-ci">🧾</div>
+      <div class="csn-ct">Emito facturas pero no estoy seguro de hacerlo bien</div>
     </div>
-  </section>
+    <div class="csn-card" onclick="csnToggle(this)">
+      <div class="csn-cb"></div><div class="csn-ci">🏛️</div>
+      <div class="csn-ct">El SAT me mandó un aviso y no sé cómo responderlo</div>
+    </div>
+    <div class="csn-card" onclick="csnToggle(this)">
+      <div class="csn-cb"></div><div class="csn-ci">👥</div>
+      <div class="csn-ct">Tengo colaboradores y no estoy seguro de cumplir correctamente con el IMSS</div>
+    </div>
+    <div class="csn-card" onclick="csnToggle(this)">
+      <div class="csn-cb"></div><div class="csn-ci">📈</div>
+      <div class="csn-ct">Mi negocio está creciendo pero no sé si realmente es rentable</div>
+    </div>
+    <div class="csn-card" onclick="csnToggle(this)">
+      <div class="csn-cb"></div><div class="csn-ci">⏱️</div>
+      <div class="csn-ct">Ya no tengo tiempo de llevar mis propios números y contabilidad</div>
+    </div>
+  </div>
+  <div class="csn-score-wrap">
+    <div class="csn-score-bar"><div class="csn-score-fill" id="csn-fill"></div></div>
+    <div class="csn-score-label"><span>0%</span><span id="csn-pct">0%</span><span>100%</span></div>
+  </div>
+  <div class="csn-result-panel" id="csn-panel">
+    <div class="csn-r-emoji" id="csn-emoji">☝️</div>
+    <div class="csn-r-title" id="csn-title">Selecciona las situaciones que aplican</div>
+    <div class="csn-r-desc" id="csn-desc">Marca cada una que reconozcas en tu negocio para ver tu diagnóstico personalizado.</div>
+  </div>
+</div>
+<script>
+const csnData=[
+  {cls:'',emoji:'☝️',title:'Selecciona las situaciones que aplican',desc:'Marca cada una que reconozcas en tu negocio para ver tu diagnóstico personalizado.',cta:false},
+  {cls:'r1',emoji:'🤔',title:'Podrías beneficiarte de orientación',desc:'Una situación ya es señal de que hay algo por ordenar. Una consulta rápida puede ahorrarte problemas futuros.',cta:true},
+  {cls:'r1',emoji:'⚠️',title:'Hay señales de alerta en tu negocio',desc:'Dos situaciones indican que hay áreas que necesitan atención fiscal o financiera pronto.',cta:true},
+  {cls:'r2',emoji:'🚨',title:'Necesitas un contador ahora',desc:'Con tres situaciones activas, tu negocio acumula riesgos fiscales que pueden costar caro. Actúa antes de que se compliquen.',cta:true},
+  {cls:'r3',emoji:'🔥',title:'Necesitas un contador urgente',desc:'Cuatro situaciones es una señal clara de que tu negocio necesita orden fiscal de inmediato. No lo dejes para después.',cta:true},
+  {cls:'r3',emoji:'💡',title:'¡Definitivamente necesitas apoyo profesional!',desc:'Tu negocio tiene todo para crecer — solo necesita el soporte fiscal y financiero correcto. Hablemos hoy.',cta:true},
+];
+function csnToggle(el){
+  el.classList.toggle('on');
+  el.querySelector('.csn-cb').textContent=el.classList.contains('on')?'✓':'';
+  const n=document.querySelectorAll('.csn-card.on').length;
+  const pct=Math.round(n/5*100);
+  document.getElementById('csn-fill').style.width=pct+'%';
+  document.getElementById('csn-pct').textContent=pct+'%';
+  const d=csnData[n];
+  const panel=document.getElementById('csn-panel');
+  panel.className='csn-result-panel '+d.cls;
+  document.getElementById('csn-emoji').textContent=d.emoji;
+  document.getElementById('csn-title').textContent=d.title;
+  document.getElementById('csn-desc').textContent=d.desc;
+  const ex=panel.querySelector('.csn-r-cta');if(ex)ex.remove();
+  if(d.cta){const a=document.createElement('a');a.href='https://wa.me/5214442522739';a.target='_blank';a.className='csn-r-cta';a.textContent='Quiero mi consulta gratuita →';panel.appendChild(a);}
+}
+</script>
+
 
   <div class="section-divider"></div>
 
@@ -793,54 +857,7 @@
 
   renderChips();
 
-  /* ── QUIZ ── */
-  const quizAnswers = {};
-  function selectOpt(el, step, val) {
-    el.closest('.quiz-opts').querySelectorAll('.quiz-opt').forEach(o=>o.classList.remove('selected'));
-    el.classList.add('selected');
-    quizAnswers[step] = val;
-    const btn = document.getElementById('qn'+step);
-    if(btn) { btn.classList.add('ready'); }
-  }
-  function nextStep(n) {
-    document.querySelectorAll('.quiz-step').forEach(s=>s.classList.remove('active'));
-    document.getElementById('qs'+n).classList.add('active');
-    for(let i=1;i<n;i++) { const d=document.getElementById('qd'+i); if(d) d.classList.add('done'); }
-    const d=document.getElementById('qd'+n); if(d) d.classList.add('done');
-  }
-  function showQuizResult() {
-    const a1=quizAnswers[1], a2=quizAnswers[2], a3=quizAnswers[3];
-    let icon='', title='', desc='', reg='';
-    if(a1==='a' || (a1==='b' && a3!=='c')) {
-      icon='⚡'; title='Te conviene RESICO'; reg='RESICO';
-      desc='Con tus ingresos y perfil, RESICO es probablemente tu mejor opción. Tasas bajísimas (0.1%-2.5%), poca carga administrativa y sin necesidad de deducir gastos. Ideal para ti.';
-    } else if(a2==='c' || a1==='c') {
-      icon='🏛️'; title='Considera una Persona Moral'; reg='Régimen General';
-      desc='Con tu nivel de ingresos y/o empleados, constituir una empresa (SA de CV o SAS) puede darte ventajas fiscales y protección patrimonial importantes. Vale la pena analizarlo.';
-    } else {
-      icon='🏢'; title='Actividad Empresarial puede ser mejor'; reg='Actividad Empresarial';
-      desc='Con tus gastos deducibles, el régimen de Actividad Empresarial podría resultar más conveniente que RESICO. La clave está en cuánto puedes deducir legalmente cada mes.';
-    }
-    document.querySelectorAll('.quiz-step').forEach(s=>s.classList.remove('active'));
-    document.getElementById('qs-result').classList.add('active');
-    document.querySelectorAll('.quiz-dot').forEach(d=>d.classList.add('done'));
-    document.getElementById('quiz-result-content').innerHTML = \`
-      <div class="quiz-result-icon">\${icon}</div>
-      <div class="quiz-result-title">\${title}</div>
-      <div class="quiz-result-desc">\${desc}</div>
-      <a href="#comparador" class="quiz-result-cta">Ver detalle del régimen →</a>
-      <button class="quiz-restart" onclick="restartQuiz()">Volver a contestar</button>
-    \`;
-  }
-  function restartQuiz() {
-    Object.keys(quizAnswers).forEach(k=>delete quizAnswers[k]);
-    document.querySelectorAll('.quiz-step').forEach(s=>s.classList.remove('active'));
-    document.getElementById('qs1').classList.add('active');
-    document.querySelectorAll('.quiz-dot').forEach(d=>d.classList.remove('done'));
-    document.getElementById('qd1').classList.add('done');
-    document.querySelectorAll('.quiz-opt').forEach(o=>o.classList.remove('selected'));
-    document.querySelectorAll('.quiz-next').forEach(b=>b.classList.remove('ready'));
-  }
+
 
   /* ── STICKY CTA SCROLL ── */
   window.addEventListener('scroll', function() {
