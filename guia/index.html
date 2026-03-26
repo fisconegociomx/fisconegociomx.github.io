@@ -137,10 +137,291 @@
 
   <div class="section-divider"></div>
 
-  <!-- PLACEHOLDER FASE 3 -->
-  <section class="section" id="tips" style="text-align:center;color:#333;padding:48px 24px;">
-    <p style="font-size:0.85rem;">— Más secciones próximamente —</p>
+
+  <!-- ══ FASE 3: TIPS ══ -->
+  <section class="section" id="tips">
+    <div class="section-tag">Consejos que marcan la diferencia</div>
+    <div class="section-title">8 Tips <span>Esenciales</span> para tu Negocio</div>
+    <p class="section-intro">Estos consejos no los enseñan en la escuela — los aprenden los emprendedores que ya cometieron los errores costosos. Aplícalos desde hoy.</p>
+    <div class="tips-grid" id="tips-grid"></div>
   </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ══ FASE 3: CALCULADORA ══ -->
+  <section class="section" id="calculadora">
+    <div class="section-tag">Herramienta práctica</div>
+    <div class="section-title">Calculadora de <span>Carga Fiscal</span></div>
+    <p class="section-intro">Estima cuánto pagarás de ISR e IVA según tus ingresos y régimen. Los resultados son aproximados — para un cálculo exacto, agenda una consulta.</p>
+
+    <div class="calc-box">
+      <div class="calc-inputs">
+        <div class="calc-field">
+          <div class="calc-label">💰 Ingresos mensuales (MXN)</div>
+          <input class="calc-input" id="f-ingresos" type="number" placeholder="Ej: 50000" min="1" oninput="calcFiscal()">
+        </div>
+        <div class="calc-field">
+          <div class="calc-label">🏛️ Régimen fiscal</div>
+          <select class="calc-input" id="f-regimen" onchange="calcFiscal()">
+            <option value="resico">RESICO</option>
+            <option value="ae">Actividad Empresarial (PF)</option>
+            <option value="general">Régimen General (PM 30%)</option>
+          </select>
+        </div>
+        <div class="calc-field" id="gastos-wrap" style="display:none;">
+          <div class="calc-label">📋 Gastos deducibles mensuales (MXN)</div>
+          <input class="calc-input" id="f-gastos" type="number" placeholder="Ej: 15000" min="0" oninput="calcFiscal()">
+        </div>
+      </div>
+      <div id="f-results"><div class="calc-empty">👆 Ingresa tus ingresos para calcular</div></div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ══ FASE 3: COMPARADOR CON/SIN CONTADOR ══ -->
+  <section class="section" id="comparador">
+    <div class="section-tag">La decisión más importante</div>
+    <div class="section-title">¿Con o Sin <span>Contador</span>?</div>
+    <p class="section-intro">Muchos emprendedores evitan contratar un contador para "ahorrar dinero". Los números dicen lo contrario.</p>
+    <div class="vs-grid" id="vs-grid"></div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ══ CTA FINAL ══ -->
+  <section class="section" id="contacto" style="text-align:center;padding-bottom:80px;">
+    <div class="cta-box">
+      <div class="cta-glow"></div>
+      <div class="cta-icon">📞</div>
+      <div class="cta-tag">Consulta gratuita</div>
+      <h2 class="cta-title">¿Listo para poner tus <span>finanzas en orden</span>?</h2>
+      <p class="cta-sub">Agenda una sesión gratuita de 30 minutos. Revisamos tu situación fiscal, identificamos riesgos y te damos un plan de acción claro.</p>
+      <div class="cta-bullets">
+        <div class="cta-bullet">✅ Sin compromisos</div>
+        <div class="cta-bullet">✅ 100% confidencial</div>
+        <div class="cta-bullet">✅ Plan personalizado</div>
+      </div>
+      <a href="https://fisconegociomx.github.io/#contacto" class="cta-btn">Agendar consulta gratuita →</a>
+      <div class="cta-contact">
+        <span>📧 contacto@fisconegocio.mx</span>
+        <span>·</span>
+        <span>C.P. Fernando Mendoza Ferreira</span>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    /* ── TIPS ── */
+    .tips-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    @media(max-width:520px){.tips-grid{grid-template-columns:1fr;}}
+    .tip-card { background:var(--dark-3); border:1px solid #1e2244; border-radius:16px; padding:22px; transition:transform 0.2s,border-color 0.2s; }
+    .tip-card:hover { transform:translateY(-2px); border-color:rgba(0,255,109,0.2); }
+    .tip-num { font-size:0.65rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; color:var(--green); margin-bottom:8px; }
+    .tip-title { font-size:0.95rem; font-weight:800; color:#fff; margin-bottom:6px; line-height:1.3; }
+    .tip-desc { font-size:0.79rem; color:#777; line-height:1.65; }
+
+    /* ── CALCULADORA ── */
+    .calc-box { background:var(--dark-3); border:1px solid #1e2244; border-radius:18px; padding:24px; }
+    .calc-inputs { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:20px; }
+    @media(max-width:520px){.calc-inputs{grid-template-columns:1fr;}}
+    .calc-field { display:flex; flex-direction:column; gap:6px; }
+    .calc-label { font-size:0.68rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#555; }
+    .calc-input { background:#111; border:1px solid #2a2a2a; border-radius:10px; padding:12px 14px; color:#fff; font-family:'Inter',sans-serif; font-size:0.9rem; font-weight:600; outline:none; transition:border-color 0.2s; width:100%; }
+    .calc-input:focus { border-color:rgba(0,255,109,0.4); }
+    .calc-input::placeholder { color:#444; }
+    .calc-input option { background:var(--dark-3); }
+    .calc-empty { text-align:center; padding:28px; font-size:0.82rem; color:#444; }
+    .calc-results { display:flex; flex-direction:column; gap:12px; }
+    .f-card { background:var(--dark-2); border:1px solid #1e2244; border-radius:12px; padding:16px 20px; }
+    .f-card-label { font-size:0.65rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; color:#555; margin-bottom:8px; }
+    .f-card-main { font-size:1.1rem; font-weight:900; color:#fff; margin-bottom:4px; }
+    .f-card-sub { font-size:0.78rem; color:var(--gray); line-height:1.6; }
+    .f-card.green .f-card-label { color:var(--green); }
+    .f-card.green .f-card-main { color:var(--green); }
+    .f-card.red .f-card-label { color:#ff6666; }
+    .f-card.red .f-card-main { color:#ff6666; }
+    .f-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    @media(max-width:520px){.f-row{grid-template-columns:1fr;}}
+    .f-disclaimer { margin-top:14px; font-size:0.72rem; color:#444; line-height:1.5; text-align:center; }
+
+    /* ── COMPARADOR VS ── */
+    .vs-grid { display:grid; grid-template-columns:1fr 1fr; gap:0; border:1px solid #1e2244; border-radius:18px; overflow:hidden; }
+    @media(max-width:520px){.vs-grid{grid-template-columns:1fr;}}
+    .vs-col { padding:28px 24px; }
+    .vs-col.sin { background:var(--dark-3); border-right:1px solid #1e2244; }
+    .vs-col.con { background:rgba(0,255,109,0.04); }
+    @media(max-width:520px){.vs-col.sin{border-right:none;border-bottom:1px solid #1e2244;}}
+    .vs-header { font-size:1rem; font-weight:900; margin-bottom:4px; }
+    .vs-col.sin .vs-header { color:#888; }
+    .vs-col.con .vs-header { color:var(--green); }
+    .vs-sub { font-size:0.72rem; color:#555; margin-bottom:20px; }
+    .vs-item { display:flex; align-items:flex-start; gap:10px; margin-bottom:14px; font-size:0.82rem; line-height:1.5; }
+    .vs-item-icon { font-size:1rem; flex-shrink:0; margin-top:1px; }
+    .vs-item-text { color:#888; }
+    .vs-item-text strong { color:#ccc; display:block; font-size:0.85rem; }
+    .vs-col.con .vs-item-text strong { color:#fff; }
+    .vs-bottom { margin-top:20px; padding-top:16px; border-top:1px solid #1e2244; font-size:0.8rem; font-weight:700; }
+    .vs-col.sin .vs-bottom { color:#ff6666; }
+    .vs-col.con .vs-bottom { color:var(--green); }
+
+    /* ── CTA ── */
+    .cta-box { background:var(--dark-3); border:1.5px solid rgba(0,255,109,0.2); border-radius:24px; padding:48px 32px; position:relative; overflow:hidden; }
+    .cta-glow { position:absolute; top:-60px; left:50%; transform:translateX(-50%); width:400px; height:300px; border-radius:50%; background:radial-gradient(circle,rgba(0,255,109,0.07),transparent 65%); pointer-events:none; }
+    .cta-icon { font-size:2.5rem; margin-bottom:12px; }
+    .cta-tag { font-size:0.68rem; font-weight:800; letter-spacing:0.14em; text-transform:uppercase; color:var(--green); margin-bottom:12px; }
+    .cta-title { font-size:clamp(1.4rem,3vw,1.9rem); font-weight:900; line-height:1.2; margin-bottom:16px; }
+    .cta-title span { color:var(--green); }
+    .cta-sub { font-size:0.88rem; color:var(--gray); line-height:1.75; max-width:480px; margin:0 auto 24px; }
+    .cta-bullets { display:flex; justify-content:center; gap:24px; flex-wrap:wrap; margin-bottom:28px; }
+    .cta-bullet { font-size:0.8rem; font-weight:600; color:#aaa; }
+    .cta-btn { display:inline-flex; align-items:center; gap:8px; background:var(--green); color:#0d1026; font-weight:800; font-size:0.95rem; padding:15px 32px; border-radius:12px; text-decoration:none; transition:all 0.2s; box-shadow:0 4px 24px rgba(0,255,109,0.25); }
+    .cta-btn:hover { transform:translateY(-2px); box-shadow:0 8px 32px rgba(0,255,109,0.35); }
+    .cta-contact { margin-top:20px; font-size:0.75rem; color:#444; display:flex; justify-content:center; gap:10px; flex-wrap:wrap; }
+  </style>
+
+  <script>
+  /* ── TIPS ── */
+  const tips = [
+    { num:'01', title:'Separa tu dinero desde el día uno', desc:'Abre una cuenta bancaria exclusiva para tu negocio. Mezclar finanzas personales y empresariales es el error más común y el más costoso de corregir después.' },
+    { num:'02', title:'Pide CFDI por todo gasto del negocio', desc:'Gasolina, papelería, renta, internet, equipo — si no tienes factura, no puedes deducirlo. Un gasto sin CFDI es dinero que pagas de más en impuestos.' },
+    { num:'03', title:'Reserva el 20-25% de tus ingresos para impuestos', desc:'Muchos emprendedores gastan todo y llegan al 17 de cada mes sin dinero para pagar. Crea una cuenta separada para impuestos y deposita automáticamente.' },
+    { num:'04', title:'Declara aunque no tengas ingresos', desc:'Presentar declaraciones en cero cuando no hay actividad evita multas. El SAT no sabe que no trabajaste — si no declaras, asume que sí.' },
+    { num:'05', title:'Activa y revisa tu Buzón Tributario', desc:'El SAT notifica requerimientos y cartas ahí. Tienes 3 días hábiles para responder. Ignorarlos equivale a aceptar lo que el SAT determine, sin importar si es correcto.' },
+    { num:'06', title:'Emite tus propias facturas correctamente', desc:'Usa plataformas autorizadas (Factura.com, CONTPAQi, etc.). Verifica que el RFC del cliente sea correcto antes de timbrar — un CFDI con RFC equivocado no tiene valor fiscal.' },
+    { num:'07', title:'Guarda todos tus comprobantes 5 años', desc:'El SAT puede revisarte hasta 5 años atrás. Guarda facturas, estados de cuenta, contratos y comprobantes de pago. Recomendable en formato digital con respaldo en nube.' },
+    { num:'08', title:'Conoce tus fechas de vencimiento', desc:'ISR e IVA mensual vencen el día 17 de cada mes. La declaración anual de personas físicas es en abril. Marca estas fechas en tu calendario — los recargos empiezan desde el día 18.' },
+  ];
+
+  document.getElementById('tips-grid').innerHTML = tips.map(t => `
+    <div class="tip-card">
+      <div class="tip-num">TIP ${t.num}</div>
+      <div class="tip-title">${t.title}</div>
+      <div class="tip-desc">${t.desc}</div>
+    </div>`).join('');
+
+  /* ── CALCULADORA FISCAL ── */
+  function fmtMXN(n){ return '$'+Math.round(n).toLocaleString('es-MX'); }
+
+  // ISR RESICO tabla 2025 (mensual)
+  function isrResico(ing) {
+    const tabla = [
+      [25000,   0.001], [50000,  0.011], [83333,  0.016],
+      [208333,  0.021], [3500000/12, 0.025]
+    ];
+    for(const [lim, tasa] of tabla) if(ing <= lim) return ing * tasa;
+    return ing * 0.025;
+  }
+
+  // ISR Actividad Empresarial — tabla art.96 LISR (mensual simplificada)
+  function isrAE(base) {
+    if(base <= 0) return 0;
+    const tabla = [
+      [746.04, 0, 0.0192],
+      [6332.05, 14.32, 0.064],
+      [11128.01, 371.83, 0.1088],
+      [12935.82, 893.63, 0.16],
+      [15487.71, 1182.88, 0.1792],
+      [31236.49, 1950.34, 0.2136],
+      [49233.00, 5696.91, 0.2352],
+      [93993.90, 10938.82, 0.30],
+      [125000, 22723.65, 0.32],
+      [166666, 32736.83, 0.34],
+      [Infinity, 46908.06, 0.35],
+    ];
+    for(const [ls, cuota, tasa] of tabla) {
+      if(base <= ls) return cuota + (base - (ls === tabla[0][0] ? 0 : tabla[tabla.indexOf(tabla.find(r=>r[0]===ls))-1][0])) * tasa;
+    }
+    return base * 0.35;
+  }
+
+  function calcFiscal() {
+    const ing = parseFloat(document.getElementById('f-ingresos').value) || 0;
+    const reg = document.getElementById('f-regimen').value;
+    const res = document.getElementById('f-results');
+    const gastosWrap = document.getElementById('gastos-wrap');
+
+    gastosWrap.style.display = reg === 'ae' ? 'block' : 'none';
+    if(!ing || ing <= 0) { res.innerHTML='<div class="calc-empty">👆 Ingresa tus ingresos para calcular</div>'; return; }
+
+    const gastos = parseFloat(document.getElementById('f-gastos').value) || 0;
+    let isr = 0, iva = 0, base = ing;
+    let detalleISR = '', detalleIVA = '';
+
+    if(reg === 'resico') {
+      isr = isrResico(ing);
+      iva = ing * 0.16;
+      detalleISR = `Tasa aplicable según tabla RESICO`;
+      detalleIVA = `16% sobre ingresos totales (menos IVA acreditable de gastos)`;
+    } else if(reg === 'ae') {
+      base = Math.max(0, ing - gastos);
+      isr = isrAE(base);
+      iva = Math.max(0, (ing * 0.16) - (gastos * 0.16));
+      detalleISR = `Base gravable: ${fmtMXN(base)} (ingresos menos gastos deducibles)`;
+      detalleIVA = `IVA cobrado menos IVA acreditable de gastos`;
+    } else {
+      isr = ing * 0.30;
+      iva = ing * 0.16;
+      detalleISR = `30% sobre utilidad (Régimen General PM)`;
+      detalleIVA = `16% sobre ingresos`;
+    }
+
+    const total = isr + iva;
+    const pctCarga = ((total/ing)*100).toFixed(1);
+
+    res.innerHTML = `
+      <div class="calc-results">
+        <div class="f-row">
+          <div class="f-card red">
+            <div class="f-card-label">ISR Mensual Estimado</div>
+            <div class="f-card-main">${fmtMXN(isr)}</div>
+            <div class="f-card-sub">${detalleISR}</div>
+          </div>
+          <div class="f-card red">
+            <div class="f-card-label">IVA a Pagar Estimado</div>
+            <div class="f-card-main">${fmtMXN(iva)}</div>
+            <div class="f-card-sub">${detalleIVA}</div>
+          </div>
+        </div>
+        <div class="f-card red">
+          <div class="f-card-label">Total Impuestos Mensual</div>
+          <div class="f-card-main">${fmtMXN(total)}</div>
+          <div class="f-card-sub">Carga fiscal aproximada: ${pctCarga}% de tus ingresos · Anual estimado: ${fmtMXN(total*12)}</div>
+        </div>
+        <div class="f-card green">
+          <div class="f-card-label">Ingreso neto estimado</div>
+          <div class="f-card-main">${fmtMXN(ing - total)}</div>
+          <div class="f-card-sub">Lo que queda después de impuestos. Un contador puede optimizar legalmente esta cifra.</div>
+        </div>
+        <p class="f-disclaimer">* Estimación orientativa. Los valores reales dependen de deducciones específicas, gastos de nómina, créditos fiscales y otros factores. Agenda una consulta para un cálculo exacto.</p>
+      </div>`;
+  }
+
+  /* ── VS COMPARADOR ── */
+  const vsItems = [
+    { icon:'💸', sin:'Pagas ISR al máximo sin optimizar deducciones', con:'Optimización legal de deducciones — pagas solo lo justo' },
+    { icon:'⏰', sin:'Horas perdidas aprendiendo trámites del SAT', con:'Tú enfocado en tu negocio — el contador maneja el SAT' },
+    { icon:'😰', sin:'Incertidumbre constante sobre si estás cumpliendo', con:'Tranquilidad total — alguien vigila tu situación fiscal' },
+    { icon:'📋', sin:'Riesgo de multas por declaraciones incorrectas o tardías', con:'Declaraciones correctas y a tiempo, siempre' },
+    { icon:'🏦', sin:'Dificultad para acceder a créditos por historial desordenado', con:'Historial fiscal limpio = acceso a créditos y financiamiento' },
+    { icon:'📊', sin:'Sin información financiera para tomar decisiones', con:'Estados financieros mensuales para decidir con datos' },
+  ];
+
+  document.getElementById('vs-grid').innerHTML = `
+    <div class="vs-col sin">
+      <div class="vs-header">❌ Sin Contador</div>
+      <div class="vs-sub">El camino de mayor riesgo</div>
+      ${vsItems.map(v=>`<div class="vs-item"><span class="vs-item-icon">❌</span><div class="vs-item-text"><strong>${v.sin}</strong></div></div>`).join('')}
+      <div class="vs-bottom">Alto riesgo fiscal y financiero</div>
+    </div>
+    <div class="vs-col con">
+      <div class="vs-header">✅ Con Contador</div>
+      <div class="vs-sub">La inversión que se paga sola</div>
+      ${vsItems.map(v=>`<div class="vs-item"><span class="vs-item-icon">✅</span><div class="vs-item-text"><strong>${v.con}</strong></div></div>`).join('')}
+      <div class="vs-bottom">Control total, menos impuestos, cero sorpresas</div>
+    </div>`;
+  </script>
+
 
   <style>
     /* ── REG TABS ── */
