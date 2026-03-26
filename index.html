@@ -1251,6 +1251,163 @@ function toggleBen(el) {
   </div>
 </div>
 
+<!-- FAQ -->
+<style>
+.faq-section{max-width:720px;margin:0 auto 64px;padding:0 20px;}
+.faq-headline{text-align:center;font-size:clamp(1.4rem,4vw,2.1rem);font-weight:900;line-height:1.2;margin-bottom:8px;}
+.faq-headline span{color:#00ff6d;}
+.faq-sub{text-align:center;font-size:0.86rem;color:#8C8C8C;margin-bottom:36px;}
+.faq-list{display:flex;flex-direction:column;gap:10px;}
+.faq-item{
+  background:var(--dark-3);border:1.5px solid #1e2240;border-radius:14px;
+  overflow:hidden;
+  opacity:0;transform:translateY(14px);
+  transition:opacity 0.4s ease,transform 0.4s ease,border-color 0.3s;
+}
+.faq-item.visible{opacity:1;transform:translateY(0);}
+.faq-item.open{border-color:rgba(0,255,109,0.4);}
+.faq-q{
+  display:flex;align-items:center;gap:14px;
+  padding:18px 20px;cursor:pointer;user-select:none;
+}
+.faq-q-icon{font-size:1.1rem;flex-shrink:0;}
+.faq-q-text{flex:1;font-size:0.9rem;font-weight:700;color:#ddd;line-height:1.4;}
+.faq-item.open .faq-q-text{color:#fff;}
+.faq-chevron{
+  width:24px;height:24px;border-radius:50%;
+  background:#1e2240;display:flex;align-items:center;justify-content:center;
+  color:#00ff6d;font-size:0.85rem;flex-shrink:0;
+  transition:transform 0.3s ease,background 0.3s;
+}
+.faq-item.open .faq-chevron{transform:rotate(45deg);background:rgba(0,255,109,0.15);}
+.faq-body{
+  max-height:0;overflow:hidden;
+  transition:max-height 0.45s cubic-bezier(0.4,0,0.2,1),padding 0.3s ease;
+  padding:0 20px;
+}
+.faq-item.open .faq-body{max-height:300px;padding-bottom:20px;}
+.faq-body-inner{
+  border-top:1px solid #1e2240;padding-top:14px;
+  font-size:0.83rem;color:#aaa;line-height:1.7;
+}
+.faq-body-inner strong{color:#00ff6d;}
+</style>
+<div class="faq-section">
+  <h2 class="faq-headline">Preguntas<br><span>frecuentes</span></h2>
+  <p class="faq-sub">Todo lo que necesitas saber antes de dar el paso.</p>
+  <div class="faq-list">
+
+    <div class="faq-item" onclick="faqToggle(this)">
+      <div class="faq-q">
+        <div class="faq-q-icon">💰</div>
+        <div class="faq-q-text">¿Cuánto cuesta contratar tus servicios?</div>
+        <div class="faq-chevron">+</div>
+      </div>
+      <div class="faq-body">
+        <div class="faq-body-inner">El costo varía según el tipo de servicio y las necesidades de tu negocio. Ofrecemos planes flexibles para personas físicas y morales. <strong>La primera consulta es completamente gratuita</strong> — ahí te damos un presupuesto claro y sin compromisos.</div>
+      </div>
+    </div>
+
+    <div class="faq-item" onclick="faqToggle(this)">
+      <div class="faq-q">
+        <div class="faq-q-icon">🏢</div>
+        <div class="faq-q-text">¿Atienden personas físicas y morales?</div>
+        <div class="faq-chevron">+</div>
+      </div>
+      <div class="faq-body">
+        <div class="faq-body-inner">Sí, atendemos a <strong>ambas figuras fiscales</strong>. Freelancers, emprendedores, profesionistas independientes (personas físicas) y empresas constituidas (personas morales). Cada caso se maneja con la estrategia y régimen fiscal más conveniente.</div>
+      </div>
+    </div>
+
+    <div class="faq-item" onclick="faqToggle(this)">
+      <div class="faq-q">
+        <div class="faq-q-icon">📅</div>
+        <div class="faq-q-text">¿Cómo agendo una cita?</div>
+        <div class="faq-chevron">+</div>
+      </div>
+      <div class="faq-body">
+        <div class="faq-body-inner">Puedes agendar directamente desde el <strong>calendario en esta página</strong> o escribirnos por WhatsApp. Las citas se confirman en menos de 24 horas y deben programarse con mínimo 48 horas de anticipación. La primera consulta no tiene costo.</div>
+      </div>
+    </div>
+
+    <div class="faq-item" onclick="faqToggle(this)">
+      <div class="faq-q">
+        <div class="faq-q-icon">📝</div>
+        <div class="faq-q-text">¿Los servicios son por contrato de 12 meses?</div>
+        <div class="faq-chevron">+</div>
+      </div>
+      <div class="faq-body">
+        <div class="faq-body-inner">Los servicios de contabilidad y cumplimiento fiscal se manejan con <strong>contrato anual (12 meses)</strong> para garantizar continuidad y cumplimiento ante el SAT. Otros servicios como asesorías puntuales o trámites específicos pueden contratarse por evento o proyecto.</div>
+      </div>
+    </div>
+
+    <div class="faq-item" onclick="faqToggle(this)">
+      <div class="faq-q">
+        <div class="faq-q-icon">❌</div>
+        <div class="faq-q-text">¿Puedo cancelar el servicio antes de los 12 meses?</div>
+        <div class="faq-chevron">+</div>
+      </div>
+      <div class="faq-body">
+        <div class="faq-body-inner">El contrato anual tiene condiciones específicas de cancelación que se explican al momento de la firma. En general, requerimos <strong>aviso previo de 30 días</strong> y el pago de los meses transcurridos. Te asesoramos desde el inicio para que el compromiso sea claro y conveniente para ambas partes.</div>
+      </div>
+    </div>
+
+    <div class="faq-item" onclick="faqToggle(this)">
+      <div class="faq-q">
+        <div class="faq-q-icon">🚨</div>
+        <div class="faq-q-text">¿Puedes ayudarme si ya tengo deudas o problemas con el SAT?</div>
+        <div class="faq-chevron">+</div>
+      </div>
+      <div class="faq-body">
+        <div class="faq-body-inner">Sí. Regularizar situaciones ante el SAT es parte de nuestro trabajo. <strong>Mientras más rápido actúes, más opciones tienes.</strong> Evaluamos tu situación, te explicamos exactamente qué debes hacer y gestionamos el proceso contigo paso a paso.</div>
+      </div>
+    </div>
+
+    <div class="faq-item" onclick="faqToggle(this)">
+      <div class="faq-q">
+        <div class="faq-q-icon">📱</div>
+        <div class="faq-q-text">¿Cada cuánto nos comunicamos?</div>
+        <div class="faq-chevron">+</div>
+      </div>
+      <div class="faq-body">
+        <div class="faq-body-inner">Depende del servicio contratado, pero en general tendrás <strong>comunicación directa conmigo</strong> — no con un asistente. Resolvemos dudas por WhatsApp, te avisamos de obligaciones próximas y tenemos reuniones periódicas de seguimiento según lo requiera tu negocio.</div>
+      </div>
+    </div>
+
+    <div class="faq-item" onclick="faqToggle(this)">
+      <div class="faq-q">
+        <div class="faq-q-icon">🌐</div>
+        <div class="faq-q-text">¿Ofrecen servicio en línea o solo presencial?</div>
+        <div class="faq-chevron">+</div>
+      </div>
+      <div class="faq-body">
+        <div class="faq-body-inner">Trabajamos <strong>100% en línea</strong> con clientes de todo México. También atendemos de forma presencial en San Luis Potosí. Toda la documentación se gestiona digitalmente de manera segura — sin necesidad de traer papeles físicos.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<script>
+function faqToggle(el){
+  const isOpen=el.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
+  if(!isOpen)el.classList.add('open');
+}
+(function(){
+  const items=document.querySelectorAll('.faq-item');
+  const obs=new IntersectionObserver(e=>{
+    e.forEach(en=>{
+      if(en.isIntersecting){
+        const i=Array.from(items).indexOf(en.target);
+        setTimeout(()=>en.target.classList.add('visible'),i*60);
+        obs.unobserve(en.target);
+      }
+    });
+  },{threshold:0.1});
+  items.forEach(it=>obs.observe(it));
+})();
+</script>
+
 <!-- CALENDARIO -->
 <div class="section-title" style="margin-top:48px;">Agendar Cita</div>
 <style>
@@ -1535,88 +1692,6 @@ function calNext() {
 
 initCal();
 </script>
-
-<!-- CLIENTES -->
-<style>
-.clients-section { max-width: 800px; margin: 0 auto 56px; padding: 0 20px; }
-.clients-track-wrap {
-  overflow: hidden;
-  border-radius: 16px;
-  background: var(--dark-3);
-  border: 1px solid #1e2240;
-  padding: 32px 20px;
-}
-.clients-track {
-  display: flex;
-  gap: 40px;
-  align-items: center;
-  animation: scroll-clients 12s linear infinite;
-  width: max-content;
-}
-.clients-track:hover { animation-play-state: paused; }
-@keyframes scroll-clients {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-.client-logo-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-}
-.client-logo-img {
-  height: 64px;
-  width: auto;
-  max-width: 140px;
-  object-fit: contain;
-  border-radius: 10px;
-  filter: grayscale(30%);
-  transition: filter 0.2s, transform 0.2s;
-}
-.clients-track:hover .client-logo-img { filter: grayscale(0%); transform: scale(1.05); }
-.client-logo-name {
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--gray);
-}
-</style>
-<div class="clients-section">
-  <h2 class="nc-headline" style="text-align:center;margin-bottom:8px;margin-top:0;">Clientes que <span style="color:#00ff6d;">confían en nosotros</span></h2>
-  <p style="text-align:center;font-size:0.88rem;color:#8C8C8C;margin-bottom:28px;">Emprendedores y empresas que ya ordenaron su negocio con Fisconegociomx.</p>
-  <div class="clients-track-wrap">
-    <div class="clients-track">
-      <!-- Set 1 -->
-      <div class="client-logo-item">
-        <img src="logo_flores.jpg" alt="Flores El Patrón" class="client-logo-img" style="background:#fce4ec;padding:6px;">
-        <div class="client-logo-name">Flores El Patrón</div>
-      </div>
-      <div class="client-logo-item">
-        <img src="atiko_logo.jpg" alt="Atiko Cowork" class="client-logo-img" style="background:#000;padding:6px;">
-        <div class="client-logo-name">Atiko Cowork</div>
-      </div>
-      <div class="client-logo-item">
-        <img src="logo_web3.jpg" alt="Web3 Collective" class="client-logo-img" style="background:#fff;padding:6px;">
-        <div class="client-logo-name">Web3 Collective</div>
-      </div>
-      <!-- Set 2 (duplicado para loop infinito) -->
-      <div class="client-logo-item">
-        <img src="logo_flores.jpg" alt="Flores El Patrón" class="client-logo-img" style="background:#fce4ec;padding:6px;">
-        <div class="client-logo-name">Flores El Patrón</div>
-      </div>
-      <div class="client-logo-item">
-        <img src="atiko_logo.jpg" alt="Atiko Cowork" class="client-logo-img" style="background:#000;padding:6px;">
-        <div class="client-logo-name">Atiko Cowork</div>
-      </div>
-      <div class="client-logo-item">
-        <img src="logo_web3.jpg" alt="Web3 Collective" class="client-logo-img" style="background:#fff;padding:6px;">
-        <div class="client-logo-name">Web3 Collective</div>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- SOCIOS COMERCIALES -->
 <style>
