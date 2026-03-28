@@ -34,31 +34,61 @@
     .nav-back { font-size:0.75rem; color:#444; text-decoration:none; transition:color 0.2s; }
     .nav-back:hover { color:var(--green); }
 
+    /* HERO ANIMATIONS */
+    @keyframes pulse-ring {
+      0%,100% { transform:scale(1); opacity:0.35; }
+      50% { transform:scale(1.1); opacity:0.1; }
+    }
+    @keyframes fade-up {
+      from { opacity:0; transform:translateY(18px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    @keyframes blink {
+      0%,100% { opacity:1; }
+      50%     { opacity:0; }
+    }
+    @keyframes bg-breathe {
+      0%,100% { opacity:0.04; transform:translateX(-50%) scale(1); }
+      50%     { opacity:0.09; transform:translateX(-50%) scale(1.12); }
+    }
+
     /* HERO */
     .hero {
-      max-width:760px; margin:0 auto; padding:60px 24px 48px;
+      max-width:760px; margin:0 auto; padding:64px 24px 48px;
       display:flex; flex-direction:column; align-items:center; text-align:center;
       position:relative;
     }
     .hero::before {
       content:''; position:absolute; top:-80px; left:50%; transform:translateX(-50%);
-      width:600px; height:500px; border-radius:50%;
-      background:radial-gradient(circle,rgba(0,255,109,0.05),transparent 65%);
+      width:640px; height:540px; border-radius:50%;
+      background:radial-gradient(circle,rgba(0,255,109,1),transparent 65%);
       pointer-events:none;
+      animation: bg-breathe 5s ease-in-out infinite;
     }
 
     /* AVATAR */
     .avatar-wrap {
-      position:relative; margin-bottom:28px;
+      position:relative; margin-bottom:30px;
+      animation: fade-up 0.5s ease 0.05s both;
+    }
+    .avatar-ring-1 {
+      position:absolute; inset:-9px; border-radius:50%;
+      border:2px solid rgba(0,255,109,0.28);
+      animation:pulse-ring 2.8s ease-in-out infinite;
+    }
+    .avatar-ring-2 {
+      position:absolute; inset:-18px; border-radius:50%;
+      border:1px solid rgba(0,255,109,0.1);
+      animation:pulse-ring 2.8s ease-in-out infinite 0.9s;
     }
     .avatar {
       width:120px; height:120px; border-radius:50%;
       object-fit:cover; object-position:center top;
-      border:2.5px solid rgba(0,255,109,0.3);
-      box-shadow:0 0 0 6px rgba(0,255,109,0.06);
+      border:2.5px solid rgba(0,255,109,0.35);
+      position:relative; z-index:1;
     }
     .avatar-badge {
-      position:absolute; bottom:4px; right:4px;
+      position:absolute; bottom:4px; right:4px; z-index:2;
       width:22px; height:22px; border-radius:50%;
       background:var(--green); border:2px solid var(--dark);
       display:flex; align-items:center; justify-content:center;
@@ -72,36 +102,61 @@
       border-radius:50px; padding:5px 14px;
       font-size:0.7rem; font-weight:700; color:var(--green);
       letter-spacing:0.1em; text-transform:uppercase; margin-bottom:16px;
+      animation: fade-up 0.5s ease 0.15s both;
     }
     .hero-name {
-      font-size:clamp(1.8rem,5vw,2.8rem); font-weight:900;
-      letter-spacing:-1px; color:#fff; line-height:1.1; margin-bottom:6px;
+      font-size:clamp(1.9rem,5vw,2.9rem); font-weight:900;
+      letter-spacing:-1.5px; color:#fff; line-height:1.1; margin-bottom:10px;
+      animation: fade-up 0.5s ease 0.25s both;
     }
     .hero-title {
-      font-size:1rem; font-weight:500; color:#555; margin-bottom:20px;
-      letter-spacing:0.02em;
+      font-size:1.05rem; font-weight:500; color:var(--green);
+      margin-bottom:18px; letter-spacing:0.01em; min-height:1.5rem;
+      animation: fade-up 0.5s ease 0.35s both;
+    }
+    .hero-title .cursor {
+      display:inline-block; width:2px; height:1em;
+      background:var(--green); margin-left:3px;
+      vertical-align:middle;
+      animation:blink 0.8s step-end infinite;
     }
     .hero-tagline {
-      font-size:clamp(0.95rem,2.5vw,1.08rem); color:#aaa; font-weight:400;
-      line-height:1.75; max-width:520px; margin:0 auto 32px;
+      font-size:clamp(0.9rem,2.5vw,1rem); color:#666; font-weight:400;
+      line-height:1.7; max-width:420px; margin:0 auto 28px;
+      animation: fade-up 0.5s ease 0.45s both;
     }
-    .hero-tagline strong { color:#ddd; font-weight:600; }
+    .hero-tagline strong { color:#999; font-weight:600; }
+
+    /* STAT CHIPS */
+    .stat-row {
+      display:flex; align-items:center;
+      background:var(--dark-3); border:1px solid #1e2244;
+      border-radius:14px; overflow:hidden; margin-bottom:32px;
+      animation: fade-up 0.5s ease 0.55s both;
+    }
+    .stat-chip {
+      display:flex; flex-direction:column; align-items:center;
+      padding:14px 28px;
+    }
+    .stat-chip + .stat-chip { border-left:1px solid #1e2244; }
+    .stat-val  { font-size:1.15rem; font-weight:900; color:var(--green); line-height:1.1; }
+    .stat-label{ font-size:0.62rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:#333; margin-top:3px; }
 
     /* SOCIAL BUTTONS */
     .social-row {
       display:flex; align-items:center; justify-content:center;
       gap:10px; flex-wrap:wrap; margin-bottom:48px;
+      animation: fade-up 0.5s ease 0.65s both;
     }
     .social-btn {
       display:inline-flex; align-items:center; gap:8px;
       background:var(--dark-3); border:1px solid #1e2244;
-      border-radius:50px; padding:9px 18px;
-      font-size:0.78rem; font-weight:600; color:#888;
+      border-radius:50px; padding:10px 20px;
+      font-size:0.78rem; font-weight:600; color:#666;
       text-decoration:none; transition:all 0.2s;
     }
-    .social-btn:hover { border-color:rgba(0,255,109,0.35); color:#ccc; transform:translateY(-1px); }
+    .social-btn:hover { border-color:rgba(0,255,109,0.35); color:#ccc; transform:translateY(-2px); box-shadow:0 6px 20px rgba(0,0,0,0.3); }
     .social-btn svg { width:15px; height:15px; flex-shrink:0; }
-    .social-btn.wa { }
     .social-btn.wa:hover { border-color:rgba(37,211,102,0.4); color:#25d366; }
     .social-btn.ig:hover { border-color:rgba(225,48,108,0.4); color:#e1306c; }
     .social-btn.li:hover { border-color:rgba(0,119,181,0.4); color:#0077b5; }
@@ -154,18 +209,26 @@
   <!-- HERO -->
   <section class="hero">
     <div class="avatar-wrap">
+      <div class="avatar-ring-1"></div>
+      <div class="avatar-ring-2"></div>
       <img class="avatar" src="../fernando_profile.jpg" alt="Fernando Mendoza Ferreira">
       <div class="avatar-badge">✓</div>
     </div>
 
     <div class="hero-tag">C.P. · Contador Público Certificado</div>
     <h1 class="hero-name">Fernando Mendoza<br>Ferreira</h1>
-    <p class="hero-title">Asesor Fiscal · Consultor Web3 · Emprendedor</p>
+    <p class="hero-title"><span id="typed-role"></span><span class="cursor"></span></p>
 
     <p class="hero-tagline">
-      Construyo negocios sólidos desde la <strong>estrategia fiscal</strong>, la <strong>tecnología</strong> y la <strong>innovación</strong>.
-      Fundador de cuatro empresas en México con enfoque en finanzas, blockchain, IA y espacios de trabajo.
+      Donde las finanzas tradicionales se encuentran<br>con la <strong>economía digital</strong>.
     </p>
+
+    <!-- STATS -->
+    <div class="stat-row">
+      <div class="stat-chip"><div class="stat-val">4</div><div class="stat-label">Empresas</div></div>
+      <div class="stat-chip"><div class="stat-val">+10</div><div class="stat-label">Años</div></div>
+      <div class="stat-chip"><div class="stat-val">SLP</div><div class="stat-label">México</div></div>
+    </div>
 
     <!-- SOCIAL BUTTONS -->
     <div class="social-row">
@@ -578,6 +641,28 @@
   </section>
 
   <div class="footer">© 2026 Fernando Mendoza Ferreira · fisconegociomx.github.io</div>
+
+  <script>
+    // Typewriter effect — rotating roles
+    const roles = ['Asesor Fiscal', 'Consultor Web3', 'Emprendedor'];
+    let ri = 0, ci = 0, deleting = false;
+    const el = document.getElementById('typed-role');
+    function type() {
+      const cur = roles[ri];
+      if (!deleting) {
+        el.textContent = cur.substring(0, ci + 1);
+        ci++;
+        if (ci === cur.length) { deleting = true; setTimeout(type, 2000); return; }
+        setTimeout(type, 90);
+      } else {
+        el.textContent = cur.substring(0, ci - 1);
+        ci--;
+        if (ci === 0) { deleting = false; ri = (ri + 1) % roles.length; }
+        setTimeout(type, 55);
+      }
+    }
+    setTimeout(type, 600);
+  </script>
 
 </body>
 </html>
