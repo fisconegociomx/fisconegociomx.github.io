@@ -171,17 +171,46 @@
     .section-title span { color:var(--green); }
 
     /* VALUE CARDS */
-    .value-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    @keyframes card-in {
+      from { opacity:0; transform:translateY(22px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    .value-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
     @media(max-width:520px){ .value-grid{grid-template-columns:1fr;} }
     .value-card {
-      background:var(--dark-3); border:1px solid #1e2244;
-      border-radius:16px; padding:22px 20px;
-      transition:transform 0.2s, border-color 0.2s;
+      background:var(--dark-3); border:1px solid #1a1e3a;
+      border-radius:20px; padding:26px 22px;
+      transition:transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+      position:relative; overflow:hidden;
+      opacity:0;
     }
-    .value-card:hover { transform:translateY(-2px); border-color:rgba(0,255,109,0.2); }
-    .value-icon { font-size:1.5rem; margin-bottom:12px; display:block; }
-    .value-title { font-size:0.95rem; font-weight:800; color:#ddd; margin-bottom:6px; }
-    .value-desc { font-size:0.8rem; color:#555; line-height:1.65; }
+    .value-card.visible { animation: card-in 0.5s ease forwards; }
+    .value-card:nth-child(1).visible { animation-delay:0s; }
+    .value-card:nth-child(2).visible { animation-delay:0.1s; }
+    .value-card:nth-child(3).visible { animation-delay:0.2s; }
+    .value-card:nth-child(4).visible { animation-delay:0.3s; }
+    .value-card::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:2px;
+      background:var(--card-accent, var(--green));
+      opacity:0; transition:opacity 0.25s;
+    }
+    .value-card:hover { transform:translateY(-4px); border-color:rgba(255,255,255,0.07); box-shadow:0 12px 40px rgba(0,0,0,0.35); }
+    .value-card:hover::before { opacity:1; }
+    .value-icon-wrap {
+      width:44px; height:44px; border-radius:12px;
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.3rem; margin-bottom:16px;
+      background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.06);
+    }
+    .value-title { font-size:0.98rem; font-weight:800; color:#e0e0e0; margin-bottom:8px; }
+    .value-desc { font-size:0.8rem; color:#4a4e6a; line-height:1.7; }
+    .value-arrow {
+      display:inline-flex; align-items:center; gap:5px;
+      font-size:0.72rem; font-weight:700; color:var(--card-accent, var(--green));
+      margin-top:14px; opacity:0; transition:opacity 0.2s, gap 0.2s;
+      text-decoration:none;
+    }
+    .value-card:hover .value-arrow { opacity:1; gap:8px; }
 
     /* BIO */
     .bio-text {
@@ -255,25 +284,29 @@
     <h2 class="section-title">Valor que <span>genero</span></h2>
 
     <div class="value-grid">
-      <div class="value-card">
-        <span class="value-icon">🧾</span>
+      <div class="value-card" style="--card-accent:#00ff6d;">
+        <div class="value-icon-wrap">🧾</div>
         <div class="value-title">Estrategia Fiscal</div>
-        <div class="value-desc">Estructuro tu situación tributaria para que pagues lo justo, cumplas sin estrés y tu negocio sea más rentable.</div>
+        <div class="value-desc">Paga lo justo, cumple sin estrés y haz tu negocio más rentable desde la raíz.</div>
+        <span class="value-arrow">Ver más →</span>
       </div>
-      <div class="value-card">
-        <span class="value-icon">🏗️</span>
+      <div class="value-card" style="--card-accent:#fb923c;">
+        <div class="value-icon-wrap">🏗️</div>
         <div class="value-title">Construcción de Negocios</div>
-        <div class="value-desc">Te acompaño desde la idea hasta la operación: constitución, modelo de negocio, estructura legal y financiera.</div>
+        <div class="value-desc">De la idea a la operación: constitución, modelo, estructura legal y financiera.</div>
+        <span class="value-arrow">Ver más →</span>
       </div>
-      <div class="value-card">
-        <span class="value-icon">🌐</span>
+      <div class="value-card" style="--card-accent:#a78bfa;">
+        <div class="value-icon-wrap">🌐</div>
         <div class="value-title">Web3 y Tecnología</div>
-        <div class="value-desc">Consultoría en blockchain, criptoactivos e inteligencia artificial aplicada a empresas en crecimiento.</div>
+        <div class="value-desc">Blockchain, criptoactivos e IA aplicada a negocios que quieren liderar el futuro.</div>
+        <span class="value-arrow">Ver más →</span>
       </div>
-      <div class="value-card">
-        <span class="value-icon">🤝</span>
+      <div class="value-card" style="--card-accent:#38bdf8;">
+        <div class="value-icon-wrap">🤝</div>
         <div class="value-title">Conexiones Estratégicas</div>
-        <div class="value-desc">Acceso a un ecosistema de socios, inversionistas, tecnólogos y espacios de trabajo en México.</div>
+        <div class="value-desc">Ecosistema real: socios, inversionistas, tecnólogos y espacios en México.</div>
+        <span class="value-arrow">Ver más →</span>
       </div>
     </div>
   </section>
@@ -662,6 +695,12 @@
       }
     }
     setTimeout(type, 600);
+
+    // Reveal cards on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.value-card').forEach(c => observer.observe(c));
   </script>
 
 </body>
