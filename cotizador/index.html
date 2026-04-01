@@ -609,64 +609,71 @@ function renderAddons(){
     const r=S.regime;
     const inc=a.includedIn.includes(S.level);
     const sel=S.addons.has(a.id);
-    let priceStr='';
+    let priceStr;
     if(inc){
       priceStr='<span style="color:var(--green);font-size:12px">✓ Incluido en tu plan</span>';
     } else if(a.hasCounter){
       const pp=a.pricePerEmp[r];
-      priceStr=fmt(pp*S.nominaCount)+'/mes · '+S.nominaCount+' empleado'+(S.nominaCount>1?'s':'')+' × '+fmt(pp);
+      priceStr=fmt(pp*S.nominaCount)+'/mes &middot; '+S.nominaCount+' empleado'+(S.nominaCount>1?'s':'')+' &times; '+fmt(pp);
     } else if(a.hasSubItems){
-      const total=obligTotal();
-      priceStr=total>0?'<span style="color:var(--green)">+'+fmt(total)+'/mes ('+S.obligSel.size+' obligación'+(S.obligSel.size!==1?'es':'')+')</span>':'<span style="color:var(--gray)">Sin obligaciones seleccionadas</span>';
+      const ot=obligTotal();
+      priceStr=ot>0
+        ?'<span style="color:var(--green)">+'+fmt(ot)+'/mes ('+S.obligSel.size+' obligaci&oacute;n'+(S.obligSel.size!==1?'es':'')+')</span>'
+        :'<span style="color:var(--gray)">Sin obligaciones seleccionadas</span>';
     } else {
       priceStr='+'+fmt(a.price[r])+'/mes';
     }
 
-    const counter=a.hasCounter&&sel&&!inc?
-      '<div class="nom-counter">'+
-      '<button class="nom-btn" onclick="event.stopPropagation();chgNom(-1)">−</button>'+
-      '<span class="nom-val">'+S.nominaCount+'</span>'+
-      '<button class="nom-btn" onclick="event.stopPropagation();chgNom(1)">+</button>'+
-      '<span class="nom-lbl">empleados</span></div>':'';
-
-    const obligPanel=a.hasSubItems&&sel&&!inc?renderObligPanel():'';
+    let extras='';
+    if(a.hasCounter&&sel&&!inc){
+      extras+='<div class="nom-counter">'
+        +'<button class="nom-btn" onclick="event.stopPropagation();chgNom(-1)">&minus;</button>'
+        +'<span class="nom-val">'+S.nominaCount+'</span>'
+        +'<button class="nom-btn" onclick="event.stopPropagation();chgNom(1)">+</button>'
+        +'<span class="nom-lbl">empleados</span></div>';
+    }
+    if(a.hasSubItems&&sel&&!inc){
+      extras+=renderObligPanel();
+    }
 
     const cardClass='a-card'+(sel?' sel':'')+(inc?' included':'')+(a.plus?' plus-card':'');
-    const clickAct=inc?'':('toggleA(''+a.id+'')');
-    return '<div class="'+cardClass+'" onclick="'+clickAct+'">'+
-      '<div class="a-chk">'+(sel||inc?'✓':'')+'</div>'+
-      '<div class="a-info">'+
-        '<div class="a-name">'+a.name+
-          (inc?'<span class="a-tag inc">Incluido</span>':'')+
-          (a.plus&&!inc?'<span class="a-tag plus">Plus</span>':'')+
-        '</div>'+
-        '<div class="a-desc">'+a.desc+'</div>'+
-        '<div class="a-price">'+priceStr+'</div>'+
-        (a.note?'<div class="a-note">'+a.note+'</div>':'')+
-        counter+
-        obligPanel+
-      '</div></div>';
+    const onclk=inc?'':'toggleA(this.dataset.aid)';
+    return '<div class="'+cardClass+'" data-aid="'+a.id+'" onclick="'+onclk+'">'
+      +'<div class="a-chk">'+(sel||inc?'&#10003;':'')+'</div>'
+      +'<div class="a-info">'
+        +'<div class="a-name">'+a.name
+          +(inc?'<span class="a-tag inc">Incluido</span>':'')
+          +(a.plus&&!inc?'<span class="a-tag plus">Plus</span>':'')
+        +'</div>'
+        +'<div class="a-desc">'+a.desc+'</div>'
+        +'<div class="a-price">'+priceStr+'</div>'
+        +(a.note?'<div class="a-note">'+a.note+'</div>':'')
+        +extras
+      +'</div></div>';
   }).join('');
   updateFloatBar();
   renderProgressBar();
 }
 
 function renderObligPanel(){
-  return '<div class="oblig-panel" onclick="event.stopPropagation()">'+
-    '<div class="op-title">Selecciona las obligaciones que aplican</div>'+
-    OBLIG_ITEMS.map(o=>{
-      const sel=S.obligSel.has(o.id);
-      return '<div class="op-item'+(sel?' op-sel':'')+'" onclick="toggleOblig(''+o.id+'')" role="checkbox" aria-checked="'+sel+'">'+
-        '<div class="op-chk">'+(sel?'✓':'')+'</div>'+
-        '<div class="op-info">'+
-          '<div class="op-name">'+o.name+'</div>'+
-          '<div class="op-desc">'+o.desc+'</div>'+
-        '</div>'+
-        '<div class="op-price">+'+fmt(o.price)+'/mes</div>'+
-      '</div>';
-    }).join('')+
-    (S.obligSel.size>0?'<div class="op-total"><span>Total obligaciones</span><span style="color:var(--green);font-weight:800">'+fmt(obligTotal())+'/mes</span></div>':'')+
-  '</div>';
+  let html='<div class="oblig-panel" onclick="event.stopPropagation()">'
+    +'<div class="op-title">Selecciona las obligaciones que aplican</div>';
+  OBLIG_ITEMS.forEach(function(o){
+    const sel=S.obligSel.has(o.id);
+    html+='<div class="op-item'+(sel?' op-sel':'')+'" data-oid="'+o.id+'" onclick="event.stopPropagation();toggleOblig(this.dataset.oid)">'
+      +'<div class="op-chk">'+(sel?'&#10003;':'')+'</div>'
+      +'<div class="op-info">'
+        +'<div class="op-name">'+o.name+'</div>'
+        +'<div class="op-desc">'+o.desc+'</div>'
+      +'</div>'
+      +'<div class="op-price">+'+fmt(o.price)+'/mes</div>'
+    +'</div>';
+  });
+  if(S.obligSel.size>0){
+    html+='<div class="op-total"><span>Total obligaciones</span><span style="color:var(--green);font-weight:800">'+fmt(obligTotal())+'/mes</span></div>';
+  }
+  html+='</div>';
+  return html;
 }
 
 function toggleOblig(id){
