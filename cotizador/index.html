@@ -160,6 +160,79 @@
     .btn-next:disabled{background:#1e2244;color:#3d4a6b;cursor:not-allowed;transform:none}
     .btn-back{padding:12px 22px;background:transparent;color:var(--gray);border:1px solid var(--border);border-radius:12px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:.2s}
     .btn-back:hover{border-color:var(--green-border);color:var(--green)}
+  
+    /* ── Phase 3: Client form ── */
+    .client-form{background:var(--dark-2);border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:20px}
+    .cf-title{font-size:11px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.8px;margin-bottom:16px}
+    .cf-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    @media(max-width:580px){.cf-grid{grid-template-columns:1fr}}
+    .cf-field{display:flex;flex-direction:column;gap:6px}
+    .cf-field.full{grid-column:1/-1}
+    .cf-label{font-size:11px;font-weight:600;color:var(--gray-light);text-transform:uppercase;letter-spacing:.4px}
+    .cf-input{background:var(--dark-3);border:1.5px solid var(--border);border-radius:10px;padding:11px 14px;font-size:13px;color:#f0f0f5;font-family:'Inter',sans-serif;transition:.2s;outline:none;width:100%}
+    .cf-input:focus{border-color:var(--green);background:var(--dark-4)}
+    .cf-input::placeholder{color:var(--gray)}
+    .cf-select{background:var(--dark-3);border:1.5px solid var(--border);border-radius:10px;padding:11px 14px;font-size:13px;color:#f0f0f5;font-family:'Inter',sans-serif;transition:.2s;outline:none;width:100%;cursor:pointer}
+    .cf-select:focus{border-color:var(--green)}
+
+    /* ── Phase 3: Print quote ── */
+    .gen-btn{width:100%;padding:14px;background:var(--green);color:var(--dark);border:none;border-radius:12px;font-size:14px;font-weight:800;cursor:pointer;font-family:'Inter',sans-serif;transition:.2s;margin-top:16px;display:flex;align-items:center;justify-content:center;gap:8px}
+    .gen-btn:hover{background:var(--green-dark)}
+    .folio-badge{display:inline-flex;align-items:center;gap:6px;background:var(--green-dim);border:1px solid var(--green-border);color:var(--green);font-size:12px;font-weight:700;padding:6px 14px;border-radius:8px;margin-bottom:16px}
+
+    /* ── Print modal ── */
+    .print-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:999;overflow-y:auto;padding:20px}
+    .print-modal.visible{display:flex;align-items:flex-start;justify-content:center}
+    .pm-inner{background:#fff;color:#111;max-width:780px;width:100%;border-radius:8px;overflow:hidden;position:relative}
+    .pm-actions{position:sticky;top:0;background:#f8f8f8;border-bottom:1px solid #e5e7eb;padding:12px 20px;display:flex;gap:10px;align-items:center;justify-content:space-between;z-index:10}
+    .pm-actions span{font-size:13px;color:#666;font-weight:500}
+    .pm-btn{padding:9px 20px;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:.2s}
+    .pm-btn.print{background:#00cc57;color:#fff}
+    .pm-btn.print:hover{background:#00b04a}
+    .pm-btn.close{background:#f3f4f6;color:#374151}
+    .pm-btn.close:hover{background:#e5e7eb}
+
+    /* ── PDF Document ── */
+    .pdf-doc{padding:48px 52px;font-family:'Inter',sans-serif;color:#111}
+    .pdf-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:36px;padding-bottom:24px;border-bottom:3px solid #00cc57}
+    .pdf-logo-name{font-size:22px;font-weight:900;color:#0d1026;letter-spacing:-.3px}
+    .pdf-logo-tag{font-size:11px;color:#6b7280;margin-top:2px}
+    .pdf-logo-contact{font-size:11px;color:#6b7280;margin-top:8px;line-height:1.6}
+    .pdf-folio-box{text-align:right}
+    .pdf-folio-label{font-size:10px;color:#9ca3af;text-transform:uppercase;letter-spacing:.5px}
+    .pdf-folio{font-size:20px;font-weight:800;color:#00cc57}
+    .pdf-date{font-size:11px;color:#6b7280;margin-top:4px}
+    .pdf-vigencia{display:inline-block;background:#f0fdf4;border:1px solid #86efac;color:#166534;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;margin-top:6px}
+    .pdf-section-title{font-size:10px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px;margin-top:24px}
+    .pdf-client-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;background:#f9fafb;border-radius:8px;padding:16px}
+    .pdf-client-item .label{font-size:10px;color:#9ca3af;margin-bottom:2px;text-transform:uppercase;letter-spacing:.3px}
+    .pdf-client-item .val{font-size:13px;font-weight:600;color:#111}
+    .pdf-services-table{width:100%;border-collapse:collapse}
+    .pdf-services-table th{background:#f3f4f6;padding:10px 14px;text-align:left;font-size:10px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid #e5e7eb}
+    .pdf-services-table td{padding:11px 14px;font-size:13px;border-bottom:1px solid #f3f4f6;vertical-align:top}
+    .pdf-services-table tr:last-child td{border-bottom:none}
+    .pdf-inc-tag{display:inline-block;background:#f0fdf4;border:1px solid #86efac;color:#166534;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;margin-left:4px}
+    .pdf-plus-tag{display:inline-block;background:#fffbeb;border:1px solid #fcd34d;color:#92400e;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;margin-left:4px}
+    .pdf-totals{margin-top:20px;display:flex;justify-content:flex-end}
+    .pdf-totals-box{width:260px}
+    .pdf-tot-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f3f4f6;font-size:13px}
+    .pdf-tot-row:last-child{border-bottom:none;font-weight:900;font-size:16px;color:#00cc57}
+    .pdf-tot-row .lbl{color:#6b7280}
+    .pdf-terms{margin-top:32px;padding:16px;background:#f9fafb;border-radius:8px;border-left:3px solid #00cc57}
+    .pdf-terms-title{font-size:11px;font-weight:700;color:#374151;margin-bottom:6px}
+    .pdf-terms p{font-size:11px;color:#6b7280;line-height:1.6}
+    .pdf-footer{margin-top:32px;padding-top:16px;border-top:1px solid #e5e7eb;display:flex;justify-content:space-between;align-items:center}
+    .pdf-footer-left{font-size:11px;color:#9ca3af;line-height:1.6}
+    .pdf-footer-right{font-size:11px;color:#00cc57;font-weight:700}
+
+    @media print{
+      body>*:not(.print-modal){display:none!important}
+      .print-modal{position:static!important;background:none!important;padding:0!important;display:block!important}
+      .pm-inner{border-radius:0;max-width:100%;box-shadow:none}
+      .pm-actions{display:none!important}
+      .pdf-doc{padding:20px 24px}
+    }
+
   </style>
 </head>
 <body>
@@ -250,7 +323,45 @@
   <div class="sec" id="sec4">
     <div class="sec-label">Paso 4 de 4</div>
     <div class="sec-title">Tu cotización personalizada</div>
-    <div class="sec-sub">Resumen completo con todos los servicios seleccionados.</div>
+    <div class="sec-sub">Ingresa los datos del cliente para generar la cotización formal.</div>
+    <div class="client-form">
+      <div class="cf-title">Datos del cliente</div>
+      <div class="cf-grid">
+        <div class="cf-field">
+          <label class="cf-label">Nombre completo *</label>
+          <input class="cf-input" id="cf_nombre" type="text" placeholder="Ej. Juan García López" oninput="updateFolio()"/>
+        </div>
+        <div class="cf-field">
+          <label class="cf-label">RFC</label>
+          <input class="cf-input" id="cf_rfc" type="text" placeholder="Ej. GALJ850101XX0" style="text-transform:uppercase" oninput="this.value=this.value.toUpperCase()"/>
+        </div>
+        <div class="cf-field">
+          <label class="cf-label">Empresa / Negocio</label>
+          <input class="cf-input" id="cf_empresa" type="text" placeholder="Nombre de la empresa (opcional)"/>
+        </div>
+        <div class="cf-field">
+          <label class="cf-label">Teléfono / WhatsApp</label>
+          <input class="cf-input" id="cf_tel" type="tel" placeholder="Ej. 444 123 4567"/>
+        </div>
+        <div class="cf-field full">
+          <label class="cf-label">Correo electrónico</label>
+          <input class="cf-input" id="cf_email" type="email" placeholder="correo@ejemplo.com"/>
+        </div>
+        <div class="cf-field">
+          <label class="cf-label">Vigencia de cotización</label>
+          <select class="cf-select" id="cf_vigencia">
+            <option value="15">15 días</option>
+            <option value="30" selected>30 días</option>
+            <option value="45">45 días</option>
+            <option value="60">60 días</option>
+          </select>
+        </div>
+        <div class="cf-field">
+          <label class="cf-label">Notas adicionales</label>
+          <input class="cf-input" id="cf_notas" type="text" placeholder="Observaciones para el cliente (opcional)"/>
+        </div>
+      </div>
+    </div>
     <div class="sum-wrap">
       <div class="sum-left" id="sumLeft"></div>
       <div class="sticky-card" id="stickyCard"></div>
@@ -525,8 +636,25 @@ function renderSummary(){
       Solicitar propuesta formal
     </a>
     <button class="sc-edit" onclick="goTo(3)">✏️ Ajustar servicios</button>
-    <div class="sc-disc">Precios referenciales. La propuesta formal puede variar según volumen de operaciones y complejidad del caso.</div>`;
+    <div class="sc-disc">Precios referenciales. La propuesta formal puede variar según volumen y complejidad.</div>
+    <div style="font-size:11px;color:var(--gray);margin-top:10px;font-family:'Inter',sans-serif">Folio: <strong style="color:var(--green)">${currentFolio}</strong></div>
+    <button onclick="generatePDF()" style="width:100%;margin-top:10px;padding:13px;background:var(--green);color:var(--dark);border:none;border-radius:12px;font-size:13px;font-weight:800;cursor:pointer;font-family:'Inter',sans-serif;display:flex;align-items:center;justify-content:center;gap:7px">📄 Generar cotización formal</button>`;
 }
 </script>
+
+<!-- Print Modal -->
+<div class="print-modal" id="printModal">
+  <div class="pm-inner">
+    <div class="pm-actions">
+      <span>Vista previa de cotización</span>
+      <div style="display:flex;gap:8px">
+        <button class="pm-btn print" onclick="window.print()">🖨 Imprimir / PDF</button>
+        <button class="pm-btn close" onclick="document.getElementById('printModal').classList.remove('visible')">✕ Cerrar</button>
+      </div>
+    </div>
+    <div class="pdf-doc" id="pdfDoc"></div>
+  </div>
+</div>
+
 </body>
 </html>
