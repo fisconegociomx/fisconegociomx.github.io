@@ -784,7 +784,7 @@ function renderSummary(){
     <div class="sum-block" style="padding:18px 20px">
       <div class="sum-block-title">Código de descuento</div>
       <div class="promo-row">
-        <input class="cf-input promo-input" id="promoInput" type="text" placeholder="Ej. FISCO10%2K26" autocomplete="off" oninput="this.value=this.value.toUpperCase()" style="flex:1;margin:0"/>
+        <input class="cf-input promo-input" id="promoInput" type="text" placeholder="CÓDIGO DE DESCUENTO" autocomplete="off" oninput="this.value=this.value.toUpperCase()" style="flex:1;margin:0"/>
         <button class="promo-btn" onclick="applyPromo()">Aplicar</button>
       </div>
       <div class="promo-msg" id="promoMsg">${S.promo?`<span class="promo-msg ok" style="color:var(--green)">✓ ${S.promo.label} (${S.promo.pct}%) aplicado</span>`:''}</div>
