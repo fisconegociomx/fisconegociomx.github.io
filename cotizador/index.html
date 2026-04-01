@@ -801,6 +801,27 @@ function restartCotizador(){
   goTo(1);
 }
 
+function genFolio(){
+  const d=new Date();
+  const y=d.getFullYear().toString().slice(2);
+  const m=String(d.getMonth()+1).padStart(2,'0');
+  const rand=String(Math.floor(Math.random()*9000)+1000);
+  return 'FN-'+y+m+'-'+rand;
+}
+let currentFolio=genFolio();
+
+function getClientData(){
+  return{
+    nombre:(document.getElementById('cf_nombre')||{}).value||'',
+    rfc:(document.getElementById('cf_rfc')||{}).value||'',
+    empresa:(document.getElementById('cf_empresa')||{}).value||'',
+    tel:(document.getElementById('cf_tel')||{}).value||'',
+    email:(document.getElementById('cf_email')||{}).value||'',
+    vigencia:(document.getElementById('cf_vigencia')||{}).value||'30',
+    notas:(document.getElementById('cf_notas')||{}).value||'',
+  };
+}
+
 function generatePDF(){
   if(!S.regime||!S.level){alert('Selecciona régimen y nivel antes de generar la cotización.');return;}
   const r=S.regime,l=S.level;
