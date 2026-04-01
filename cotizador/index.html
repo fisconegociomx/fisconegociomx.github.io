@@ -251,6 +251,21 @@
     .op-price{font-size:12px;font-weight:700;color:var(--green);white-space:nowrap;margin-left:4px;flex-shrink:0}
     .op-total{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--green-dim);border-top:1px solid var(--green-border);font-size:12px;font-weight:600;color:var(--gray-light)}
 
+
+    /* ── Descuento / Promo ── */
+    .promo-wrap{margin-bottom:20px}
+    .promo-inner{background:var(--dark-2);border:1px solid var(--border);border-radius:16px;padding:18px 20px}
+    .promo-label{font-size:11px;font-weight:700;color:var(--gray-light);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+    .promo-row{display:flex;gap:8px;align-items:center}
+    .promo-input{text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+    .promo-btn{padding:11px 20px;background:var(--dark-4);border:1.5px solid var(--border);color:var(--gray-light);border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:.2s;white-space:nowrap;flex-shrink:0}
+    .promo-btn:hover{border-color:var(--green-border);color:var(--green)}
+    .promo-msg{margin-top:8px;font-size:12px;font-weight:600;min-height:18px}
+    .promo-msg.ok{color:var(--green)}
+    .promo-msg.err{color:#f87171}
+    .discount-row .sum-row-lbl{color:var(--green)}
+    .discount-row .sum-row-val{color:var(--green)}
+
     /* ── Phase 4: Progress bar ── */
     .price-progress-wrap{margin:16px 0 20px;padding:14px 16px;background:var(--dark-3);border-radius:12px;border:1px solid var(--border)}
     .pp-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
@@ -417,6 +432,19 @@
         </div>
       </div>
     </div>
+
+    <!-- Código de descuento -->
+    <div class="promo-wrap">
+      <div class="promo-inner">
+        <div class="promo-label">¿Tienes un código de descuento?</div>
+        <div class="promo-row">
+          <input class="cf-input promo-input" id="promoInput" type="text" placeholder="Ingresa tu código" autocomplete="off" oninput="this.value=this.value.toUpperCase()" style="flex:1"/>
+          <button class="promo-btn" onclick="applyPromo()">Aplicar</button>
+        </div>
+        <div class="promo-msg" id="promoMsg"></div>
+      </div>
+    </div>
+
     <div class="sum-wrap">
       <div class="sum-left" id="sumLeft"></div>
       <div class="sticky-card" id="stickyCard"></div>
@@ -543,7 +571,12 @@ const OBLIG_ITEMS=[
   {id:'o_inf_tercero',name:'Inf. de Operaciones con Terceros',desc:'Declaración informativa adicional (fuera de DIOT estándar)',          price:280},
 ];
 
-let S={regime:null,level:null,addons:new Set(),nominaCount:1,obligSel:new Set()};
+const PROMO_CODES={
+  'FISCO5%2K26':  {pct:5,  label:'Descuento 5%'},
+  'FISCO10%2K26': {pct:10, label:'Descuento 10%'},
+  'FISCO15%2K26': {pct:15, label:'Descuento 15%'},
+};
+let S={regime:null,level:null,addons:new Set(),nominaCount:1,obligSel:new Set(),promo:null};
 
 function fmt(n){return '$'+Math.round(n).toLocaleString('es-MX')}
 
@@ -721,7 +754,11 @@ function calcTotal(){
     addonsTotal+=p;
     breakdown.push({label:a.name,val:p,plus:a.plus||false});
   });
-  return{base,addonsTotal,total:base+addonsTotal,breakdown};
+  const subtotal=base+addonsTotal;
+  let discount=0,discountLabel='';
+  if(S.promo){discount=Math.round(subtotal*S.promo.pct/100);discountLabel=S.promo.label+' ('+S.promo.pct+'%)';}
+  const total=subtotal-discount;
+  return{base,addonsTotal,subtotal,discount,discountLabel,total,breakdown};
 }
 
 function updateFloatBar(){
@@ -733,7 +770,7 @@ function updateFloatBar(){
 function renderSummary(){
   const r=S.regime,l=S.level;
   const reg=R[r],lv=LV[l];
-  const{base,addonsTotal,total,breakdown}=calcTotal();
+  const{base,addonsTotal,subtotal,discount,discountLabel,total,breakdown}=calcTotal();
   const iva=Math.round(total*.16);
   const totalIva=total+iva;
 
@@ -748,6 +785,7 @@ function renderSummary(){
         <span class="sum-row-lbl">${b.label}${b.inc?'<span class="included-badge">Incluido</span>':''}${b.plus?'<span class="plus-badge">Plus</span>':''}</span>
         <span class="sum-row-val" style="${b.inc?'color:var(--green);font-size:11px':''}">${b.inc?'Sin costo adicional':fmt(b.val)+'/mes'}</span>
       </div>`).join(''):''}
+      ${discount>0?`<div class="sum-row discount-row"><span class="sum-row-lbl">🏷️ ${discountLabel}</span><span class="sum-row-val">− ${fmt(discount)}</span></div>`:''}
       <div class="sum-row iva-row"><span class="sum-row-lbl">IVA (16%)</span><span class="sum-row-val">+${fmt(iva)}</span></div>
       <div class="sum-row total-row"><span class="sum-row-lbl">Total mensual (con IVA)</span><span class="sum-row-val">${fmt(totalIva)}</span></div>
     </div>
@@ -766,6 +804,7 @@ function renderSummary(){
       <div class="sc-item"><span class="sc-item-lbl">Plan ${lv.name}</span><span class="sc-item-val">${fmt(base)}</span></div>
       ${breakdown.filter(b=>!b.inc).map(b=>`<div class="sc-item"><span class="sc-item-lbl">${b.label}</span><span class="sc-item-val">${fmt(b.val)}</span></div>`).join('')}
       ${breakdown.filter(b=>b.inc).map(b=>`<div class="sc-item"><span class="sc-item-lbl">${b.label}</span><span class="sc-item-val inc">Incluido ✓</span></div>`).join('')}
+      ${discount>0?`<div class="sc-item" style="color:var(--green)"><span class="sc-item-lbl">🏷️ ${discountLabel}</span><span class="sc-item-val" style="color:var(--green)">− ${fmt(discount)}</span></div>`:''}
     </div>
     <a class="sc-cta" href="https://wa.me/524442522739?text=${encodeURIComponent('Hola Fernando, me interesa la cotización: '+reg.name+' · Plan '+lv.name+' · '+fmt(total)+'/mes. Quisiera más información.')}" target="_blank">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -780,7 +819,7 @@ function renderSummary(){
 // ── Phase 4 ──────────────────────────────────────────────────────────────────
 function renderProgressBar(){
   if(!S.regime||!S.level) return;
-  const{base,addonsTotal,total,breakdown}=calcTotal();
+  const{base,addonsTotal,subtotal,discount,discountLabel,total,breakdown}=calcTotal();
   const iva=Math.round(total*.16);
   const extraItems=breakdown.filter(b=>!b.inc);
   const maxRef=PRICES[S.regime].empresarial*2;
@@ -791,14 +830,33 @@ function renderProgressBar(){
 }
 
 function restartCotizador(){
-  S={regime:null,level:null,addons:new Set(),nominaCount:1,obligSel:new Set()};
+  S={regime:null,level:null,addons:new Set(),nominaCount:1,obligSel:new Set(),promo:null};
   currentFolio=genFolio();
+  const pi=document.getElementById('promoInput');if(pi)pi.value='';
+  const pm=document.getElementById('promoMsg');if(pm){pm.className='promo-msg';pm.textContent='';}
   ['cf_nombre','cf_rfc','cf_empresa','cf_tel','cf_email','cf_notas'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   const vig=document.getElementById('cf_vigencia');if(vig)vig.value='30';
   document.querySelectorAll('.r-card').forEach(c=>c.classList.remove('sel'));
   document.getElementById('btn1').disabled=true;
   document.getElementById('successBanner')?.classList.remove('show');
   goTo(1);
+}
+
+function applyPromo(){
+  const code=(document.getElementById('promoInput').value||'').toUpperCase().trim();
+  const msg=document.getElementById('promoMsg');
+  if(!code){msg.className='promo-msg err';msg.textContent='Ingresa un código.';return;}
+  if(PROMO_CODES[code]){
+    S.promo=PROMO_CODES[code];
+    msg.className='promo-msg ok';
+    msg.textContent='✓ Código aplicado: '+S.promo.label+' ('+S.promo.pct+'%)';
+    renderSummary();
+  } else {
+    S.promo=null;
+    msg.className='promo-msg err';
+    msg.textContent='Código no válido. Verifica e intenta de nuevo.';
+    renderSummary();
+  }
 }
 
 function genFolio(){
@@ -872,7 +930,8 @@ function generatePDF(){
     +'<div class="pdf-section-title">Servicios contratados</div>'
     +'<table class="pdf-services-table"><thead><tr><th>Servicio</th><th>Tipo</th><th style="text-align:right">Costo/mes</th></tr></thead><tbody>'+rows+'</tbody></table>'
     +'<div class="pdf-totals"><div class="pdf-totals-box">'
-      +'<div class="pdf-tot-row"><span class="lbl">Subtotal</span><span>'+fmt(total)+'</span></div>'
+      +'<div class="pdf-tot-row"><span class="lbl">Subtotal</span><span>'+fmt(subtotal)+'</span></div>'
+      +(discount>0?'<div class="pdf-tot-row" style="color:#16a34a"><span class="lbl">🏷 '+discountLabel+'</span><span>&minus; '+fmt(discount)+'</span></div>':'')
       +'<div class="pdf-tot-row"><span class="lbl">IVA (16%)</span><span>'+fmt(iva)+'</span></div>'
       +'<div class="pdf-tot-row"><span class="lbl">Total mensual</span><span>'+fmt(totalIva)+'</span></div>'
     +'</div></div>'
