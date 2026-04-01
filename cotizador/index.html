@@ -801,9 +801,77 @@ function restartCotizador(){
   goTo(1);
 }
 
-// Show success banner after PDF
-const _baseGenPDF=generatePDF;
-generatePDF=function(){_baseGenPDF();document.getElementById('successBanner')?.classList.add('show');};
+function generatePDF(){
+  if(!S.regime||!S.level){alert('Selecciona régimen y nivel antes de generar la cotización.');return;}
+  const r=S.regime,l=S.level;
+  const reg=R[r],lv=LV[l];
+  const{base,addonsTotal,total,breakdown}=calcTotal();
+  const iva=Math.round(total*.16);
+  const totalIva=total+iva;
+  const client=getClientData();
+  const today=new Date();
+  const dateStr=today.toLocaleDateString('es-MX',{year:'numeric',month:'long',day:'numeric'});
+  const vigDate=new Date(today.getTime()+parseInt(client.vigencia||30)*86400000);
+  const vigStr=vigDate.toLocaleDateString('es-MX',{year:'numeric',month:'long',day:'numeric'});
+
+  const allServices=[{name:'Plan '+lv.name+' — '+reg.name,desc:reg.tipo,price:fmt(base),inc:false,plus:false}];
+  breakdown.forEach(function(b){allServices.push({name:b.label,desc:b.subOf||'',price:b.inc?'Incluido':fmt(b.val),inc:b.inc,plus:b.plus||false});});
+
+  let rows='';
+  allServices.forEach(function(s){
+    rows+='<tr>'
+      +'<td><strong>'+s.name+'</strong>'+(s.inc?'<span class="pdf-inc-tag">Incluido</span>':'')+(s.plus?'<span class="pdf-plus-tag">Plus</span>':'')+'</td>'
+      +'<td style="color:#6b7280;font-size:12px">'+s.desc+'</td>'
+      +'<td style="text-align:right;font-weight:600;color:'+(s.inc?'#16a34a':'#111')+'">'+s.price+'</td>'
+      +'</tr>';
+  });
+
+  let clientRows='<div class="pdf-client-item"><div class="label">Nombre</div><div class="val">'+(client.nombre||'—')+'</div></div>'
+    +'<div class="pdf-client-item"><div class="label">RFC</div><div class="val">'+(client.rfc||'—')+'</div></div>'
+    +'<div class="pdf-client-item"><div class="label">Empresa</div><div class="val">'+(client.empresa||'—')+'</div></div>'
+    +'<div class="pdf-client-item"><div class="label">Teléfono</div><div class="val">'+(client.tel||'—')+'</div></div>';
+  if(client.email) clientRows+='<div class="pdf-client-item" style="grid-column:1/-1"><div class="label">Correo</div><div class="val">'+client.email+'</div></div>';
+
+  document.getElementById('pdfDoc').innerHTML=
+    '<div class="pdf-header">'
+      +'<div>'
+        +'<div class="pdf-logo-name">FiscoNegocio</div>'
+        +'<div class="pdf-logo-tag">Asesoría Fiscal y Empresarial</div>'
+        +'<div class="pdf-logo-contact">C.P. Fernando Mendoza Ferreira<br>📱 444 252 2739 · fisconegociomx.github.io</div>'
+      +'</div>'
+      +'<div class="pdf-folio-box">'
+        +'<div class="pdf-folio-label">Cotización No.</div>'
+        +'<div class="pdf-folio">'+currentFolio+'</div>'
+        +'<div class="pdf-date">Fecha: '+dateStr+'</div>'
+        +'<div class="pdf-vigencia">Válida hasta: '+vigStr+'</div>'
+      +'</div>'
+    +'</div>'
+    +'<div class="pdf-section-title">Datos del cliente</div>'
+    +'<div class="pdf-client-grid">'+clientRows+'</div>'
+    +'<div class="pdf-section-title">Servicios contratados</div>'
+    +'<table class="pdf-services-table"><thead><tr><th>Servicio</th><th>Tipo</th><th style="text-align:right">Costo/mes</th></tr></thead><tbody>'+rows+'</tbody></table>'
+    +'<div class="pdf-totals"><div class="pdf-totals-box">'
+      +'<div class="pdf-tot-row"><span class="lbl">Subtotal</span><span>'+fmt(total)+'</span></div>'
+      +'<div class="pdf-tot-row"><span class="lbl">IVA (16%)</span><span>'+fmt(iva)+'</span></div>'
+      +'<div class="pdf-tot-row"><span class="lbl">Total mensual</span><span>'+fmt(totalIva)+'</span></div>'
+    +'</div></div>'
+    +(client.notas?'<div class="pdf-terms" style="margin-top:20px"><div class="pdf-terms-title">Notas</div><p>'+client.notas+'</p></div>':'')
+    +'<div class="pdf-terms">'
+      +'<div class="pdf-terms-title">Condiciones y términos</div>'
+      +'<p>• Esta cotización tiene vigencia de '+(client.vigencia||30)+' días naturales.<br>'
+      +'• Precios en MXN sin IVA salvo indicación expresa.<br>'
+      +'• Propuesta final sujeta a volumen de operaciones y complejidad del caso.<br>'
+      +'• Inicio del servicio sujeto a firma de contrato y primer pago.<br>'
+      +'• FiscoNegocio puede actualizar tarifas con 30 días de aviso previo.</p>'
+    +'</div>'
+    +'<div class="pdf-footer">'
+      +'<div class="pdf-footer-left">FiscoNegocio · C.P. Fernando Mendoza Ferreira<br>Asesoría Fiscal y Empresarial · San Luis Potosí, México</div>'
+      +'<div class="pdf-footer-right">'+currentFolio+'</div>'
+    +'</div>';
+
+  document.getElementById('printModal').classList.add('visible');
+  document.getElementById('successBanner')?.classList.add('show');
+}
 </script>
 
 <!-- Print Modal -->
