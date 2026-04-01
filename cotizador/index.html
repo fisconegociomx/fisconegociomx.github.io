@@ -433,18 +433,6 @@
       </div>
     </div>
 
-    <!-- Código de descuento -->
-    <div class="promo-wrap">
-      <div class="promo-inner">
-        <div class="promo-label">¿Tienes un código de descuento?</div>
-        <div class="promo-row">
-          <input class="cf-input promo-input" id="promoInput" type="text" placeholder="Ingresa tu código" autocomplete="off" oninput="this.value=this.value.toUpperCase()" style="flex:1"/>
-          <button class="promo-btn" onclick="applyPromo()">Aplicar</button>
-        </div>
-        <div class="promo-msg" id="promoMsg"></div>
-      </div>
-    </div>
-
     <div class="sum-wrap">
       <div class="sum-left" id="sumLeft"></div>
       <div class="sticky-card" id="stickyCard"></div>
@@ -792,6 +780,14 @@ function renderSummary(){
     <div class="sum-block">
       <div class="sum-block-title">Servicios incluidos en el plan</div>
       ${(lv.feats[r]||[]).map(f=>`<div style="display:flex;gap:8px;font-size:13px;color:var(--gray-light);padding:7px 0;border-bottom:1px solid var(--border)"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span>${f}</div>`).join('')}
+    </div>
+    <div class="sum-block" style="padding:18px 20px">
+      <div class="sum-block-title">Código de descuento</div>
+      <div class="promo-row">
+        <input class="cf-input promo-input" id="promoInput" type="text" placeholder="Ej. FISCO10%2K26" autocomplete="off" oninput="this.value=this.value.toUpperCase()" style="flex:1;margin:0"/>
+        <button class="promo-btn" onclick="applyPromo()">Aplicar</button>
+      </div>
+      <div class="promo-msg" id="promoMsg">${S.promo?`<span class="promo-msg ok" style="color:var(--green)">✓ ${S.promo.label} (${S.promo.pct}%) aplicado</span>`:''}</div>
     </div>`;
 
   document.getElementById('stickyCard').innerHTML=`
@@ -884,7 +880,7 @@ function generatePDF(){
   if(!S.regime||!S.level){alert('Selecciona régimen y nivel antes de generar la cotización.');return;}
   const r=S.regime,l=S.level;
   const reg=R[r],lv=LV[l];
-  const{base,addonsTotal,total,breakdown}=calcTotal();
+  const{base,addonsTotal,subtotal,discount,discountLabel,total,breakdown}=calcTotal();
   const iva=Math.round(total*.16);
   const totalIva=total+iva;
   const client=getClientData();
