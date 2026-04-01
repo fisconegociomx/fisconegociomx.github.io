@@ -7,126 +7,159 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   <style>
-    :root {
-      --green:#00ff6d; --green-dark:#00cc57;
-      --green-dim:rgba(0,255,109,.07); --green-border:rgba(0,255,109,.18);
-      --dark:#0d1026; --dark-2:#111430; --dark-3:#151832; --dark-4:#1a1e3a;
-      --gray:#8C8C8C; --gray-light:#BFBFBF; --border:#1e2244;
+    :root{
+      --green:#00ff6d;--green-dark:#00cc57;
+      --green-dim:rgba(0,255,109,.07);--green-border:rgba(0,255,109,.18);
+      --dark:#0d1026;--dark-2:#111430;--dark-3:#151832;--dark-4:#1a1e3a;
+      --gray:#8C8C8C;--gray-light:#BFBFBF;--border:#1e2244;
+      --gold:#fbbf24;--gold-dim:rgba(251,191,36,.07);--gold-border:rgba(251,191,36,.2);
     }
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:'Inter',sans-serif;background:var(--dark);color:#f0f0f5;min-height:100vh}
 
-    /* ── Header ── */
     .header{background:var(--dark-2);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
     .hlogo{display:flex;align-items:center;gap:10px}
     .hlogo-dot{width:8px;height:8px;background:var(--green);border-radius:50%;box-shadow:0 0 8px var(--green);animation:pulse 2s infinite}
     @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
     .hlogo-text{font-size:15px;font-weight:800;color:var(--green)}
     .hlogo-sub{font-size:11px;color:var(--gray);margin-top:1px}
-    .back-link{font-size:12px;color:var(--gray);text-decoration:none;transition:color .2s;border:1px solid var(--border);padding:6px 12px;border-radius:8px}
+    .back-link{font-size:12px;color:var(--gray);text-decoration:none;border:1px solid var(--border);padding:6px 12px;border-radius:8px;transition:.2s}
     .back-link:hover{color:var(--green);border-color:var(--green-border)}
 
-    /* ── Hero ── */
-    .hero{text-align:center;padding:52px 20px 40px;background:radial-gradient(ellipse at 50% 0%,rgba(0,255,109,.05) 0%,transparent 65%)}
-    .hero-tag{display:inline-block;background:var(--green-dim);border:1px solid var(--green-border);color:var(--green);font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:16px}
-    .hero h1{font-size:clamp(26px,5vw,42px);font-weight:900;line-height:1.1;margin-bottom:12px}
+    .hero{text-align:center;padding:44px 20px 32px;background:radial-gradient(ellipse at 50% 0%,rgba(0,255,109,.05) 0%,transparent 65%)}
+    .hero-tag{display:inline-block;background:var(--green-dim);border:1px solid var(--green-border);color:var(--green);font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:14px}
+    .hero h1{font-size:clamp(24px,4.5vw,38px);font-weight:900;line-height:1.1;margin-bottom:10px}
     .hero h1 span{color:var(--green)}
-    .hero p{font-size:15px;color:var(--gray-light);max-width:500px;margin:0 auto 28px}
-    .hero-steps{display:flex;align-items:center;justify-content:center;gap:0}
-    .hs{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--gray)}
-    .hs-n{width:24px;height:24px;border-radius:50%;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;transition:.3s}
+    .hero p{font-size:14px;color:var(--gray-light);max-width:480px;margin:0 auto 24px}
+
+    /* Steps */
+    .steps{display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap;row-gap:8px}
+    .hs{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--gray);white-space:nowrap}
+    .hs-n{width:24px;height:24px;border-radius:50%;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;transition:.3s;flex-shrink:0}
     .hs.active .hs-n{background:var(--green);border-color:var(--green);color:var(--dark)}
     .hs.active{color:#fff}
     .hs.done .hs-n{background:var(--green-dark);border-color:var(--green-dark);color:var(--dark)}
     .hs.done{color:var(--gray-light)}
-    .hs-line{width:36px;height:1.5px;background:var(--border);margin:0 4px;transition:.3s}
+    .hs-line{width:28px;height:1.5px;background:var(--border);margin:0 3px;transition:.3s;flex-shrink:0}
     .hs-line.done{background:var(--green-dark)}
 
-    /* ── Main ── */
-    .wrap{max-width:880px;margin:0 auto;padding:0 16px 72px}
-
-    /* ── Section ── */
-    .sec{display:none;animation:fadeIn .3s ease}
+    .wrap{max-width:940px;margin:0 auto;padding:0 16px 72px}
+    .sec{display:none;animation:fi .3s ease}
     .sec.active{display:block}
-    @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-    .sec-label{font-size:11px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
-    .sec-title{font-size:22px;font-weight:800;margin-bottom:6px}
-    .sec-sub{font-size:14px;color:var(--gray-light);margin-bottom:28px}
+    @keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+    .sec-label{font-size:11px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;margin-top:28px}
+    .sec-title{font-size:21px;font-weight:800;margin-bottom:5px}
+    .sec-sub{font-size:14px;color:var(--gray-light);margin-bottom:24px}
 
-    /* ── Regime grid ── */
-    .regime-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-bottom:32px}
+    /* Regime */
+    .regime-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-bottom:28px}
     .r-card{background:var(--dark-2);border:2px solid var(--border);border-radius:16px;padding:20px 18px;cursor:pointer;transition:.22s}
     .r-card:hover{border-color:var(--green-border);background:var(--dark-3);transform:translateY(-2px)}
     .r-card.sel{border-color:var(--green);background:var(--green-dim)}
-    .r-icon{font-size:26px;margin-bottom:10px}
-    .r-name{font-size:13px;font-weight:700;margin-bottom:5px}
+    .r-icon{font-size:24px;margin-bottom:9px}
+    .r-name{font-size:13px;font-weight:700;margin-bottom:4px}
     .r-desc{font-size:11px;color:var(--gray);line-height:1.45}
     .r-who{display:inline-block;margin-top:8px;font-size:10px;background:var(--dark-4);border:1px solid var(--border);color:var(--gray-light);padding:3px 8px;border-radius:6px}
 
-    /* ── Level grid ── */
-    .level-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:32px}
-    @media(max-width:620px){.level-grid{grid-template-columns:1fr}}
-    .l-card{background:var(--dark-2);border:2px solid var(--border);border-radius:18px;padding:24px 20px;cursor:pointer;transition:.22s;position:relative;overflow:hidden}
+    /* Levels */
+    .level-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px}
+    @media(max-width:600px){.level-grid{grid-template-columns:1fr}}
+    .l-card{background:var(--dark-2);border:2px solid var(--border);border-radius:18px;padding:22px 18px;cursor:pointer;transition:.22s;position:relative;overflow:hidden}
     .l-card:hover{border-color:var(--green-border);transform:translateY(-2px)}
     .l-card.sel{border-color:var(--green);background:var(--green-dim)}
     .l-card.popular-card::after{content:'Más popular';position:absolute;top:14px;right:-22px;background:var(--green);color:var(--dark);font-size:9px;font-weight:900;padding:4px 30px;transform:rotate(45deg);letter-spacing:.4px;text-transform:uppercase}
-    .l-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:20px;font-size:11px;font-weight:700;margin-bottom:14px;border:1px solid transparent}
+    .l-badge{display:inline-flex;align-items:center;padding:4px 11px;border-radius:20px;font-size:11px;font-weight:700;margin-bottom:12px;border:1px solid transparent}
     .l-badge.b{color:#94a3b8;border-color:#334155;background:rgba(51,65,85,.3)}
     .l-badge.a{color:var(--green);border-color:var(--green-border);background:var(--green-dim)}
-    .l-badge.e{color:#fbbf24;border-color:rgba(251,191,36,.2);background:rgba(251,191,36,.07)}
-    .l-price{font-size:32px;font-weight:900;line-height:1;margin-bottom:3px}
-    .l-price.b{color:#94a3b8}
-    .l-price.a{color:var(--green)}
-    .l-price.e{color:#fbbf24}
-    .l-price-note{font-size:11px;color:var(--gray);margin-bottom:16px}
-    .l-desc{font-size:12px;color:var(--gray-light);margin-bottom:16px;line-height:1.5}
-    .l-feats{list-style:none;display:flex;flex-direction:column;gap:7px}
-    .l-feats li{font-size:12px;color:var(--gray-light);display:flex;gap:7px;align-items:flex-start;line-height:1.3}
-    .l-feats li .check{color:var(--green);font-weight:700;flex-shrink:0;margin-top:.5px}
-    .l-feats li.no .check{color:#2d3561}
-    .l-feats li.no{color:#3d4a6b}
+    .l-badge.e{color:var(--gold);border-color:var(--gold-border);background:var(--gold-dim)}
+    .l-price{font-size:30px;font-weight:900;line-height:1;margin-bottom:2px}
+    .l-price.b{color:#94a3b8}.l-price.a{color:var(--green)}.l-price.e{color:var(--gold)}
+    .l-price-note{font-size:11px;color:var(--gray);margin-bottom:12px}
+    .l-desc{font-size:12px;color:var(--gray-light);margin-bottom:12px;line-height:1.5}
+    .l-feats{list-style:none;display:flex;flex-direction:column;gap:6px}
+    .l-feats li{font-size:11px;color:var(--gray-light);display:flex;gap:6px;align-items:flex-start;line-height:1.3}
+    .l-feats li .ck{color:var(--green);font-weight:700;flex-shrink:0;margin-top:.5px}
 
-    /* ── Nav ── */
+    /* Addons */
+    .addons-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px;margin-bottom:28px}
+    .a-card{background:var(--dark-2);border:2px solid var(--border);border-radius:16px;padding:18px;cursor:pointer;transition:.22s;display:flex;gap:12px;align-items:flex-start}
+    .a-card:hover{border-color:var(--green-border)}
+    .a-card.sel{border-color:var(--green);background:var(--green-dim)}
+    .a-card.included{border-color:var(--green-border);background:var(--green-dim);cursor:default;opacity:.75}
+    .a-card.plus-card{border-color:var(--gold-border);background:var(--gold-dim)}
+    .a-card.plus-card.sel{border-color:var(--gold);background:rgba(251,191,36,.12)}
+    .a-chk{width:22px;height:22px;border-radius:7px;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:.22s;margin-top:2px;font-size:12px;font-weight:700}
+    .a-card.sel .a-chk,.a-card.included .a-chk{background:var(--green);border-color:var(--green);color:var(--dark)}
+    .a-card.plus-card.sel .a-chk{background:var(--gold);border-color:var(--gold);color:var(--dark)}
+    .a-info{flex:1;min-width:0}
+    .a-name{font-size:13px;font-weight:700;margin-bottom:3px;display:flex;align-items:center;gap:7px}
+    .a-tag{font-size:9px;font-weight:800;padding:2px 7px;border-radius:10px;text-transform:uppercase;letter-spacing:.4px;flex-shrink:0}
+    .a-tag.inc{background:var(--green-dim);border:1px solid var(--green-border);color:var(--green)}
+    .a-tag.plus{background:var(--gold-dim);border:1px solid var(--gold-border);color:var(--gold)}
+    .a-desc{font-size:11px;color:var(--gray);line-height:1.45;margin-bottom:7px}
+    .a-price{font-size:13px;font-weight:700;color:var(--green)}
+    .a-card.plus-card .a-price{color:var(--gold)}
+    .a-note{font-size:10px;color:var(--gray);margin-top:3px}
+    /* Nómina counter */
+    .nom-counter{display:flex;align-items:center;gap:8px;margin-top:8px}
+    .nom-btn{width:26px;height:26px;background:var(--dark-4);border:1px solid var(--border);color:#fff;border-radius:7px;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:.2s;line-height:1}
+    .nom-btn:hover{border-color:var(--green);color:var(--green)}
+    .nom-val{font-size:14px;font-weight:700;min-width:22px;text-align:center}
+    .nom-lbl{font-size:11px;color:var(--gray)}
+
+    /* Floating total bar */
+    .float-bar{position:fixed;bottom:0;left:0;right:0;background:var(--dark-2);border-top:1px solid var(--green-border);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;z-index:99;box-shadow:0 -4px 24px rgba(0,255,109,.08);transition:.3s;transform:translateY(100%)}
+    .float-bar.visible{transform:translateY(0)}
+    .fb-left{display:flex;flex-direction:column}
+    .fb-label{font-size:10px;color:var(--gray);text-transform:uppercase;letter-spacing:.5px}
+    .fb-total{font-size:22px;font-weight:900;color:var(--green)}
+    .fb-note{font-size:10px;color:var(--gray)}
+    .fb-btn{padding:12px 24px;background:var(--green);color:var(--dark);border:none;border-radius:12px;font-size:13px;font-weight:800;cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap}
+    .fb-btn:hover{background:var(--green-dark)}
+
+    /* Summary */
+    .sum-wrap{display:grid;grid-template-columns:1fr 320px;gap:20px;align-items:start}
+    @media(max-width:700px){.sum-wrap{grid-template-columns:1fr}}
+    .sum-left{display:flex;flex-direction:column;gap:14px}
+    .sum-block{background:var(--dark-2);border:1px solid var(--border);border-radius:16px;padding:22px}
+    .sum-block-title{font-size:11px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.8px;margin-bottom:14px}
+    .sum-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);gap:12px}
+    .sum-row:last-child{border:none}
+    .sum-row-lbl{font-size:13px;color:var(--gray-light);flex:1}
+    .sum-row-val{font-size:13px;font-weight:700;white-space:nowrap}
+    .sum-row.total-row{background:linear-gradient(135deg,rgba(0,255,109,.06),transparent);border-radius:10px;padding:14px 12px;border:1px solid var(--green-border);margin-top:6px}
+    .sum-row.total-row .sum-row-lbl{font-weight:800;font-size:15px;color:#fff}
+    .sum-row.total-row .sum-row-val{font-size:20px;color:var(--green)}
+    .sum-row.iva-row .sum-row-lbl{color:var(--gray);font-size:12px}
+    .sum-row.iva-row .sum-row-val{color:var(--gray);font-size:12px}
+    .included-badge{display:inline-block;background:var(--green-dim);border:1px solid var(--green-border);color:var(--green);font-size:9px;padding:1px 7px;border-radius:8px;margin-left:6px;font-weight:700}
+    .plus-badge{display:inline-block;background:var(--gold-dim);border:1px solid var(--gold-border);color:var(--gold);font-size:9px;padding:1px 7px;border-radius:8px;margin-left:6px;font-weight:700}
+
+    /* Sticky card */
+    .sticky-card{background:var(--dark-2);border:1px solid var(--green-border);border-radius:20px;padding:26px;position:sticky;top:72px;box-shadow:0 8px 40px rgba(0,255,109,.08)}
+    .sc-tag{display:inline-block;background:var(--green-dim);border:1px solid var(--green-border);color:var(--green);font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px}
+    .sc-regime{font-size:13px;color:var(--gray-light);margin-bottom:2px}
+    .sc-label{font-size:11px;color:var(--gray);text-transform:uppercase;letter-spacing:.5px;margin-top:14px;margin-bottom:3px}
+    .sc-total{font-size:40px;font-weight:900;color:var(--green);line-height:1}
+    .sc-period{font-size:12px;color:var(--gray);margin-bottom:16px}
+    .sc-bdown{display:flex;flex-direction:column;gap:7px;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+    .sc-item{display:flex;justify-content:space-between;font-size:12px;gap:8px}
+    .sc-item-lbl{color:var(--gray);flex:1}
+    .sc-item-val{font-weight:600;white-space:nowrap}
+    .sc-item-val.inc{color:var(--green);font-size:10px}
+    .sc-cta{width:100%;padding:14px;background:var(--green);color:var(--dark);border:none;border-radius:12px;font-size:14px;font-weight:800;cursor:pointer;font-family:'Inter',sans-serif;transition:.2s;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;margin-bottom:8px}
+    .sc-cta:hover{background:var(--green-dark)}
+    .sc-edit{width:100%;padding:11px;background:transparent;color:var(--gray);border:1px solid var(--border);border-radius:12px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:.2s}
+    .sc-edit:hover{border-color:var(--green-border);color:var(--green)}
+    .sc-disc{font-size:10px;color:var(--gray);text-align:center;margin-top:10px;line-height:1.5}
+
+    /* Nav */
     .nav{display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding-top:20px;border-top:1px solid var(--border)}
-    .btn-next{padding:13px 30px;background:var(--green);color:var(--dark);border:none;border-radius:12px;font-size:14px;font-weight:800;cursor:pointer;font-family:'Inter',sans-serif;transition:.2s;letter-spacing:.2px}
+    .btn-next{padding:13px 28px;background:var(--green);color:var(--dark);border:none;border-radius:12px;font-size:14px;font-weight:800;cursor:pointer;font-family:'Inter',sans-serif;transition:.2s}
     .btn-next:hover{background:var(--green-dark);transform:translateY(-1px)}
     .btn-next:disabled{background:#1e2244;color:#3d4a6b;cursor:not-allowed;transform:none}
     .btn-back{padding:12px 22px;background:transparent;color:var(--gray);border:1px solid var(--border);border-radius:12px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:.2s}
     .btn-back:hover{border-color:var(--green-border);color:var(--green)}
-
-    /* ── Result ── */
-    .result-wrap{display:grid;grid-template-columns:1fr 320px;gap:20px;align-items:start}
-    @media(max-width:680px){.result-wrap{grid-template-columns:1fr}}
-    .result-left{display:flex;flex-direction:column;gap:14px}
-    .res-block{background:var(--dark-2);border:1px solid var(--border);border-radius:16px;padding:22px}
-    .res-block-title{font-size:11px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.8px;margin-bottom:14px}
-    .res-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)}
-    .res-row:last-child{border:none}
-    .res-row-label{font-size:13px;color:var(--gray-light)}
-    .res-row-val{font-size:13px;font-weight:700}
-    .res-row-val.green{color:var(--green)}
-    .res-row.total-row{background:linear-gradient(135deg,rgba(0,255,109,.06),transparent);border-radius:10px;padding:14px 12px;border:1px solid var(--green-border);margin-top:4px}
-    .res-row.total-row .res-row-label{font-weight:700;font-size:15px;color:#fff}
-    .res-row.total-row .res-row-val{font-size:20px;color:var(--green)}
-    .feats-included{display:flex;flex-direction:column;gap:8px}
-    .fi{display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--gray-light);line-height:1.4}
-    .fi::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0;margin-top:1px}
-
-    /* ── Sticky card ── */
-    .sticky-card{background:var(--dark-2);border:1px solid var(--green-border);border-radius:20px;padding:26px;position:sticky;top:76px;box-shadow:0 8px 40px rgba(0,255,109,.08)}
-    .sc-regime{display:inline-block;background:var(--green-dim);border:1px solid var(--green-border);color:var(--green);font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px}
-    .sc-level{font-size:14px;font-weight:700;margin-bottom:2px;color:var(--gray-light)}
-    .sc-price-label{font-size:11px;color:var(--gray);margin-top:12px;margin-bottom:3px;text-transform:uppercase;letter-spacing:.5px}
-    .sc-price{font-size:42px;font-weight:900;color:var(--green);line-height:1}
-    .sc-period{font-size:12px;color:var(--gray);margin-bottom:20px}
-    .sc-note{font-size:11px;color:var(--gray);background:var(--dark-3);border:1px solid var(--border);border-radius:8px;padding:10px;margin-bottom:20px;line-height:1.5}
-    .sc-btn-wa{width:100%;padding:14px;background:var(--green);color:var(--dark);border:none;border-radius:12px;font-size:14px;font-weight:800;cursor:pointer;font-family:'Inter',sans-serif;transition:.2s;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none}
-    .sc-btn-wa:hover{background:var(--green-dark)}
-    .sc-btn-edit{width:100%;padding:12px;background:transparent;color:var(--gray);border:1px solid var(--border);border-radius:12px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:.2s;margin-top:10px}
-    .sc-btn-edit:hover{border-color:var(--green-border);color:var(--green)}
-    .sc-disclaimer{font-size:10px;color:var(--gray);text-align:center;margin-top:12px;line-height:1.6}
-
-    .spacer{height:24px}
   </style>
 </head>
 <body>
@@ -144,237 +177,356 @@
 
 <div class="hero">
   <div class="hero-tag">Cotizador Interactivo</div>
-  <h1>¿Cuánto cuesta tu <span>asesoría fiscal</span>?</h1>
-  <p>Selecciona tu régimen y nivel de servicio para obtener una cotización al instante.</p>
-  <div class="hero-steps">
+  <h1>Calcula el costo de tu <span>asesoría fiscal</span></h1>
+  <p>Personaliza tu plan, agrega servicios y obtén tu cotización al instante.</p>
+  <div class="steps">
     <div class="hs active" id="hs1"><div class="hs-n">1</div><span>Régimen</span></div>
     <div class="hs-line" id="hl1"></div>
     <div class="hs" id="hs2"><div class="hs-n">2</div><span>Nivel</span></div>
     <div class="hs-line" id="hl2"></div>
-    <div class="hs" id="hs3"><div class="hs-n">3</div><span>Cotización</span></div>
+    <div class="hs" id="hs3"><div class="hs-n">3</div><span>Servicios</span></div>
+    <div class="hs-line" id="hl3"></div>
+    <div class="hs" id="hs4"><div class="hs-n">4</div><span>Cotización</span></div>
   </div>
 </div>
 
 <div class="wrap">
 
-  <!-- STEP 1: Régimen -->
+  <!-- STEP 1 -->
   <div class="sec active" id="sec1">
-    <div class="sec-label">Paso 1 de 3</div>
+    <div class="sec-label">Paso 1 de 4</div>
     <div class="sec-title">¿Cuál es tu régimen fiscal?</div>
     <div class="sec-sub">Selecciona el régimen bajo el que tributas actualmente.</div>
     <div class="regime-grid">
-      <div class="r-card" onclick="pickRegime(this,'resico')">
-        <div class="r-icon">🧾</div>
-        <div class="r-name">RESICO</div>
-        <div class="r-desc">Régimen Simplificado de Confianza. Tasas progresivas desde 1%, ideal para ingresos hasta $3.5M anuales.</div>
+      <div class="r-card" onclick="pickR(this,'resico')">
+        <div class="r-icon">🧾</div><div class="r-name">RESICO</div>
+        <div class="r-desc">Régimen Simplificado de Confianza. Tasas desde 1%, ingresos hasta $3.5M anuales.</div>
         <span class="r-who">Persona Física</span>
       </div>
-      <div class="r-card" onclick="pickRegime(this,'pf_emp')">
-        <div class="r-icon">💼</div>
-        <div class="r-name">PF Actividad Empresarial</div>
-        <div class="r-desc">Para personas físicas con negocio propio, ventas de bienes o prestación de servicios profesionales.</div>
+      <div class="r-card" onclick="pickR(this,'pf_emp')">
+        <div class="r-icon">💼</div><div class="r-name">PF Actividad Empresarial</div>
+        <div class="r-desc">Negocios propios, venta de bienes o prestación de servicios profesionales.</div>
         <span class="r-who">Persona Física</span>
       </div>
-      <div class="r-card" onclick="pickRegime(this,'plataformas')">
-        <div class="r-icon">📱</div>
-        <div class="r-name">Régimen de Plataformas</div>
-        <div class="r-desc">Ingresos a través de plataformas digitales: Uber, Airbnb, Rappi, Amazon, MercadoLibre, etc.</div>
+      <div class="r-card" onclick="pickR(this,'plataformas')">
+        <div class="r-icon">📱</div><div class="r-name">Régimen de Plataformas</div>
+        <div class="r-desc">Ingresos por Uber, Airbnb, Rappi, Amazon, MercadoLibre y otras plataformas digitales.</div>
         <span class="r-who">Persona Física</span>
       </div>
-      <div class="r-card" onclick="pickRegime(this,'pm_general')">
-        <div class="r-icon">🏢</div>
-        <div class="r-name">General de Ley — PM</div>
-        <div class="r-desc">Personas morales: S.A. de C.V., S. de R.L., A.C. y similares. Obligaciones completas ISR, IVA, IMSS.</div>
+      <div class="r-card" onclick="pickR(this,'pm_general')">
+        <div class="r-icon">🏢</div><div class="r-name">General de Ley — PM</div>
+        <div class="r-desc">S.A. de C.V., S. de R.L., A.C. y similares. Obligaciones completas ISR, IVA, IMSS.</div>
         <span class="r-who">Persona Moral</span>
       </div>
     </div>
-    <div class="nav">
-      <span></span>
-      <button class="btn-next" id="btn1" disabled onclick="goTo(2)">Siguiente → Elegir nivel</button>
-    </div>
+    <div class="nav"><span></span><button class="btn-next" id="btn1" disabled onclick="goTo(2)">Siguiente →</button></div>
   </div>
 
-  <!-- STEP 2: Nivel -->
+  <!-- STEP 2 -->
   <div class="sec" id="sec2">
-    <div class="sec-label">Paso 2 de 3</div>
-    <div class="sec-title">Selecciona tu nivel de servicio</div>
-    <div class="sec-sub" id="sec2sub">Elige según tus necesidades actuales.</div>
+    <div class="sec-label">Paso 2 de 4</div>
+    <div class="sec-title">Nivel de servicio</div>
+    <div class="sec-sub" id="s2sub"></div>
     <div class="level-grid" id="levelGrid"></div>
     <div class="nav">
-      <button class="btn-back" onclick="goTo(1)">← Cambiar régimen</button>
-      <button class="btn-next" id="btn2" disabled onclick="goTo(3)">Ver cotización →</button>
+      <button class="btn-back" onclick="goTo(1)">← Régimen</button>
+      <button class="btn-next" id="btn2" disabled onclick="goTo(3)">Servicios adicionales →</button>
     </div>
   </div>
 
-  <!-- STEP 3: Resultado -->
+  <!-- STEP 3 -->
   <div class="sec" id="sec3">
-    <div class="sec-label">Paso 3 de 3</div>
-    <div class="sec-title">Tu cotización base</div>
-    <div class="sec-sub">Esta es la cotización inicial. En la siguiente fase podrás agregar servicios adicionales.</div>
-    <div class="result-wrap">
-      <div class="result-left" id="resultLeft"></div>
+    <div class="sec-label">Paso 3 de 4</div>
+    <div class="sec-title">Servicios adicionales</div>
+    <div class="sec-sub">Activa los servicios que necesitas. El total se actualiza en tiempo real.</div>
+    <div class="addons-grid" id="addonsGrid"></div>
+    <div class="nav">
+      <button class="btn-back" onclick="goTo(2)">← Nivel</button>
+      <button class="btn-next" onclick="goTo(4)">Ver cotización completa →</button>
+    </div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="sec" id="sec4">
+    <div class="sec-label">Paso 4 de 4</div>
+    <div class="sec-title">Tu cotización personalizada</div>
+    <div class="sec-sub">Resumen completo con todos los servicios seleccionados.</div>
+    <div class="sum-wrap">
+      <div class="sum-left" id="sumLeft"></div>
       <div class="sticky-card" id="stickyCard"></div>
     </div>
     <div class="nav">
-      <button class="btn-back" onclick="goTo(2)">← Cambiar nivel</button>
+      <button class="btn-back" onclick="goTo(3)">← Modificar servicios</button>
       <span></span>
     </div>
   </div>
+</div>
 
+<!-- Floating total bar (step 3) -->
+<div class="float-bar" id="floatBar">
+  <div class="fb-left">
+    <span class="fb-label">Total mensual estimado</span>
+    <span class="fb-total" id="fbTotal">$0</span>
+    <span class="fb-note">MXN / mes + IVA</span>
+  </div>
+  <button class="fb-btn" onclick="goTo(4)">Ver cotización →</button>
 </div>
 
 <script>
-const DATA = {
-  regimes: {
-    resico:      { name:'RESICO', icon:'🧾', tipo:'Persona Física' },
-    pf_emp:      { name:'PF Actividad Empresarial', icon:'💼', tipo:'Persona Física' },
-    plataformas: { name:'Régimen de Plataformas', icon:'📱', tipo:'Persona Física' },
-    pm_general:  { name:'General de Ley — PM', icon:'🏢', tipo:'Persona Moral' },
+const R={
+  resico:     {name:'RESICO',icon:'🧾',tipo:'Persona Física'},
+  pf_emp:     {name:'PF Actividad Empresarial',icon:'💼',tipo:'Persona Física'},
+  plataformas:{name:'Régimen de Plataformas',icon:'📱',tipo:'Persona Física'},
+  pm_general: {name:'General de Ley — PM',icon:'🏢',tipo:'Persona Moral'},
+};
+const PRICES={
+  resico:     {basico:800, avanzado:1600,empresarial:3200},
+  pf_emp:     {basico:1200,avanzado:2400,empresarial:4800},
+  plataformas:{basico:900, avanzado:1800,empresarial:3500},
+  pm_general: {basico:2500,avanzado:5000,empresarial:9800},
+};
+const LV={
+  basico:{k:'b',name:'Básico',desc:'Para quienes inician o tienen operaciones simples.',
+    feats:{
+      resico:['Declaraciones mensuales ISR e IVA','Alta y actualización de RFC','Declaración anual','Alertas de obligaciones','Atención por WhatsApp'],
+      pf_emp:['Declaraciones mensuales ISR e IVA','Alta y actualización de RFC','Pagos provisionales','Declaración anual','Atención por WhatsApp'],
+      plataformas:['Declaraciones mensuales plataformas','Alta y actualización de RFC','Conciliación básica','Declaración anual','Atención por WhatsApp'],
+      pm_general:['Declaraciones mensuales ISR/IVA/IMSS','Alta y actualización de RFC','DIOT mensual','Declaración anual','Atención por WhatsApp'],
+    }
   },
-  prices: {
-    resico:      { basico:800,  avanzado:1600, empresarial:3200 },
-    pf_emp:      { basico:1200, avanzado:2400, empresarial:4800 },
-    plataformas: { basico:900,  avanzado:1800, empresarial:3500 },
-    pm_general:  { basico:2500, avanzado:5000, empresarial:9800 },
+  avanzado:{k:'a',name:'Avanzado',popular:true,desc:'Para negocios activos con cumplimiento completo y soporte ampliado.',
+    feats:{
+      resico:['Todo lo del Básico','Contabilidad electrónica','Atención a requerimientos SAT','Declaraciones informativas','Consultas sin límite','Revisión preventiva semestral'],
+      pf_emp:['Todo lo del Básico','Contabilidad electrónica','DIOT mensual','Atención a requerimientos SAT','Consultas sin límite','Revisión preventiva semestral'],
+      plataformas:['Todo lo del Básico','Contabilidad electrónica','Conciliación multi-plataforma','Atención a requerimientos SAT','Consultas sin límite','Revisión preventiva semestral'],
+      pm_general:['Todo lo del Básico','Contabilidad electrónica completa','Declaraciones informativas','Atención a requerimientos SAT','Consultas sin límite','Revisión preventiva trimestral'],
+    }
   },
-  levels: {
-    basico: {
-      key:'b', name:'Básico', desc:'Para quienes inician o tienen operaciones simples y pocas obligaciones.',
-      features:{
-        resico:['Declaraciones mensuales ISR e IVA','Alta y actualización de RFC','Declaración anual','Alertas de obligaciones fiscales','Atención por WhatsApp en horario de oficina'],
-        pf_emp:['Declaraciones mensuales ISR e IVA','Alta y actualización de RFC','Pagos provisionales','Declaración anual','Atención por WhatsApp en horario de oficina'],
-        plataformas:['Declaraciones mensuales de plataformas','Alta y actualización de RFC','Conciliación básica de ingresos','Declaración anual','Atención por WhatsApp en horario de oficina'],
-        pm_general:['Declaraciones mensuales ISR, IVA e IMSS','Alta y actualización de RFC','DIOT mensual','Declaración anual','Atención por WhatsApp en horario de oficina'],
-      }
-    },
-    avanzado: {
-      key:'a', name:'Avanzado', popular:true, desc:'Para negocios activos que necesitan mayor soporte y cumplimiento completo.',
-      features:{
-        resico:['Todo lo del Básico','Contabilidad electrónica','Atención a requerimientos del SAT','Declaraciones informativas','Consultas fiscales sin límite','Revisión preventiva semestral'],
-        pf_emp:['Todo lo del Básico','Contabilidad electrónica','DIOT mensual','Atención a requerimientos del SAT','Consultas fiscales sin límite','Revisión preventiva semestral'],
-        plataformas:['Todo lo del Básico','Contabilidad electrónica','Conciliación multi-plataforma','Atención a requerimientos del SAT','Consultas fiscales sin límite','Revisión preventiva semestral'],
-        pm_general:['Todo lo del Básico','Contabilidad electrónica completa','Declaraciones informativas','Atención a requerimientos del SAT','Consultas fiscales sin límite','Revisión preventiva trimestral'],
-      }
-    },
-    empresarial: {
-      key:'e', name:'Empresarial', desc:'Acompañamiento fiscal y administrativo total para empresas consolidadas.',
-      features:{
-        resico:['Todo lo del Avanzado','Acompañamiento fiscal permanente','Asesoría de modelo de negocio','Plan y seguimiento administrativo','Sesiones mensuales de seguimiento','Optimización fiscal proactiva','Atención prioritaria'],
-        pf_emp:['Todo lo del Avanzado','Acompañamiento fiscal permanente','Asesoría de modelo de negocio','Plan y seguimiento administrativo','Sesiones mensuales de seguimiento','Optimización fiscal proactiva','Atención prioritaria'],
-        plataformas:['Todo lo del Avanzado','Acompañamiento fiscal permanente','Asesoría de modelo de negocio','Plan y seguimiento administrativo','Sesiones mensuales de seguimiento','Optimización fiscal proactiva','Atención prioritaria'],
-        pm_general:['Todo lo del Avanzado','Acompañamiento fiscal permanente','Asesoría de modelo de negocio','Plan y seguimiento administrativo','Sesiones mensuales de seguimiento','Optimización fiscal proactiva','Atención prioritaria'],
-      }
+  empresarial:{k:'e',name:'Empresarial',desc:'Acompañamiento fiscal y administrativo total para empresas consolidadas.',
+    feats:{
+      resico:['Todo lo del Avanzado','Acompañamiento fiscal permanente','Asesoría de modelo de negocio','Plan administrativo','Sesiones mensuales','Optimización fiscal proactiva','Atención prioritaria'],
+      pf_emp:['Todo lo del Avanzado','Acompañamiento fiscal permanente','Asesoría de modelo de negocio','Plan administrativo','Sesiones mensuales','Optimización fiscal proactiva','Atención prioritaria'],
+      plataformas:['Todo lo del Avanzado','Acompañamiento fiscal permanente','Asesoría de modelo de negocio','Plan administrativo','Sesiones mensuales','Optimización fiscal proactiva','Atención prioritaria'],
+      pm_general:['Todo lo del Avanzado','Acompañamiento fiscal permanente','Asesoría de modelo de negocio','Plan administrativo','Sesiones mensuales','Optimización fiscal proactiva','Atención prioritaria'],
     }
   }
 };
+const ADDONS=[
+  {id:'cont_elec',name:'Contabilidad Electrónica',plus:false,
+   desc:'Registro contable completo con envío mensual al SAT. Balanza de comprobación y catálogo de cuentas.',
+   price:{resico:400,pf_emp:600,plataformas:500,pm_general:1200},
+   note:'Requerida legalmente en varios regímenes',
+   includedIn:['avanzado','empresarial']},
+  {id:'acomp',name:'Acompañamiento Fiscal Permanente',plus:true,
+   desc:'Asesor dedicado para consultas en tiempo real, revisión de contratos, estrategia y blindaje ante el SAT.',
+   price:{resico:700,pf_emp:1000,plataformas:800,pm_general:2000},
+   note:'Previene multas y optimiza tu carga fiscal',
+   includedIn:['empresarial']},
+  {id:'facturacion',name:'Emisión de CFDI (Facturación)',plus:false,
+   desc:'Emisión y envío de facturas a tus clientes. Hasta 50 CFDIs mensuales incluidos.',
+   price:{resico:300,pf_emp:350,plataformas:300,pm_general:500},
+   note:'+$200 por cada 50 CFDIs adicionales',
+   includedIn:[]},
+  {id:'nomina',name:'Nómina',plus:false,
+   desc:'Cálculo y timbrado de nómina, altas IMSS, retenciones ISR y cuotas patronales.',
+   pricePerEmp:{resico:200,pf_emp:200,plataformas:200,pm_general:180},
+   note:'Por empleado / mes · mínimo 1',
+   includedIn:[],hasCounter:true},
+  {id:'oblig',name:'Obligaciones Fiscales Especiales',plus:false,
+   desc:'IVA retenido, IEPS, impuesto sobre nómina estatal y otras obligaciones según tu actividad.',
+   price:{resico:350,pf_emp:500,plataformas:400,pm_general:800},
+   note:'Varía según número de obligaciones',
+   includedIn:[]},
+  {id:'decl_inf',name:'Declaraciones Informativas',plus:false,
+   desc:'DIOT, DIM, retenciones e información de pagos. Revisión y envío al SAT.',
+   price:{resico:300,pf_emp:400,plataformas:350,pm_general:700},
+   note:'Anual o según periodicidad',
+   includedIn:['avanzado','empresarial']},
+  {id:'asesoria',name:'Asesoría de Modelo de Negocio',plus:true,
+   desc:'Análisis y diseño de estructura legal-fiscal óptima. Incluye 2 sesiones mensuales de consultoría.',
+   price:{resico:600,pf_emp:800,plataformas:700,pm_general:1500},
+   note:'Sesiones adicionales: $500 c/u',
+   includedIn:['empresarial']},
+  {id:'plan_admin',name:'Seguimiento Plan Administrativo',plus:true,
+   desc:'Monitoreo de plan de negocio: flujo de caja, presupuestos y KPIs financieros. Reporte mensual.',
+   price:{resico:500,pf_emp:700,plataformas:600,pm_general:1200},
+   note:'Incluye reporte ejecutivo mensual',
+   includedIn:['empresarial']},
+  {id:'sesiones',name:'Sesiones de Seguimiento',plus:true,
+   desc:'Sesiones 1:1 adicionales para revisión fiscal, dudas y estrategia. Videollamada o presencial.',
+   price:{resico:400,pf_emp:500,plataformas:450,pm_general:800},
+   note:'Precio por sesión extra (2 incluidas en Empresarial)',
+   includedIn:['empresarial']},
+];
 
-let sel = { regime: null, level: null };
+let S={regime:null,level:null,addons:new Set(),nominaCount:1};
 
-function fmt(n){ return '$'+Math.round(n).toLocaleString('es-MX') }
+function fmt(n){return '$'+Math.round(n).toLocaleString('es-MX')}
 
-function updateSteps(current){
-  for(let i=1;i<=3;i++){
+function updateSteps(cur){
+  for(let i=1;i<=4;i++){
     const s=document.getElementById('hs'+i);
-    s.className='hs'+(i===current?' active':i<current?' done':'');
+    s.className='hs'+(i===cur?' active':i<cur?' done':'');
   }
-  for(let i=1;i<=2;i++){
-    const l=document.getElementById('hl'+i);
-    l.className='hs-line'+(i<current?' done':'');
+  for(let i=1;i<=3;i++){
+    document.getElementById('hl'+i).className='hs-line'+(i<cur?' done':'');
   }
 }
 
 function goTo(n){
   document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
   document.getElementById('sec'+n).classList.add('active');
+  document.getElementById('floatBar').classList.toggle('visible',n===3);
   updateSteps(n);
+  if(n===2)renderLevels();
+  if(n===3)renderAddons();
+  if(n===4)renderSummary();
   window.scrollTo({top:0,behavior:'smooth'});
-  if(n===2) renderLevels();
-  if(n===3) renderResult();
 }
 
 // Step 1
-function pickRegime(el,key){
+function pickR(el,key){
   document.querySelectorAll('.r-card').forEach(c=>c.classList.remove('sel'));
   el.classList.add('sel');
-  sel.regime=key; sel.level=null;
+  S.regime=key;S.level=null;S.addons=new Set();
   document.getElementById('btn1').disabled=false;
 }
 
 // Step 2
 function renderLevels(){
-  const r=sel.regime;
-  document.getElementById('sec2sub').textContent=DATA.regimes[r].icon+' '+DATA.regimes[r].name+' — Elige tu nivel de servicio.';
-  const prices=DATA.prices[r];
-  const grid=document.getElementById('levelGrid');
-  grid.innerHTML=Object.entries(DATA.levels).map(([lk,lv])=>{
-    const p=prices[lk];
-    const feats=lv.features[r]||[];
-    return `<div class="l-card${lv.popular?' popular-card':''}" onclick="pickLevel(this,'${lk}')">
-      <div class="l-badge ${lv.key}">${lv.name.toUpperCase()}</div>
-      <div class="l-price ${lv.key}">${fmt(p)}</div>
+  const r=S.regime;
+  document.getElementById('s2sub').textContent=R[r].icon+' '+R[r].name+' — Elige el nivel que mejor se adapta a tus necesidades.';
+  document.getElementById('levelGrid').innerHTML=Object.entries(LV).map(([lk,lv])=>{
+    const p=PRICES[r][lk];
+    const feats=lv.feats[r]||[];
+    return `<div class="l-card${lv.popular?' popular-card':''}" onclick="pickL(this,'${lk}')">
+      <div class="l-badge ${lv.k}">${lv.name.toUpperCase()}</div>
+      <div class="l-price ${lv.k}">${fmt(p)}</div>
       <div class="l-price-note">MXN / mes (base)</div>
       <div class="l-desc">${lv.desc}</div>
-      <ul class="l-feats">
-        ${feats.map(f=>`<li><span class="check">✓</span>${f}</li>`).join('')}
-      </ul>
+      <ul class="l-feats">${feats.map(f=>`<li><span class="ck">✓</span>${f}</li>`).join('')}</ul>
     </div>`;
   }).join('');
   document.getElementById('btn2').disabled=true;
 }
-
-function pickLevel(el,key){
+function pickL(el,key){
   document.querySelectorAll('.l-card').forEach(c=>c.classList.remove('sel'));
   el.classList.add('sel');
-  sel.level=key;
+  S.level=key;
+  S.addons=new Set();
+  ADDONS.forEach(a=>{if(a.includedIn.includes(key))S.addons.add(a.id);});
   document.getElementById('btn2').disabled=false;
 }
 
 // Step 3
-function renderResult(){
-  const r=sel.regime; const l=sel.level;
-  const reg=DATA.regimes[r]; const lv=DATA.levels[l];
-  const price=DATA.prices[r][l];
-  const feats=lv.features[r]||[];
+function renderAddons(){
+  document.getElementById('addonsGrid').innerHTML=ADDONS.map(a=>{
+    const r=S.regime;
+    const inc=a.includedIn.includes(S.level);
+    const sel=S.addons.has(a.id);
+    let priceStr='';
+    if(inc) priceStr='<span style="color:var(--green)">✓ Incluido en tu plan</span>';
+    else if(a.hasCounter){
+      const pp=a.pricePerEmp[r];
+      priceStr=`${fmt(pp*S.nominaCount)}/mes · ${S.nominaCount} empleado${S.nominaCount>1?'s':''} × ${fmt(pp)}`;
+    } else priceStr=`+${fmt(a.price[r])}/mes`;
 
-  document.getElementById('resultLeft').innerHTML=`
-    <div class="res-block">
-      <div class="res-block-title">Detalle del servicio</div>
-      <div class="res-row"><span class="res-row-label">Régimen fiscal</span><span class="res-row-val">${reg.icon} ${reg.name}</span></div>
-      <div class="res-row"><span class="res-row-label">Tipo de contribuyente</span><span class="res-row-val">${reg.tipo}</span></div>
-      <div class="res-row"><span class="res-row-label">Nivel de servicio</span><span class="res-row-val">${lv.name}</span></div>
-      <div class="res-row"><span class="res-row-label">Periodicidad</span><span class="res-row-val">Mensual</span></div>
-      <div class="res-row total-row"><span class="res-row-label">Cuota mensual base</span><span class="res-row-val green">${fmt(price)} <small style="font-size:12px;color:var(--gray)">+ IVA</small></span></div>
+    const counter=a.hasCounter&&sel&&!inc?`<div class="nom-counter">
+      <button class="nom-btn" onclick="event.stopPropagation();chgNom(-1)">−</button>
+      <span class="nom-val">${S.nominaCount}</span>
+      <button class="nom-btn" onclick="event.stopPropagation();chgNom(1)">+</button>
+      <span class="nom-lbl">empleados</span>
+    </div>`:'';
+
+    return `<div class="a-card${sel?' sel':''}${inc?' included':''}${a.plus?' plus-card':''}"
+      onclick="${inc?'':(`toggleA('${a.id}')`)}">
+      <div class="a-chk">${sel||inc?'✓':''}</div>
+      <div class="a-info">
+        <div class="a-name">${a.name}
+          ${inc?'<span class="a-tag inc">Incluido</span>':''}
+          ${a.plus&&!inc?'<span class="a-tag plus">Plus</span>':''}
+        </div>
+        <div class="a-desc">${a.desc}</div>
+        <div class="a-price">${priceStr}</div>
+        ${a.note?`<div class="a-note">${a.note}</div>`:''}
+        ${counter}
+      </div>
+    </div>`;
+  }).join('');
+  updateFloatBar();
+}
+
+function toggleA(id){
+  S.addons.has(id)?S.addons.delete(id):S.addons.add(id);
+  renderAddons();
+}
+function chgNom(d){S.nominaCount=Math.max(1,S.nominaCount+d);renderAddons();}
+
+function calcTotal(){
+  const r=S.regime,l=S.level;
+  const base=PRICES[r][l];
+  let addonsTotal=0,breakdown=[];
+  ADDONS.forEach(a=>{
+    if(!S.addons.has(a.id))return;
+    const inc=a.includedIn.includes(l);
+    if(inc){breakdown.push({label:a.name,val:0,inc:true});return;}
+    const p=a.hasCounter?a.pricePerEmp[r]*S.nominaCount:a.price[r];
+    addonsTotal+=p;
+    breakdown.push({label:a.name,val:p,plus:a.plus});
+  });
+  return{base,addonsTotal,total:base+addonsTotal,breakdown};
+}
+
+function updateFloatBar(){
+  const{total}=calcTotal();
+  document.getElementById('fbTotal').textContent=fmt(total);
+}
+
+// Step 4
+function renderSummary(){
+  const r=S.regime,l=S.level;
+  const reg=R[r],lv=LV[l];
+  const{base,addonsTotal,total,breakdown}=calcTotal();
+  const iva=Math.round(total*.16);
+  const totalIva=total+iva;
+
+  document.getElementById('sumLeft').innerHTML=`
+    <div class="sum-block">
+      <div class="sum-block-title">Detalle del plan</div>
+      <div class="sum-row"><span class="sum-row-lbl">Régimen fiscal</span><span class="sum-row-val">${reg.icon} ${reg.name}</span></div>
+      <div class="sum-row"><span class="sum-row-lbl">Contribuyente</span><span class="sum-row-val">${reg.tipo}</span></div>
+      <div class="sum-row"><span class="sum-row-lbl">Nivel de servicio</span><span class="sum-row-val">${lv.name}</span></div>
+      <div class="sum-row"><span class="sum-row-lbl">Plan base</span><span class="sum-row-val" style="color:var(--green)">${fmt(base)}/mes</span></div>
+      ${breakdown.length?breakdown.map(b=>`<div class="sum-row">
+        <span class="sum-row-lbl">${b.label}${b.inc?'<span class="included-badge">Incluido</span>':''}${b.plus?'<span class="plus-badge">Plus</span>':''}</span>
+        <span class="sum-row-val" style="${b.inc?'color:var(--green);font-size:11px':''}">${b.inc?'Sin costo adicional':fmt(b.val)+'/mes'}</span>
+      </div>`).join(''):''}
+      <div class="sum-row iva-row"><span class="sum-row-lbl">IVA (16%)</span><span class="sum-row-val">+${fmt(iva)}</span></div>
+      <div class="sum-row total-row"><span class="sum-row-lbl">Total mensual (con IVA)</span><span class="sum-row-val">${fmt(totalIva)}</span></div>
     </div>
-    <div class="res-block">
-      <div class="res-block-title">Servicios incluidos</div>
-      <div class="feats-included">${feats.map(f=>`<div class="fi">${f}</div>`).join('')}</div>
-    </div>
-    <div class="res-block" style="border-color:rgba(251,191,36,.15);background:rgba(251,191,36,.03)">
-      <div class="res-block-title" style="color:#fbbf24">Próxima fase — Servicios adicionales</div>
-      <div style="font-size:13px;color:var(--gray-light);line-height:1.6">Pronto podrás agregar: <strong style="color:#fff">Facturación · Nómina · Contabilidad electrónica · Declaraciones informativas · Acompañamiento fiscal · Asesoría de negocio · Sesiones de seguimiento</strong> y más — con cálculo automático incluido en tu cotización.</div>
+    <div class="sum-block">
+      <div class="sum-block-title">Servicios incluidos en el plan</div>
+      ${(lv.feats[r]||[]).map(f=>`<div style="display:flex;gap:8px;font-size:13px;color:var(--gray-light);padding:7px 0;border-bottom:1px solid var(--border)"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span>${f}</div>`).join('')}
     </div>`;
 
   document.getElementById('stickyCard').innerHTML=`
-    <div class="sc-regime">${reg.name}</div>
-    <div class="sc-level">Plan ${lv.name}</div>
-    <div style="font-size:12px;color:var(--gray);margin-bottom:2px">${reg.tipo}</div>
-    <div class="sc-price-label">Cuota mensual base</div>
-    <div class="sc-price">${fmt(price)}</div>
-    <div class="sc-period">MXN / mes + IVA (${fmt(price*1.16)} con IVA)</div>
-    <div class="sc-note">⚡ Esta es la cotización base Fase 1. En breve podrás personalizar servicios adicionales para una propuesta completa.</div>
-    <a class="sc-btn-wa" href="https://wa.me/52${encodePhone()}" target="_blank">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      Solicitar propuesta completa
+    <div class="sc-tag">${reg.name}</div>
+    <div class="sc-regime">Plan ${lv.name} · ${reg.tipo}</div>
+    <div class="sc-label">Total mensual (sin IVA)</div>
+    <div class="sc-total">${fmt(total)}</div>
+    <div class="sc-period">+ IVA = ${fmt(totalIva)}/mes</div>
+    <div class="sc-bdown">
+      <div class="sc-item"><span class="sc-item-lbl">Plan ${lv.name}</span><span class="sc-item-val">${fmt(base)}</span></div>
+      ${breakdown.filter(b=>!b.inc).map(b=>`<div class="sc-item"><span class="sc-item-lbl">${b.label}</span><span class="sc-item-val">${fmt(b.val)}</span></div>`).join('')}
+      ${breakdown.filter(b=>b.inc).map(b=>`<div class="sc-item"><span class="sc-item-lbl">${b.label}</span><span class="sc-item-val inc">Incluido ✓</span></div>`).join('')}
+    </div>
+    <a class="sc-cta" href="https://wa.me/524442522739?text=${encodeURIComponent('Hola Fernando, me interesa la cotización: '+reg.name+' · Plan '+lv.name+' · '+fmt(total)+'/mes. Quisiera más información.')}" target="_blank">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Solicitar propuesta formal
     </a>
-    <button class="sc-btn-edit" onclick="goTo(2)">✏️ Cambiar nivel</button>
-    <div class="sc-disclaimer">Precios referenciales. La propuesta formal incluirá análisis de tu caso específico y puede variar según volumen de operaciones.</div>`;
+    <button class="sc-edit" onclick="goTo(3)">✏️ Ajustar servicios</button>
+    <div class="sc-disc">Precios referenciales. La propuesta formal puede variar según volumen de operaciones y complejidad del caso.</div>`;
 }
-
-function encodePhone(){
-  // Fernando's WhatsApp
-  return '4442522739';
-}
-
 </script>
 </body>
 </html>
