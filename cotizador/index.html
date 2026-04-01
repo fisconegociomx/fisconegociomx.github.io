@@ -235,6 +235,22 @@
     .pdf-footer-right{font-size:11px;color:#00cc57;font-weight:700}
 
 
+
+    /* ── Obligaciones panel expandible ── */
+    .oblig-panel{margin-top:12px;background:var(--dark-4);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+    .op-title{font-size:10px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.6px;padding:10px 14px;background:var(--green-dim);border-bottom:1px solid var(--green-border)}
+    .op-item{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);cursor:pointer;transition:.15s}
+    .op-item:last-of-type{border-bottom:none}
+    .op-item:hover{background:rgba(255,255,255,.03)}
+    .op-item.op-sel{background:rgba(0,255,109,.05)}
+    .op-chk{width:18px;height:18px;border-radius:5px;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;font-weight:800;transition:.15s;margin-top:1px;color:var(--dark)}
+    .op-item.op-sel .op-chk{background:var(--green);border-color:var(--green)}
+    .op-info{flex:1;min-width:0}
+    .op-name{font-size:12px;font-weight:600;color:#f0f0f5;line-height:1.3}
+    .op-desc{font-size:10px;color:var(--gray);margin-top:2px;line-height:1.4}
+    .op-price{font-size:12px;font-weight:700;color:var(--green);white-space:nowrap;margin-left:4px;flex-shrink:0}
+    .op-total{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--green-dim);border-top:1px solid var(--green-border);font-size:12px;font-weight:600;color:var(--gray-light)}
+
     /* ── Phase 4: Progress bar ── */
     .price-progress-wrap{margin:16px 0 20px;padding:14px 16px;background:var(--dark-3);border-radius:12px;border:1px solid var(--border)}
     .pp-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
@@ -467,12 +483,12 @@ const LV={
 };
 const ADDONS=[
   {id:'cont_elec',name:'Contabilidad Electrónica',plus:false,
-   desc:'Registro contable completo con envío mensual al SAT. Balanza de comprobación y catálogo de cuentas.',
+   desc:'Registro contable completo con envío mensual al SAT. Balanza y catálogo de cuentas.',
    price:{resico:400,pf_emp:600,plataformas:500,pm_general:1200},
    note:'Requerida legalmente en varios regímenes',
    includedIn:['avanzado','empresarial']},
   {id:'acomp',name:'Acompañamiento Fiscal Permanente',plus:true,
-   desc:'Asesor dedicado para consultas en tiempo real, revisión de contratos, estrategia y blindaje ante el SAT.',
+   desc:'Asesor dedicado para consultas en tiempo real, revisión de contratos y blindaje ante el SAT.',
    price:{resico:700,pf_emp:1000,plataformas:800,pm_general:2000},
    note:'Previene multas y optimiza tu carga fiscal',
    includedIn:['empresarial']},
@@ -487,33 +503,47 @@ const ADDONS=[
    note:'Por empleado / mes · mínimo 1',
    includedIn:[],hasCounter:true},
   {id:'oblig',name:'Obligaciones Fiscales Especiales',plus:false,
-   desc:'IVA retenido, IEPS, impuesto sobre nómina estatal y otras obligaciones según tu actividad.',
-   price:{resico:350,pf_emp:500,plataformas:400,pm_general:800},
-   note:'Varía según número de obligaciones',
-   includedIn:[]},
+   desc:'Activa solo las obligaciones que apliquen a tu actividad. Precio individual por obligación.',
+   price:{resico:0,pf_emp:0,plataformas:0,pm_general:0},
+   note:'Selecciona las que apliquen',
+   includedIn:[],hasSubItems:true},
   {id:'decl_inf',name:'Declaraciones Informativas',plus:false,
    desc:'DIOT, DIM, retenciones e información de pagos. Revisión y envío al SAT.',
    price:{resico:300,pf_emp:400,plataformas:350,pm_general:700},
    note:'Anual o según periodicidad',
    includedIn:['avanzado','empresarial']},
   {id:'asesoria',name:'Asesoría de Modelo de Negocio',plus:true,
-   desc:'Análisis y diseño de estructura legal-fiscal óptima. Incluye 2 sesiones mensuales de consultoría.',
+   desc:'Análisis y diseño de estructura legal-fiscal óptima. Incluye 2 sesiones mensuales.',
    price:{resico:600,pf_emp:800,plataformas:700,pm_general:1500},
    note:'Sesiones adicionales: $500 c/u',
    includedIn:['empresarial']},
   {id:'plan_admin',name:'Seguimiento Plan Administrativo',plus:true,
-   desc:'Monitoreo de plan de negocio: flujo de caja, presupuestos y KPIs financieros. Reporte mensual.',
+   desc:'Flujo de caja, presupuestos y KPIs financieros. Reporte mensual.',
    price:{resico:500,pf_emp:700,plataformas:600,pm_general:1200},
    note:'Incluye reporte ejecutivo mensual',
    includedIn:['empresarial']},
   {id:'sesiones',name:'Sesiones de Seguimiento',plus:true,
-   desc:'Sesiones 1:1 adicionales para revisión fiscal, dudas y estrategia. Videollamada o presencial.',
+   desc:'Sesiones 1:1 para revisión fiscal, dudas y estrategia. Videollamada o presencial.',
    price:{resico:400,pf_emp:500,plataformas:450,pm_general:800},
    note:'Precio por sesión extra (2 incluidas en Empresarial)',
    includedIn:['empresarial']},
 ];
 
-let S={regime:null,level:null,addons:new Set(),nominaCount:1};
+// Obligaciones especiales — precio individual por obligación
+const OBLIG_ITEMS=[
+  {id:'o_iva_ret',    name:'IVA Retenido',                    desc:'Declaración mensual de IVA retenido a terceros',                      price:200},
+  {id:'o_ieps',       name:'IEPS',                            desc:'Impuesto Especial sobre Producción y Servicios',                      price:350},
+  {id:'o_isn',        name:'Impuesto sobre Nómina (ISN)',     desc:'Impuesto estatal sobre nómina. Varía por estado.',                    price:250},
+  {id:'o_ret_isr',    name:'Retenciones ISR a Terceros',      desc:'ISR retenido a proveedores de servicios profesionales',               price:200},
+  {id:'o_cedular',    name:'Impuesto Cedular',                desc:'Arrendadores y actividades profesionales estatales',                  price:200},
+  {id:'o_frontera',   name:'IVA Frontera Norte (Tasa 0%)',    desc:'Aplicable en región fronteriza norte de México',                     price:250},
+  {id:'o_ieps_beb',   name:'IEPS Bebidas Azucaradas',         desc:'Impuesto a bebidas con azúcar, saborizantes o energizantes',         price:300},
+  {id:'o_rep_cap',    name:'Reportes de Capital Extranjero',  desc:'Información de inversiones y capitales del extranjero',              price:450},
+  {id:'o_econt_ext',  name:'Contabilidad Electrónica Extra',  desc:'Módulos adicionales: activos fijos, inventarios, cuentas de orden',  price:300},
+  {id:'o_inf_tercero',name:'Inf. de Operaciones con Terceros',desc:'Declaración informativa adicional (fuera de DIOT estándar)',          price:280},
+];
+
+let S={regime:null,level:null,addons:new Set(),nominaCount:1,obligSel:new Set()};
 
 function fmt(n){return '$'+Math.round(n).toLocaleString('es-MX')}
 
@@ -533,7 +563,7 @@ function goTo(n){
   document.getElementById('floatBar').classList.toggle('visible',n===3);
   updateSteps(n);
   if(n===2)renderLevels();
-  if(n===3)renderAddonsWithProgress();
+  if(n===3)renderAddons();
   if(n===4)renderSummary();
   window.scrollTo({top:0,behavior:'smooth'});
 }
@@ -568,6 +598,7 @@ function pickL(el,key){
   el.classList.add('sel');
   S.level=key;
   S.addons=new Set();
+  S.obligSel=new Set();
   ADDONS.forEach(a=>{if(a.includedIn.includes(key))S.addons.add(a.id);});
   document.getElementById('btn2').disabled=false;
 }
@@ -579,39 +610,84 @@ function renderAddons(){
     const inc=a.includedIn.includes(S.level);
     const sel=S.addons.has(a.id);
     let priceStr='';
-    if(inc) priceStr='<span style="color:var(--green)">✓ Incluido en tu plan</span>';
-    else if(a.hasCounter){
+    if(inc){
+      priceStr='<span style="color:var(--green);font-size:12px">✓ Incluido en tu plan</span>';
+    } else if(a.hasCounter){
       const pp=a.pricePerEmp[r];
-      priceStr=`${fmt(pp*S.nominaCount)}/mes · ${S.nominaCount} empleado${S.nominaCount>1?'s':''} × ${fmt(pp)}`;
-    } else priceStr=`+${fmt(a.price[r])}/mes`;
+      priceStr=fmt(pp*S.nominaCount)+'/mes · '+S.nominaCount+' empleado'+(S.nominaCount>1?'s':'')+' × '+fmt(pp);
+    } else if(a.hasSubItems){
+      const total=obligTotal();
+      priceStr=total>0?'<span style="color:var(--green)">+'+fmt(total)+'/mes ('+S.obligSel.size+' obligación'+(S.obligSel.size!==1?'es':'')+')</span>':'<span style="color:var(--gray)">Sin obligaciones seleccionadas</span>';
+    } else {
+      priceStr='+'+fmt(a.price[r])+'/mes';
+    }
 
-    const counter=a.hasCounter&&sel&&!inc?`<div class="nom-counter">
-      <button class="nom-btn" onclick="event.stopPropagation();chgNom(-1)">−</button>
-      <span class="nom-val">${S.nominaCount}</span>
-      <button class="nom-btn" onclick="event.stopPropagation();chgNom(1)">+</button>
-      <span class="nom-lbl">empleados</span>
-    </div>`:'';
+    const counter=a.hasCounter&&sel&&!inc?
+      '<div class="nom-counter">'+
+      '<button class="nom-btn" onclick="event.stopPropagation();chgNom(-1)">−</button>'+
+      '<span class="nom-val">'+S.nominaCount+'</span>'+
+      '<button class="nom-btn" onclick="event.stopPropagation();chgNom(1)">+</button>'+
+      '<span class="nom-lbl">empleados</span></div>':'';
 
-    return `<div class="a-card${sel?' sel':''}${inc?' included':''}${a.plus?' plus-card':''}"
-      onclick="${inc?'':(`toggleA('${a.id}')`)}">
-      <div class="a-chk">${sel||inc?'✓':''}</div>
-      <div class="a-info">
-        <div class="a-name">${a.name}
-          ${inc?'<span class="a-tag inc">Incluido</span>':''}
-          ${a.plus&&!inc?'<span class="a-tag plus">Plus</span>':''}
-        </div>
-        <div class="a-desc">${a.desc}</div>
-        <div class="a-price">${priceStr}</div>
-        ${a.note?`<div class="a-note">${a.note}</div>`:''}
-        ${counter}
-      </div>
-    </div>`;
+    const obligPanel=a.hasSubItems&&sel&&!inc?renderObligPanel():'';
+
+    const cardClass='a-card'+(sel?' sel':'')+(inc?' included':'')+(a.plus?' plus-card':'');
+    const clickAct=inc?'':('toggleA(''+a.id+'')');
+    return '<div class="'+cardClass+'" onclick="'+clickAct+'">'+
+      '<div class="a-chk">'+(sel||inc?'✓':'')+'</div>'+
+      '<div class="a-info">'+
+        '<div class="a-name">'+a.name+
+          (inc?'<span class="a-tag inc">Incluido</span>':'')+
+          (a.plus&&!inc?'<span class="a-tag plus">Plus</span>':'')+
+        '</div>'+
+        '<div class="a-desc">'+a.desc+'</div>'+
+        '<div class="a-price">'+priceStr+'</div>'+
+        (a.note?'<div class="a-note">'+a.note+'</div>':'')+
+        counter+
+        obligPanel+
+      '</div></div>';
   }).join('');
   updateFloatBar();
+  renderProgressBar();
+}
+
+function renderObligPanel(){
+  return '<div class="oblig-panel" onclick="event.stopPropagation()">'+
+    '<div class="op-title">Selecciona las obligaciones que aplican</div>'+
+    OBLIG_ITEMS.map(o=>{
+      const sel=S.obligSel.has(o.id);
+      return '<div class="op-item'+(sel?' op-sel':'')+'" onclick="toggleOblig(''+o.id+'')" role="checkbox" aria-checked="'+sel+'">'+
+        '<div class="op-chk">'+(sel?'✓':'')+'</div>'+
+        '<div class="op-info">'+
+          '<div class="op-name">'+o.name+'</div>'+
+          '<div class="op-desc">'+o.desc+'</div>'+
+        '</div>'+
+        '<div class="op-price">+'+fmt(o.price)+'/mes</div>'+
+      '</div>';
+    }).join('')+
+    (S.obligSel.size>0?'<div class="op-total"><span>Total obligaciones</span><span style="color:var(--green);font-weight:800">'+fmt(obligTotal())+'/mes</span></div>':'')+
+  '</div>';
+}
+
+function toggleOblig(id){
+  S.obligSel.has(id)?S.obligSel.delete(id):S.obligSel.add(id);
+  if(S.obligSel.size>0) S.addons.add('oblig'); else S.addons.delete('oblig');
+  renderAddons();
+}
+
+function obligTotal(){
+  let t=0;
+  OBLIG_ITEMS.forEach(o=>{if(S.obligSel.has(o.id))t+=o.price;});
+  return t;
 }
 
 function toggleA(id){
-  S.addons.has(id)?S.addons.delete(id):S.addons.add(id);
+  if(id==='oblig'){
+    if(S.addons.has(id)){S.addons.delete(id);S.obligSel.clear();}
+    else S.addons.add(id);
+  } else {
+    S.addons.has(id)?S.addons.delete(id):S.addons.add(id);
+  }
   renderAddons();
 }
 function chgNom(d){S.nominaCount=Math.max(1,S.nominaCount+d);renderAddons();}
@@ -624,9 +700,19 @@ function calcTotal(){
     if(!S.addons.has(a.id))return;
     const inc=a.includedIn.includes(l);
     if(inc){breakdown.push({label:a.name,val:0,inc:true});return;}
+    if(a.hasSubItems){
+      // Expand each selected obligacion individually
+      OBLIG_ITEMS.forEach(o=>{
+        if(S.obligSel.has(o.id)){
+          addonsTotal+=o.price;
+          breakdown.push({label:o.name,val:o.price,plus:false,subOf:'Obligaciones Especiales'});
+        }
+      });
+      return;
+    }
     const p=a.hasCounter?a.pricePerEmp[r]*S.nominaCount:a.price[r];
     addonsTotal+=p;
-    breakdown.push({label:a.name,val:p,plus:a.plus});
+    breakdown.push({label:a.name,val:p,plus:a.plus||false});
   });
   return{base,addonsTotal,total:base+addonsTotal,breakdown};
 }
@@ -698,7 +784,7 @@ function renderProgressBar(){
 }
 
 function restartCotizador(){
-  S={regime:null,level:null,addons:new Set(),nominaCount:1};
+  S={regime:null,level:null,addons:new Set(),nominaCount:1,obligSel:new Set()};
   currentFolio=genFolio();
   ['cf_nombre','cf_rfc','cf_empresa','cf_tel','cf_email','cf_notas'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   const vig=document.getElementById('cf_vigencia');if(vig)vig.value='30';
@@ -707,10 +793,6 @@ function restartCotizador(){
   document.getElementById('successBanner')?.classList.remove('show');
   goTo(1);
 }
-
-// Patch renderAddons to also refresh progress bar
-const _baseRenderAddons=renderAddons;
-function renderAddons(){_baseRenderAddons();renderProgressBar();}
 
 // Show success banner after PDF
 const _baseGenPDF=generatePDF;
