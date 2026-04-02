@@ -15,113 +15,104 @@
   --border:#1e2a52;--radius:10px;
 }
 body{background:var(--bg);color:var(--white);font-family:'Inter',sans-serif;min-height:100vh}
-
-/* ── NAV ── */
 nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
 .nav-brand{font-size:14px;font-weight:800;color:var(--green);letter-spacing:.5px}
 .nav-sub{font-size:12px;color:var(--gray);margin-left:10px}
-.nav-right{display:flex;gap:10px;align-items:center}
-
-/* ── LAYOUT ── */
 .container{max-width:1200px;margin:0 auto;padding:24px 16px}
-
-/* ── HEADER ── */
-.page-header{margin-bottom:24px}
-.page-title{font-size:22px;font-weight:800;color:var(--white)}
-.page-sub{font-size:13px;color:var(--gray);margin-top:4px}
-
-/* ── STATS ── */
+.page-title{font-size:22px;font-weight:800;margin-bottom:4px}
+.page-sub{font-size:13px;color:var(--gray);margin-bottom:24px}
+/* stats */
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:24px}
 .stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:16px}
 .stat-label{font-size:11px;color:var(--gray);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
 .stat-val{font-size:22px;font-weight:800}
-.stat-val.green{color:var(--green)}
-.stat-val.red{color:var(--red)}
-.stat-val.amber{color:var(--amber)}
-.stat-val.blue{color:var(--blue)}
+.stat-val.green{color:var(--green)}.stat-val.red{color:var(--red)}.stat-val.amber{color:var(--amber)}.stat-val.blue{color:var(--blue)}
 .stat-sub{font-size:11px;color:var(--gray);margin-top:3px}
-
-/* ── TOOLBAR ── */
+/* toolbar */
 .toolbar{display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
 .search-box{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:8px 14px;color:var(--white);font-size:13px;font-family:inherit;width:220px;outline:none}
 .search-box::placeholder{color:var(--gray)}
 .search-box:focus{border-color:var(--green)}
 select.filter{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--white);font-size:13px;font-family:inherit;outline:none;cursor:pointer}
-select.filter:focus{border-color:var(--green)}
+select.filter option{background:var(--bg3)}
 .btn{padding:9px 18px;border-radius:8px;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;border:none;transition:.15s}
-.btn-primary{background:var(--green);color:#0d1026}
-.btn-primary:hover{background:var(--green2)}
-.btn-outline{background:transparent;border:1px solid var(--border);color:var(--gray2)}
-.btn-outline:hover{border-color:var(--green);color:var(--green)}
-.btn-danger{background:transparent;border:1px solid var(--red);color:var(--red)}
-.btn-danger:hover{background:var(--red);color:#fff}
+.btn-primary{background:var(--green);color:#0d1026}.btn-primary:hover{background:var(--green2)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--gray2)}.btn-outline:hover{border-color:var(--green);color:var(--green)}
+.btn-danger{background:transparent;border:1px solid var(--red);color:var(--red)}.btn-danger:hover{background:var(--red);color:#fff}
+.btn-wa{background:#25d366;color:#fff}.btn-wa:hover{background:#1da851}
 .btn-sm{padding:5px 12px;font-size:12px;border-radius:6px}
 .ml-auto{margin-left:auto}
-
-/* ── TABLE ── */
+/* table */
 .table-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
 .table-scroll{overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-size:13px}
-thead th{background:var(--bg3);padding:12px 14px;text-align:left;font-size:11px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
+thead th{background:var(--bg3);padding:11px 13px;text-align:left;font-size:11px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
 tbody tr{border-top:1px solid var(--border);transition:.1s}
 tbody tr:hover{background:var(--bg3)}
-tbody td{padding:12px 14px;vertical-align:middle}
+tbody td{padding:11px 13px;vertical-align:middle}
 .td-nombre{font-weight:600;color:var(--white);white-space:nowrap}
-.td-rfc{font-size:12px;color:var(--gray);font-family:monospace}
+.td-rfc{font-size:11px;color:var(--gray);font-family:monospace}
 .td-monto{font-weight:700;color:var(--green)}
 .td-vencidas{font-weight:700}
-.td-vencidas.v0{color:var(--gray)}
-.td-vencidas.v1{color:var(--amber)}
-.td-vencidas.v2{color:var(--red)}
-
-/* ── BADGES ── */
-.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700}
-.badge-ok{background:#052e16;color:var(--green)}
-.badge-vencido{background:#3b0b17;color:var(--red)}
-.badge-parcial{background:#2d1f00;color:var(--amber)}
-.badge-inactivo{background:#1a1a2e;color:var(--gray)}
+.td-vencidas.v0{color:var(--gray)}.td-vencidas.v1{color:var(--amber)}.td-vencidas.v2{color:var(--red)}
+.td-actions{display:flex;gap:5px;flex-wrap:wrap}
+/* badges */
+.badge{display:inline-block;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700}
+.badge-ok{background:#052e16;color:var(--green)}.badge-vencido{background:#3b0b17;color:var(--red)}
+.badge-parcial{background:#2d1f00;color:var(--amber)}.badge-inactivo{background:#1a1a2e;color:var(--gray)}
 .badge-regimen{background:var(--bg3);color:var(--gray2);font-size:10px}
-
-/* ── ACTIONS ── */
-.td-actions{display:flex;gap:6px;white-space:nowrap}
-
-/* ── EMPTY STATE ── */
+.badge-facturas{background:var(--bg3);color:var(--blue);font-size:10px;border:1px solid var(--border)}
+/* empty */
 .empty{text-align:center;padding:60px 20px}
 .empty-icon{font-size:40px;margin-bottom:12px}
 .empty-title{font-weight:700;font-size:15px;margin-bottom:6px}
 .empty-sub{font-size:13px;color:var(--gray)}
-
-/* ── MODAL ── */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;align-items:center;justify-content:center;padding:16px}
+.table-footer{padding:10px 13px;font-size:12px;color:var(--gray);border-top:1px solid var(--border)}
+/* modals */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;align-items:center;justify-content:center;padding:16px}
 .modal-overlay.open{display:flex}
 .modal{background:var(--bg2);border:1px solid var(--border);border-radius:14px;width:100%;max-width:560px;max-height:90vh;overflow-y:auto}
-.modal-header{padding:20px 24px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-.modal-title{font-size:16px;font-weight:800}
+.modal-header{padding:18px 22px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.modal-title{font-size:15px;font-weight:800}
 .modal-close{background:none;border:none;color:var(--gray);font-size:20px;cursor:pointer;line-height:1;padding:4px}
 .modal-close:hover{color:var(--white)}
-.modal-body{padding:20px 24px}
-.modal-footer{padding:16px 24px;border-top:1px solid var(--border);display:flex;gap:10px;justify-content:flex-end}
-
-/* ── FORM ── */
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.modal-body{padding:18px 22px}
+.modal-footer{padding:14px 22px;border-top:1px solid var(--border);display:flex;gap:10px;justify-content:flex-end}
+/* form */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
 .form-group{display:flex;flex-direction:column;gap:5px}
 .form-group.full{grid-column:1/-1}
 .form-label{font-size:12px;font-weight:600;color:var(--gray2)}
-.form-input,.form-select,.form-textarea{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--white);font-size:13px;font-family:inherit;outline:none;transition:.15s}
+.form-input,.form-select,.form-textarea{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:9px 12px;color:var(--white);font-size:13px;font-family:inherit;outline:none;transition:.15s}
 .form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--green)}
 .form-input::placeholder{color:var(--gray)}
-.form-textarea{resize:vertical;min-height:72px}
+.form-textarea{resize:vertical;min-height:68px}
 .form-select option{background:var(--bg3)}
-
-/* ── FOOTER COUNT ── */
-.table-footer{padding:10px 14px;font-size:12px;color:var(--gray);border-top:1px solid var(--border)}
-
+/* ── FACTURAS PANEL ── */
+.fact-panel{background:var(--bg2);border:1px solid var(--border);border-radius:14px;width:100%;max-width:640px;max-height:92vh;overflow-y:auto}
+.fact-client-info{background:var(--bg3);border-radius:8px;padding:12px 14px;margin-bottom:16px;display:flex;gap:16px;flex-wrap:wrap}
+.fact-client-info span{font-size:12px;color:var(--gray2)}
+.fact-client-info strong{color:var(--green)}
+/* upload zone */
+.upload-zone{border:2px dashed var(--border);border-radius:10px;padding:28px;text-align:center;cursor:pointer;transition:.2s;position:relative}
+.upload-zone:hover,.upload-zone.drag{border-color:var(--green);background:rgba(0,255,109,.04)}
+.upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
+.upload-icon{font-size:28px;margin-bottom:8px}
+.upload-label{font-size:13px;font-weight:600;color:var(--gray2);margin-bottom:4px}
+.upload-sub{font-size:11px;color:var(--gray)}
+/* factura list */
+.fact-list{display:flex;flex-direction:column;gap:8px;margin-top:16px}
+.fact-item{background:var(--bg3);border:1px solid var(--border);border-radius:9px;padding:12px 14px;display:flex;align-items:center;gap:12px}
+.fact-icon{font-size:24px;flex-shrink:0}
+.fact-info{flex:1;min-width:0}
+.fact-name{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fact-meta{font-size:11px;color:var(--gray);margin-top:2px}
+.fact-actions{display:flex;gap:6px;flex-shrink:0}
+.fact-empty{text-align:center;padding:32px;color:var(--gray);font-size:13px}
 @media(max-width:600px){
-  .form-grid{grid-template-columns:1fr}
-  .form-group.full{grid-column:1}
+  .form-grid{grid-template-columns:1fr}.form-group.full{grid-column:1}
   .stats-grid{grid-template-columns:1fr 1fr}
-  .toolbar{flex-direction:column;align-items:stretch}
-  .search-box{width:100%}
+  .toolbar{flex-direction:column;align-items:stretch}.search-box{width:100%}
 }
 </style>
 </head>
@@ -132,20 +123,16 @@ tbody td{padding:12px 14px;vertical-align:middle}
     <span class="nav-brand">FiscoNegocio</span>
     <span class="nav-sub">/ Control de Cobranza</span>
   </div>
-  <div class="nav-right">
+  <div style="display:flex;gap:14px;align-items:center">
     <a href="../cotizador/" style="font-size:12px;color:var(--gray);text-decoration:none">← Cotizador</a>
   </div>
 </nav>
 
 <div class="container">
+  <div class="page-title">💼 Control de Cobranza</div>
+  <div class="page-sub">Gestión de clientes, honorarios, estatus de pago y facturas</div>
 
-  <div class="page-header">
-    <div class="page-title">💼 Control de Cobranza</div>
-    <div class="page-sub">Gestión de clientes, honorarios y estatus de pago</div>
-  </div>
-
-  <!-- Stats -->
-  <div class="stats-grid" id="statsGrid">
+  <div class="stats-grid">
     <div class="stat-card"><div class="stat-label">Total clientes</div><div class="stat-val blue" id="sTotalClientes">0</div></div>
     <div class="stat-card"><div class="stat-label">Al día</div><div class="stat-val green" id="sAlDia">0</div></div>
     <div class="stat-card"><div class="stat-label">Con adeudo</div><div class="stat-val red" id="sVencidos">0</div></div>
@@ -153,7 +140,6 @@ tbody td{padding:12px 14px;vertical-align:middle}
     <div class="stat-card"><div class="stat-label">Cartera vencida</div><div class="stat-val red" id="sCartera">$0</div><div class="stat-sub">mensualidades pendientes</div></div>
   </div>
 
-  <!-- Toolbar -->
   <div class="toolbar">
     <input class="search-box" id="searchInput" placeholder="🔍 Buscar cliente, RFC..." oninput="renderTable()"/>
     <select class="filter" id="filterEstatus" onchange="renderTable()">
@@ -170,36 +156,26 @@ tbody td{padding:12px 14px;vertical-align:middle}
       <option value="PLATAFORMAS">Plataformas Digitales</option>
       <option value="PM">PM Régimen General</option>
     </select>
-    <button class="btn btn-outline btn-sm ml-auto" onclick="exportCSV()">⬇ Exportar CSV</button>
+    <button class="btn btn-outline btn-sm ml-auto" onclick="exportCSV()">⬇ CSV</button>
     <button class="btn btn-primary" onclick="openModal()">+ Nuevo cliente</button>
   </div>
 
-  <!-- Table -->
   <div class="table-wrap">
     <div class="table-scroll">
       <table>
-        <thead>
-          <tr>
-            <th>Cliente / RFC</th>
-            <th>Régimen</th>
-            <th>Honorario</th>
-            <th>Día de pago</th>
-            <th>Mensualidades vencidas</th>
-            <th>Próximo vencimiento</th>
-            <th>Estatus</th>
-            <th>Comentarios</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
+        <thead><tr>
+          <th>Cliente / RFC</th><th>Régimen</th><th>Honorario</th>
+          <th>Día pago</th><th>Vencidas / Adeudo</th><th>Mensualidad a pagar</th>
+          <th>Estatus</th><th>Comentarios</th><th>Acciones</th>
+        </tr></thead>
         <tbody id="tableBody"></tbody>
       </table>
     </div>
     <div class="table-footer" id="tableFooter">0 clientes</div>
   </div>
-
 </div>
 
-<!-- Modal alta/edición -->
+<!-- ── MODAL CLIENTE ── -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
   <div class="modal">
     <div class="modal-header">
@@ -208,262 +184,352 @@ tbody td{padding:12px 14px;vertical-align:middle}
     </div>
     <div class="modal-body">
       <div class="form-grid">
-        <div class="form-group">
-          <label class="form-label">Nombre completo *</label>
-          <input class="form-input" id="f_nombre" placeholder="Nombre o razón social"/>
-        </div>
-        <div class="form-group">
-          <label class="form-label">RFC *</label>
-          <input class="form-input" id="f_rfc" placeholder="XAXX010101000" style="text-transform:uppercase" oninput="this.value=this.value.toUpperCase()"/>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Régimen fiscal *</label>
+        <div class="form-group"><label class="form-label">Nombre completo *</label>
+          <input class="form-input" id="f_nombre" placeholder="Nombre o razón social"/></div>
+        <div class="form-group"><label class="form-label">RFC *</label>
+          <input class="form-input" id="f_rfc" placeholder="XAXX010101000" oninput="this.value=this.value.toUpperCase()"/></div>
+        <div class="form-group"><label class="form-label">Régimen fiscal *</label>
           <select class="form-select" id="f_regimen">
             <option value="">Seleccionar...</option>
             <option value="RESICO">RESICO</option>
             <option value="PF_EMP">PF Actividad Empresarial</option>
             <option value="PLATAFORMAS">Plataformas Digitales</option>
             <option value="PM">PM Régimen General</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Honorario mensual (MXN) *</label>
-          <input class="form-input" id="f_honorario" type="number" placeholder="0" min="0"/>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Día de pago (1-31) *</label>
-          <input class="form-input" id="f_dia_pago" type="number" placeholder="1" min="1" max="31"/>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Mensualidades vencidas</label>
-          <input class="form-input" id="f_vencidas" type="number" placeholder="0" min="0" value="0"/>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Estatus *</label>
+          </select></div>
+        <div class="form-group"><label class="form-label">Honorario mensual (MXN) *</label>
+          <input class="form-input" id="f_honorario" type="number" placeholder="0" min="0"/></div>
+        <div class="form-group"><label class="form-label">Día de pago (1-31) *</label>
+          <input class="form-input" id="f_dia_pago" type="number" placeholder="1" min="1" max="31"/></div>
+        <div class="form-group"><label class="form-label">Mensualidades vencidas</label>
+          <input class="form-input" id="f_vencidas" type="number" placeholder="0" min="0" value="0"/></div>
+        <div class="form-group"><label class="form-label">Estatus *</label>
           <select class="form-select" id="f_estatus">
             <option value="al_dia">Al día ✅</option>
             <option value="vencido">Vencido 🔴</option>
             <option value="parcial">Parcial 🟡</option>
             <option value="inactivo">Inactivo ⚫</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Teléfono WhatsApp</label>
-          <input class="form-input" id="f_tel" placeholder="52444XXXXXXX (sin +)"/>
-        </div>
-        <div class="form-group full">
-          <label class="form-label">Comentarios adicionales</label>
-          <textarea class="form-textarea" id="f_comentarios" placeholder="Notas, acuerdos especiales, observaciones..."></textarea>
-        </div>
+          </select></div>
+        <div class="form-group"><label class="form-label">Teléfono WhatsApp</label>
+          <input class="form-input" id="f_tel" placeholder="52444XXXXXXX (sin +)"/></div>
+        <div class="form-group full"><label class="form-label">Comentarios adicionales</label>
+          <textarea class="form-textarea" id="f_comentarios" placeholder="Notas, acuerdos, observaciones..."></textarea></div>
       </div>
     </div>
     <div class="modal-footer">
       <button class="btn btn-outline" onclick="closeModal()">Cancelar</button>
-      <button class="btn btn-primary" onclick="saveCliente()">Guardar cliente</button>
+      <button class="btn btn-primary" onclick="saveCliente()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── PANEL FACTURAS ── -->
+<div class="modal-overlay" id="factOverlay" onclick="closeFacturas(event)">
+  <div class="modal fact-panel">
+    <div class="modal-header">
+      <div class="modal-title">📄 Facturas · <span id="factClienteNombre">—</span></div>
+      <button class="modal-close" onclick="closeFacturas()">✕</button>
+    </div>
+    <div class="modal-body">
+      <!-- Info del cliente -->
+      <div class="fact-client-info" id="factClienteInfo"></div>
+
+      <!-- Upload zone -->
+      <div class="upload-zone" id="uploadZone">
+        <input type="file" accept=".pdf,application/pdf" onchange="onFileSelect(event)" multiple/>
+        <div class="upload-icon">📂</div>
+        <div class="upload-label">Arrastra o selecciona facturas PDF</div>
+        <div class="upload-sub">Puedes subir varios archivos a la vez · Máx. 5 MB por archivo</div>
+      </div>
+
+      <!-- Lista de facturas -->
+      <div class="fact-list" id="factList"></div>
     </div>
   </div>
 </div>
 
 <script>
 // ── Storage ────────────────────────────────────────────────────────────────
-const KEY = 'fn_cobranza_v1';
+const KEY_C = 'fn_cobranza_v1';
+const KEY_F = 'fn_facturas_v1';
 let clientes = [];
-let editId = null;
+let facturas  = {}; // { clienteId: [{id, nombre, size, fecha, data}] }
+let editId    = null;
+let factClienteId = null;
 
 function load(){
-  try{ clientes = JSON.parse(localStorage.getItem(KEY)||'[]'); }
-  catch{ clientes = []; }
+  try{ clientes = JSON.parse(localStorage.getItem(KEY_C)||'[]'); }catch{ clientes=[]; }
+  try{ facturas  = JSON.parse(localStorage.getItem(KEY_F)||'{}'); }catch{ facturas={}; }
 }
-function save(){
-  localStorage.setItem(KEY, JSON.stringify(clientes));
-}
-function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
+function saveC(){ localStorage.setItem(KEY_C, JSON.stringify(clientes)); }
+function saveF(){ localStorage.setItem(KEY_F, JSON.stringify(facturas)); }
+function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
 
 // ── Helpers ────────────────────────────────────────────────────────────────
-const REGIMEN_LABELS = {
-  RESICO:'RESICO', PF_EMP:'PF Emp.', PLATAFORMAS:'Plataformas', PM:'PM General'
-};
-const ESTATUS_BADGES = {
+const RL = {RESICO:'RESICO',PF_EMP:'PF Emp.',PLATAFORMAS:'Plataformas',PM:'PM General'};
+const EB = {
   al_dia:'<span class="badge badge-ok">Al día</span>',
   vencido:'<span class="badge badge-vencido">Vencido</span>',
   parcial:'<span class="badge badge-parcial">Parcial</span>',
   inactivo:'<span class="badge badge-inactivo">Inactivo</span>',
 };
-
-function fmtMXN(n){
-  return '$'+parseFloat(n||0).toLocaleString('es-MX',{minimumFractionDigits:0,maximumFractionDigits:0});
+function fmtMXN(n){ return '$'+parseFloat(n||0).toLocaleString('es-MX',{minimumFractionDigits:0,maximumFractionDigits:0}); }
+function fmtBytes(b){ return b<1024?b+'B':b<1048576?(b/1024).toFixed(0)+'KB':(b/1048576).toFixed(1)+'MB'; }
+function proxVenc(dia){
+  if(!dia) return '—';
+  const now=new Date(), d=parseInt(dia);
+  let f=new Date(now.getFullYear(),now.getMonth(),d);
+  if(f<=now) f=new Date(now.getFullYear(),now.getMonth()+1,d);
+  return f.toLocaleDateString('es-MX',{day:'2-digit',month:'short',year:'numeric'});
 }
-
-function proximoVencimiento(dia_pago){
-  if(!dia_pago) return '—';
-  const now = new Date();
-  let d = parseInt(dia_pago);
-  let fecha = new Date(now.getFullYear(), now.getMonth(), d);
-  if(fecha <= now) fecha = new Date(now.getFullYear(), now.getMonth()+1, d);
-  return fecha.toLocaleDateString('es-MX',{day:'2-digit',month:'short',year:'numeric'});
-}
-
-function vencidasClass(n){
-  n = parseInt(n||0);
-  if(n===0) return 'v0';
-  if(n<=2) return 'v1';
-  return 'v2';
-}
+function vcClass(n){ n=parseInt(n||0); return n===0?'v0':n<=2?'v1':'v2'; }
+function nFacts(id){ return (facturas[id]||[]).length; }
 
 // ── Stats ──────────────────────────────────────────────────────────────────
 function updateStats(){
-  const activos = clientes.filter(c=>c.estatus!=='inactivo');
-  const alDia   = clientes.filter(c=>c.estatus==='al_dia').length;
-  const venc    = clientes.filter(c=>c.estatus==='vencido'||c.estatus==='parcial').length;
-  const facturacion = activos.reduce((s,c)=>s+parseFloat(c.honorario||0),0);
-  const cartera = clientes.reduce((s,c)=>s+parseFloat(c.honorario||0)*parseInt(c.vencidas||0),0);
-
+  const activos  = clientes.filter(c=>c.estatus!=='inactivo');
+  const alDia    = clientes.filter(c=>c.estatus==='al_dia').length;
+  const venc     = clientes.filter(c=>c.estatus==='vencido'||c.estatus==='parcial').length;
+  const factura  = activos.reduce((s,c)=>s+parseFloat(c.honorario||0),0);
+  const cartera  = clientes.reduce((s,c)=>s+parseFloat(c.honorario||0)*parseInt(c.vencidas||0),0);
   document.getElementById('sTotalClientes').textContent = clientes.length;
   document.getElementById('sAlDia').textContent         = alDia;
   document.getElementById('sVencidos').textContent      = venc;
-  document.getElementById('sFacturacion').textContent   = fmtMXN(facturacion);
+  document.getElementById('sFacturacion').textContent   = fmtMXN(factura);
   document.getElementById('sCartera').textContent       = fmtMXN(cartera);
 }
 
-// ── Render ─────────────────────────────────────────────────────────────────
+// ── Render tabla ───────────────────────────────────────────────────────────
 function renderTable(){
   const q   = document.getElementById('searchInput').value.toLowerCase();
   const est = document.getElementById('filterEstatus').value;
   const reg = document.getElementById('filterRegimen').value;
-
-  let filtered = clientes.filter(c=>{
-    const matchQ   = !q || c.nombre.toLowerCase().includes(q) || (c.rfc||'').toLowerCase().includes(q);
-    const matchEst = !est || c.estatus===est;
-    const matchReg = !reg || c.regimen===reg;
-    return matchQ && matchEst && matchReg;
+  const filtered = clientes.filter(c=>{
+    return (!q||(c.nombre||'').toLowerCase().includes(q)||(c.rfc||'').toLowerCase().includes(q))
+        && (!est||c.estatus===est) && (!reg||c.regimen===reg);
   });
-
   const tbody = document.getElementById('tableBody');
-
   if(!filtered.length){
-    tbody.innerHTML = `<tr><td colspan="9">
-      <div class="empty">
-        <div class="empty-icon">📋</div>
-        <div class="empty-title">${clientes.length?'Sin resultados':'Sin clientes registrados'}</div>
-        <div class="empty-sub">${clientes.length?'Ajusta los filtros':'Agrega tu primer cliente con el botón + Nuevo cliente'}</div>
-      </div></td></tr>`;
-    document.getElementById('tableFooter').textContent = '0 clientes';
-    updateStats();
-    return;
+    tbody.innerHTML=`<tr><td colspan="9"><div class="empty"><div class="empty-icon">📋</div>
+      <div class="empty-title">${clientes.length?'Sin resultados':'Sin clientes registrados'}</div>
+      <div class="empty-sub">${clientes.length?'Ajusta los filtros':'Agrega tu primer cliente con + Nuevo cliente'}</div>
+    </div></td></tr>`;
+    document.getElementById('tableFooter').textContent='0 clientes';
+    updateStats(); return;
   }
-
   tbody.innerHTML = filtered.map(c=>{
-    const honorario = parseFloat(c.honorario||0);
-    const vencidas  = parseInt(c.vencidas||0);
-    const adeudo    = honorario * vencidas;
-    const waLink    = c.tel ? `<a href="https://wa.me/${c.tel}?text=${encodeURIComponent('Hola '+c.nombre+', te escribimos de FiscoNegocio. Tu saldo pendiente es de '+fmtMXN(adeudo)+'. Favor de realizar tu pago a la brevedad.')}" target="_blank" style="text-decoration:none">📲</a>` : '';
-
+    const hon     = parseFloat(c.honorario||0);
+    const venc    = parseInt(c.vencidas||0);
+    const adeudo  = hon*venc;
+    const mensual = hon; // mensualidad a pagar = honorario mensual
+    const nf      = nFacts(c.id);
+    const waLink  = c.tel
+      ? `<a href="https://wa.me/${c.tel}?text=${encodeURIComponent('Hola '+c.nombre+', te escribimos de FiscoNegocio. Tu saldo pendiente es '+fmtMXN(adeudo)+'. Fecha de pago: día '+c.dia_pago+'. Gracias.')}"
+           target="_blank" title="Enviar cobro por WhatsApp" style="text-decoration:none">📲</a>` : '';
     return `<tr>
       <td>
         <div class="td-nombre">${c.nombre} ${waLink}</div>
         <div class="td-rfc">${c.rfc||'—'}</div>
       </td>
-      <td><span class="badge badge-regimen">${REGIMEN_LABELS[c.regimen]||c.regimen||'—'}</span></td>
-      <td class="td-monto">${fmtMXN(honorario)}</td>
-      <td style="color:var(--gray2)">${c.dia_pago?'Día '+c.dia_pago:'—'}</td>
-      <td><span class="td-vencidas ${vencidasClass(vencidas)}">${vencidas} ${vencidas===1?'mes':'meses'}</span>
-        ${adeudo>0?`<br><span style="font-size:11px;color:var(--red)">${fmtMXN(adeudo)}</span>`:''}
+      <td><span class="badge badge-regimen">${RL[c.regimen]||c.regimen||'—'}</span></td>
+      <td class="td-monto">${fmtMXN(hon)}</td>
+      <td style="color:var(--gray2);font-size:12px">${c.dia_pago?'Día '+c.dia_pago:'—'}<br>
+        <span style="font-size:11px;color:var(--gray)">${proxVenc(c.dia_pago)}</span></td>
+      <td>
+        <span class="td-vencidas ${vcClass(venc)}">${venc} ${venc===1?'mes':'meses'}</span>
+        ${adeudo>0?`<br><span style="font-size:11px;color:var(--red);font-weight:700">${fmtMXN(adeudo)}</span>`:''}
       </td>
-      <td style="font-size:12px;color:var(--gray)">${proximoVencimiento(c.dia_pago)}</td>
-      <td>${ESTATUS_BADGES[c.estatus]||'—'}</td>
-      <td style="font-size:12px;color:var(--gray);max-width:160px;white-space:normal">${c.comentarios||'—'}</td>
+      <td class="td-monto">${fmtMXN(mensual)}</td>
+      <td>${EB[c.estatus]||'—'}</td>
+      <td style="font-size:12px;color:var(--gray);max-width:140px;white-space:normal;line-height:1.4">${c.comentarios||'—'}</td>
       <td><div class="td-actions">
-        <button class="btn btn-outline btn-sm" onclick="editCliente('${c.id}')">✏️</button>
-        <button class="btn btn-danger btn-sm" onclick="deleteCliente('${c.id}')">🗑</button>
+        <button class="btn btn-outline btn-sm" onclick="openFacturas('${c.id}')" title="Facturas">
+          📄${nf?` <span class="badge badge-facturas">${nf}</span>`:''}
+        </button>
+        <button class="btn btn-outline btn-sm" onclick="editCliente('${c.id}')" title="Editar">✏️</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteCliente('${c.id}')" title="Eliminar">🗑</button>
       </div></td>
     </tr>`;
   }).join('');
-
-  document.getElementById('tableFooter').textContent = `${filtered.length} cliente${filtered.length!==1?'s':''}`;
+  document.getElementById('tableFooter').textContent=`${filtered.length} cliente${filtered.length!==1?'s':''}`;
   updateStats();
 }
 
-// ── Modal ──────────────────────────────────────────────────────────────────
+// ── Modal cliente ──────────────────────────────────────────────────────────
 function openModal(id=null){
-  editId = id;
-  document.getElementById('modalTitle').textContent = id ? 'Editar cliente' : 'Nuevo cliente';
-  const fields = ['nombre','rfc','regimen','honorario','dia_pago','vencidas','estatus','tel','comentarios'];
+  editId=id;
+  document.getElementById('modalTitle').textContent=id?'Editar cliente':'Nuevo cliente';
+  const fs=['nombre','rfc','regimen','honorario','dia_pago','vencidas','estatus','tel','comentarios'];
   if(id){
-    const c = clientes.find(x=>x.id===id);
-    if(!c) return;
-    fields.forEach(f=>{ const el=document.getElementById('f_'+f); if(el) el.value=c[f]||''; });
+    const c=clientes.find(x=>x.id===id);
+    if(!c)return;
+    fs.forEach(f=>{const el=document.getElementById('f_'+f);if(el)el.value=c[f]??'';});
   } else {
-    fields.forEach(f=>{ const el=document.getElementById('f_'+f); if(el) el.value=f==='estatus'?'al_dia':f==='vencidas'?'0':''; });
+    fs.forEach(f=>{const el=document.getElementById('f_'+f);if(el)el.value=f==='estatus'?'al_dia':f==='vencidas'?'0':'';});
   }
   document.getElementById('modalOverlay').classList.add('open');
 }
-
 function closeModal(e){
-  if(e && e.target!==document.getElementById('modalOverlay')) return;
+  if(e&&e.target!==document.getElementById('modalOverlay'))return;
   document.getElementById('modalOverlay').classList.remove('open');
-  editId = null;
+  editId=null;
 }
-
 function saveCliente(){
-  const nombre   = document.getElementById('f_nombre').value.trim();
-  const rfc      = document.getElementById('f_rfc').value.trim();
-  const regimen  = document.getElementById('f_regimen').value;
-  const honorario= document.getElementById('f_honorario').value;
-  const dia_pago = document.getElementById('f_dia_pago').value;
-  const vencidas = document.getElementById('f_vencidas').value||'0';
-  const estatus  = document.getElementById('f_estatus').value;
-  const tel      = document.getElementById('f_tel').value.trim();
-  const comentarios = document.getElementById('f_comentarios').value.trim();
-
-  if(!nombre){alert('El nombre es requerido');return;}
+  const get=id=>document.getElementById(id).value.trim();
+  const nombre=get('f_nombre'),rfc=get('f_rfc'),regimen=get('f_regimen');
+  const honorario=get('f_honorario'),dia_pago=get('f_dia_pago');
+  const vencidas=get('f_vencidas')||'0',estatus=get('f_estatus');
+  const tel=get('f_tel'),comentarios=get('f_comentarios');
+  if(!nombre){alert('Nombre requerido');return;}
   if(!regimen){alert('Selecciona el régimen fiscal');return;}
   if(!honorario||parseFloat(honorario)<=0){alert('El honorario debe ser mayor a 0');return;}
   if(!dia_pago||parseInt(dia_pago)<1||parseInt(dia_pago)>31){alert('Día de pago debe ser entre 1 y 31');return;}
-
-  const data = {nombre,rfc,regimen,honorario:parseFloat(honorario),dia_pago:parseInt(dia_pago),vencidas:parseInt(vencidas),estatus,tel,comentarios};
-
-  if(editId){
-    const idx = clientes.findIndex(c=>c.id===editId);
-    if(idx>=0) clientes[idx] = {...clientes[idx],...data};
-  } else {
-    clientes.push({id:uid(),createdAt:new Date().toISOString(),...data});
-  }
-  save();
+  const data={nombre,rfc,regimen,honorario:parseFloat(honorario),dia_pago:parseInt(dia_pago),
+    vencidas:parseInt(vencidas),estatus,tel,comentarios};
+  if(editId){const i=clientes.findIndex(c=>c.id===editId);if(i>=0)clientes[i]={...clientes[i],...data};}
+  else clientes.push({id:uid(),createdAt:new Date().toISOString(),...data});
+  saveC();
   document.getElementById('modalOverlay').classList.remove('open');
-  editId = null;
-  renderTable();
+  editId=null; renderTable();
+}
+function editCliente(id){openModal(id);}
+function deleteCliente(id){
+  const c=clientes.find(x=>x.id===id);
+  if(!c||!confirm(`¿Eliminar a ${c.nombre}? No se puede deshacer.`))return;
+  clientes=clientes.filter(x=>x.id!==id);
+  delete facturas[id];
+  saveC();saveF();renderTable();
 }
 
-function editCliente(id){ openModal(id); }
+// ── Panel Facturas ─────────────────────────────────────────────────────────
+function openFacturas(clienteId){
+  factClienteId=clienteId;
+  const c=clientes.find(x=>x.id===clienteId);
+  if(!c)return;
+  document.getElementById('factClienteNombre').textContent=c.nombre;
+  document.getElementById('factClienteInfo').innerHTML=`
+    <span>RFC: <strong>${c.rfc||'—'}</strong></span>
+    <span>Régimen: <strong>${RL[c.regimen]||c.regimen||'—'}</strong></span>
+    <span>Honorario: <strong>${fmtMXN(c.honorario)}/mes</strong></span>
+    ${c.tel?`<span>WhatsApp: <strong>+${c.tel}</strong></span>`:''}
+  `;
+  renderFactList();
+  document.getElementById('factOverlay').classList.add('open');
+}
+function closeFacturas(e){
+  if(e&&e.target!==document.getElementById('factOverlay'))return;
+  document.getElementById('factOverlay').classList.remove('open');
+  factClienteId=null;
+}
+function renderFactList(){
+  const list=document.getElementById('factList');
+  const fs=(facturas[factClienteId]||[]);
+  if(!fs.length){
+    list.innerHTML='<div class="fact-empty">📭 Sin facturas cargadas. Arrastra un PDF arriba para agregar.</div>';
+    return;
+  }
+  list.innerHTML=fs.map((f,i)=>`
+    <div class="fact-item">
+      <div class="fact-icon">📄</div>
+      <div class="fact-info">
+        <div class="fact-name">${f.nombre}</div>
+        <div class="fact-meta">${fmtBytes(f.size)} · ${f.fecha}</div>
+      </div>
+      <div class="fact-actions">
+        <button class="btn btn-outline btn-sm" onclick="downloadFactura(${i})" title="Descargar">⬇</button>
+        <button class="btn btn-wa btn-sm" onclick="shareFactura(${i})" title="Enviar por WhatsApp">📲</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteFactura(${i})" title="Eliminar">🗑</button>
+      </div>
+    </div>
+  `).join('');
+}
 
-function deleteCliente(id){
-  const c = clientes.find(x=>x.id===id);
-  if(!c) return;
-  if(!confirm(`¿Eliminar a ${c.nombre}? Esta acción no se puede deshacer.`)) return;
-  clientes = clientes.filter(x=>x.id!==id);
-  save();
-  renderTable();
+// Drag & drop
+const uz=document.getElementById('uploadZone');
+uz.addEventListener('dragover',e=>{e.preventDefault();uz.classList.add('drag');});
+uz.addEventListener('dragleave',()=>uz.classList.remove('drag'));
+uz.addEventListener('drop',e=>{e.preventDefault();uz.classList.remove('drag');processFiles(e.dataTransfer.files);});
+
+function onFileSelect(e){processFiles(e.target.files);e.target.value='';}
+
+function processFiles(files){
+  if(!factClienteId)return;
+  Array.from(files).forEach(file=>{
+    if(!file.type.includes('pdf')){alert(`${file.name} no es un PDF`);return;}
+    if(file.size>5*1024*1024){alert(`${file.name} supera 5 MB`);return;}
+    const reader=new FileReader();
+    reader.onload=e2=>{
+      if(!facturas[factClienteId])facturas[factClienteId]=[];
+      facturas[factClienteId].push({
+        id:uid(),nombre:file.name,size:file.size,
+        fecha:new Date().toLocaleDateString('es-MX',{day:'2-digit',month:'short',year:'numeric'}),
+        data:e2.target.result
+      });
+      saveF();renderFactList();renderTable();
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function downloadFactura(idx){
+  const f=(facturas[factClienteId]||[])[idx];
+  if(!f)return;
+  const a=document.createElement('a');
+  a.href=f.data;a.download=f.nombre;a.click();
+}
+
+async function shareFactura(idx){
+  const f=(facturas[factClienteId]||[])[idx];
+  if(!f)return;
+  const c=clientes.find(x=>x.id===factClienteId);
+  const msg=`Hola ${c?.nombre||''}, te compartimos tu factura de FiscoNegocio.\n\nArchivo: ${f.nombre}\nHonorario: ${fmtMXN(c?.honorario||0)}/mes\n\nC.P. Fernando Mendoza Ferreira · FiscoNegocio`;
+
+  // Convertir base64 a Blob
+  const res=await fetch(f.data);
+  const blob=await res.blob();
+  const file=new File([blob],f.nombre,{type:'application/pdf'});
+
+  // Mobile: Web Share API con archivo
+  if(navigator.canShare&&navigator.canShare({files:[file]})){
+    try{
+      await navigator.share({files:[file],text:msg,title:'Factura FiscoNegocio'});
+      return;
+    }catch(err){if(err.name==='AbortError')return;}
+  }
+  // Desktop: descarga + abrir WhatsApp con texto
+  downloadFactura(idx);
+  const tel=c?.tel;
+  if(tel){
+    setTimeout(()=>{window.open(`https://wa.me/${tel}?text=${encodeURIComponent(msg)}`,'_blank');},600);
+  } else {
+    alert('Factura descargada. Para enviarla por WhatsApp agrega el teléfono del cliente.');
+  }
+}
+
+function deleteFactura(idx){
+  const fs=facturas[factClienteId]||[];
+  const f=fs[idx];
+  if(!f||!confirm(`¿Eliminar ${f.nombre}?`))return;
+  facturas[factClienteId]=fs.filter((_,i)=>i!==idx);
+  saveF();renderFactList();renderTable();
 }
 
 // ── Export CSV ─────────────────────────────────────────────────────────────
 function exportCSV(){
-  if(!clientes.length){alert('No hay clientes para exportar');return;}
-  const headers = ['Nombre','RFC','Régimen','Honorario','Día pago','Vencidas','Estatus','Teléfono','Comentarios','Adeudo total'];
-  const rows = clientes.map(c=>[
-    c.nombre, c.rfc||'', REGIMEN_LABELS[c.regimen]||c.regimen, c.honorario, c.dia_pago,
-    c.vencidas, c.estatus, c.tel||'', c.comentarios||'',
-    parseFloat(c.honorario||0)*parseInt(c.vencidas||0)
+  if(!clientes.length){alert('Sin clientes para exportar');return;}
+  const h=['Nombre','RFC','Régimen','Honorario','Día pago','Vencidas','Estatus','Teléfono','Comentarios','Adeudo','Facturas'];
+  const rows=clientes.map(c=>[
+    c.nombre,c.rfc||'',RL[c.regimen]||c.regimen,c.honorario,c.dia_pago,c.vencidas,c.estatus,
+    c.tel||'',c.comentarios||'',parseFloat(c.honorario||0)*parseInt(c.vencidas||0),nFacts(c.id)
   ]);
-  const csv = [headers,...rows].map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
-  const a = document.createElement('a');
-  a.href = 'data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(csv);
-  a.download = 'cobranza_fisconegocio_'+new Date().toISOString().slice(0,10)+'.csv';
+  const csv=[h,...rows].map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(csv);
+  a.download='cobranza_fisconegocio_'+new Date().toISOString().slice(0,10)+'.csv';
   a.click();
 }
 
 // ── Init ───────────────────────────────────────────────────────────────────
-load();
-renderTable();
+load();renderTable();
 </script>
 </body>
 </html>
