@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Control de Cobranza · FiscoNegocio</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0d1026;--bg2:#111530;--bg3:#161b3a;--bg4:#1c2245;
+  --green:#00ff6d;--green2:#00cc57;--green3:#00994a;
+  --gray:#8892b0;--gray2:#a8b2d8;--white:#e6f1ff;
+  --red:#ff4d6d;--amber:#fbbf24;--blue:#38bdf8;
+  --border:#1e2a52;--radius:10px;
+}
+body{background:var(--bg);color:var(--white);font-family:'Inter',sans-serif;min-height:100vh}
+
+/* ── NAV ── */
+nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.nav-brand{font-size:14px;font-weight:800;color:var(--green);letter-spacing:.5px}
+.nav-sub{font-size:12px;color:var(--gray);margin-left:10px}
+.nav-right{display:flex;gap:10px;align-items:center}
+
+/* ── LAYOUT ── */
+.container{max-width:1200px;margin:0 auto;padding:24px 16px}
+
+/* ── HEADER ── */
+.page-header{margin-bottom:24px}
+.page-title{font-size:22px;font-weight:800;color:var(--white)}
+.page-sub{font-size:13px;color:var(--gray);margin-top:4px}
+
+/* ── STATS ── */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:24px}
+.stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:16px}
+.stat-label{font-size:11px;color:var(--gray);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.stat-val{font-size:22px;font-weight:800}
+.stat-val.green{color:var(--green)}
+.stat-val.red{color:var(--red)}
+.stat-val.amber{color:var(--amber)}
+.stat-val.blue{color:var(--blue)}
+.stat-sub{font-size:11px;color:var(--gray);margin-top:3px}
+
+/* ── TOOLBAR ── */
+.toolbar{display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
+.search-box{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:8px 14px;color:var(--white);font-size:13px;font-family:inherit;width:220px;outline:none}
+.search-box::placeholder{color:var(--gray)}
+.search-box:focus{border-color:var(--green)}
+select.filter{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--white);font-size:13px;font-family:inherit;outline:none;cursor:pointer}
+select.filter:focus{border-color:var(--green)}
+.btn{padding:9px 18px;border-radius:8px;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;border:none;transition:.15s}
+.btn-primary{background:var(--green);color:#0d1026}
+.btn-primary:hover{background:var(--green2)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--gray2)}
+.btn-outline:hover{border-color:var(--green);color:var(--green)}
+.btn-danger{background:transparent;border:1px solid var(--red);color:var(--red)}
+.btn-danger:hover{background:var(--red);color:#fff}
+.btn-sm{padding:5px 12px;font-size:12px;border-radius:6px}
+.ml-auto{margin-left:auto}
+
+/* ── TABLE ── */
+.table-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.table-scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead th{background:var(--bg3);padding:12px 14px;text-align:left;font-size:11px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
+tbody tr{border-top:1px solid var(--border);transition:.1s}
+tbody tr:hover{background:var(--bg3)}
+tbody td{padding:12px 14px;vertical-align:middle}
+.td-nombre{font-weight:600;color:var(--white);white-space:nowrap}
+.td-rfc{font-size:12px;color:var(--gray);font-family:monospace}
+.td-monto{font-weight:700;color:var(--green)}
+.td-vencidas{font-weight:700}
+.td-vencidas.v0{color:var(--gray)}
+.td-vencidas.v1{color:var(--amber)}
+.td-vencidas.v2{color:var(--red)}
+
+/* ── BADGES ── */
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700}
+.badge-ok{background:#052e16;color:var(--green)}
+.badge-vencido{background:#3b0b17;color:var(--red)}
+.badge-parcial{background:#2d1f00;color:var(--amber)}
+.badge-inactivo{background:#1a1a2e;color:var(--gray)}
+.badge-regimen{background:var(--bg3);color:var(--gray2);font-size:10px}
+
+/* ── ACTIONS ── */
+.td-actions{display:flex;gap:6px;white-space:nowrap}
+
+/* ── EMPTY STATE ── */
+.empty{text-align:center;padding:60px 20px}
+.empty-icon{font-size:40px;margin-bottom:12px}
+.empty-title{font-weight:700;font-size:15px;margin-bottom:6px}
+.empty-sub{font-size:13px;color:var(--gray)}
+
+/* ── MODAL ── */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;align-items:center;justify-content:center;padding:16px}
+.modal-overlay.open{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--border);border-radius:14px;width:100%;max-width:560px;max-height:90vh;overflow-y:auto}
+.modal-header{padding:20px 24px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.modal-title{font-size:16px;font-weight:800}
+.modal-close{background:none;border:none;color:var(--gray);font-size:20px;cursor:pointer;line-height:1;padding:4px}
+.modal-close:hover{color:var(--white)}
+.modal-body{padding:20px 24px}
+.modal-footer{padding:16px 24px;border-top:1px solid var(--border);display:flex;gap:10px;justify-content:flex-end}
+
+/* ── FORM ── */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-group{display:flex;flex-direction:column;gap:5px}
+.form-group.full{grid-column:1/-1}
+.form-label{font-size:12px;font-weight:600;color:var(--gray2)}
+.form-input,.form-select,.form-textarea{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--white);font-size:13px;font-family:inherit;outline:none;transition:.15s}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--green)}
+.form-input::placeholder{color:var(--gray)}
+.form-textarea{resize:vertical;min-height:72px}
+.form-select option{background:var(--bg3)}
+
+/* ── FOOTER COUNT ── */
+.table-footer{padding:10px 14px;font-size:12px;color:var(--gray);border-top:1px solid var(--border)}
+
+@media(max-width:600px){
+  .form-grid{grid-template-columns:1fr}
+  .form-group.full{grid-column:1}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .toolbar{flex-direction:column;align-items:stretch}
+  .search-box{width:100%}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div style="display:flex;align-items:center;gap:4px">
+    <span class="nav-brand">FiscoNegocio</span>
+    <span class="nav-sub">/ Control de Cobranza</span>
+  </div>
+  <div class="nav-right">
+    <a href="../cotizador/" style="font-size:12px;color:var(--gray);text-decoration:none">← Cotizador</a>
+  </div>
+</nav>
+
+<div class="container">
+
+  <div class="page-header">
+    <div class="page-title">💼 Control de Cobranza</div>
+    <div class="page-sub">Gestión de clientes, honorarios y estatus de pago</div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-grid" id="statsGrid">
+    <div class="stat-card"><div class="stat-label">Total clientes</div><div class="stat-val blue" id="sTotalClientes">0</div></div>
+    <div class="stat-card"><div class="stat-label">Al día</div><div class="stat-val green" id="sAlDia">0</div></div>
+    <div class="stat-card"><div class="stat-label">Con adeudo</div><div class="stat-val red" id="sVencidos">0</div></div>
+    <div class="stat-card"><div class="stat-label">Facturación mensual</div><div class="stat-val green" id="sFacturacion">$0</div><div class="stat-sub">honorarios activos</div></div>
+    <div class="stat-card"><div class="stat-label">Cartera vencida</div><div class="stat-val red" id="sCartera">$0</div><div class="stat-sub">mensualidades pendientes</div></div>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <input class="search-box" id="searchInput" placeholder="🔍 Buscar cliente, RFC..." oninput="renderTable()"/>
+    <select class="filter" id="filterEstatus" onchange="renderTable()">
+      <option value="">Todos los estatus</option>
+      <option value="al_dia">Al día</option>
+      <option value="vencido">Vencido</option>
+      <option value="parcial">Parcial</option>
+      <option value="inactivo">Inactivo</option>
+    </select>
+    <select class="filter" id="filterRegimen" onchange="renderTable()">
+      <option value="">Todos los regímenes</option>
+      <option value="RESICO">RESICO</option>
+      <option value="PF_EMP">PF Actividad Empresarial</option>
+      <option value="PLATAFORMAS">Plataformas Digitales</option>
+      <option value="PM">PM Régimen General</option>
+    </select>
+    <button class="btn btn-outline btn-sm ml-auto" onclick="exportCSV()">⬇ Exportar CSV</button>
+    <button class="btn btn-primary" onclick="openModal()">+ Nuevo cliente</button>
+  </div>
+
+  <!-- Table -->
+  <div class="table-wrap">
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Cliente / RFC</th>
+            <th>Régimen</th>
+            <th>Honorario</th>
+            <th>Día de pago</th>
+            <th>Mensualidades vencidas</th>
+            <th>Próximo vencimiento</th>
+            <th>Estatus</th>
+            <th>Comentarios</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+    <div class="table-footer" id="tableFooter">0 clientes</div>
+  </div>
+
+</div>
+
+<!-- Modal alta/edición -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modalTitle">Nuevo cliente</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label">Nombre completo *</label>
+          <input class="form-input" id="f_nombre" placeholder="Nombre o razón social"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">RFC *</label>
+          <input class="form-input" id="f_rfc" placeholder="XAXX010101000" style="text-transform:uppercase" oninput="this.value=this.value.toUpperCase()"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Régimen fiscal *</label>
+          <select class="form-select" id="f_regimen">
+            <option value="">Seleccionar...</option>
+            <option value="RESICO">RESICO</option>
+            <option value="PF_EMP">PF Actividad Empresarial</option>
+            <option value="PLATAFORMAS">Plataformas Digitales</option>
+            <option value="PM">PM Régimen General</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Honorario mensual (MXN) *</label>
+          <input class="form-input" id="f_honorario" type="number" placeholder="0" min="0"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Día de pago (1-31) *</label>
+          <input class="form-input" id="f_dia_pago" type="number" placeholder="1" min="1" max="31"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Mensualidades vencidas</label>
+          <input class="form-input" id="f_vencidas" type="number" placeholder="0" min="0" value="0"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Estatus *</label>
+          <select class="form-select" id="f_estatus">
+            <option value="al_dia">Al día ✅</option>
+            <option value="vencido">Vencido 🔴</option>
+            <option value="parcial">Parcial 🟡</option>
+            <option value="inactivo">Inactivo ⚫</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Teléfono WhatsApp</label>
+          <input class="form-input" id="f_tel" placeholder="52444XXXXXXX (sin +)"/>
+        </div>
+        <div class="form-group full">
+          <label class="form-label">Comentarios adicionales</label>
+          <textarea class="form-textarea" id="f_comentarios" placeholder="Notas, acuerdos especiales, observaciones..."></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal()">Cancelar</button>
+      <button class="btn btn-primary" onclick="saveCliente()">Guardar cliente</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Storage ────────────────────────────────────────────────────────────────
+const KEY = 'fn_cobranza_v1';
+let clientes = [];
+let editId = null;
+
+function load(){
+  try{ clientes = JSON.parse(localStorage.getItem(KEY)||'[]'); }
+  catch{ clientes = []; }
+}
+function save(){
+  localStorage.setItem(KEY, JSON.stringify(clientes));
+}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
+
+// ── Helpers ────────────────────────────────────────────────────────────────
+const REGIMEN_LABELS = {
+  RESICO:'RESICO', PF_EMP:'PF Emp.', PLATAFORMAS:'Plataformas', PM:'PM General'
+};
+const ESTATUS_BADGES = {
+  al_dia:'<span class="badge badge-ok">Al día</span>',
+  vencido:'<span class="badge badge-vencido">Vencido</span>',
+  parcial:'<span class="badge badge-parcial">Parcial</span>',
+  inactivo:'<span class="badge badge-inactivo">Inactivo</span>',
+};
+
+function fmtMXN(n){
+  return '$'+parseFloat(n||0).toLocaleString('es-MX',{minimumFractionDigits:0,maximumFractionDigits:0});
+}
+
+function proximoVencimiento(dia_pago){
+  if(!dia_pago) return '—';
+  const now = new Date();
+  let d = parseInt(dia_pago);
+  let fecha = new Date(now.getFullYear(), now.getMonth(), d);
+  if(fecha <= now) fecha = new Date(now.getFullYear(), now.getMonth()+1, d);
+  return fecha.toLocaleDateString('es-MX',{day:'2-digit',month:'short',year:'numeric'});
+}
+
+function vencidasClass(n){
+  n = parseInt(n||0);
+  if(n===0) return 'v0';
+  if(n<=2) return 'v1';
+  return 'v2';
+}
+
+// ── Stats ──────────────────────────────────────────────────────────────────
+function updateStats(){
+  const activos = clientes.filter(c=>c.estatus!=='inactivo');
+  const alDia   = clientes.filter(c=>c.estatus==='al_dia').length;
+  const venc    = clientes.filter(c=>c.estatus==='vencido'||c.estatus==='parcial').length;
+  const facturacion = activos.reduce((s,c)=>s+parseFloat(c.honorario||0),0);
+  const cartera = clientes.reduce((s,c)=>s+parseFloat(c.honorario||0)*parseInt(c.vencidas||0),0);
+
+  document.getElementById('sTotalClientes').textContent = clientes.length;
+  document.getElementById('sAlDia').textContent         = alDia;
+  document.getElementById('sVencidos').textContent      = venc;
+  document.getElementById('sFacturacion').textContent   = fmtMXN(facturacion);
+  document.getElementById('sCartera').textContent       = fmtMXN(cartera);
+}
+
+// ── Render ─────────────────────────────────────────────────────────────────
+function renderTable(){
+  const q   = document.getElementById('searchInput').value.toLowerCase();
+  const est = document.getElementById('filterEstatus').value;
+  const reg = document.getElementById('filterRegimen').value;
+
+  let filtered = clientes.filter(c=>{
+    const matchQ   = !q || c.nombre.toLowerCase().includes(q) || (c.rfc||'').toLowerCase().includes(q);
+    const matchEst = !est || c.estatus===est;
+    const matchReg = !reg || c.regimen===reg;
+    return matchQ && matchEst && matchReg;
+  });
+
+  const tbody = document.getElementById('tableBody');
+
+  if(!filtered.length){
+    tbody.innerHTML = `<tr><td colspan="9">
+      <div class="empty">
+        <div class="empty-icon">📋</div>
+        <div class="empty-title">${clientes.length?'Sin resultados':'Sin clientes registrados'}</div>
+        <div class="empty-sub">${clientes.length?'Ajusta los filtros':'Agrega tu primer cliente con el botón + Nuevo cliente'}</div>
+      </div></td></tr>`;
+    document.getElementById('tableFooter').textContent = '0 clientes';
+    updateStats();
+    return;
+  }
+
+  tbody.innerHTML = filtered.map(c=>{
+    const honorario = parseFloat(c.honorario||0);
+    const vencidas  = parseInt(c.vencidas||0);
+    const adeudo    = honorario * vencidas;
+    const waLink    = c.tel ? `<a href="https://wa.me/${c.tel}?text=${encodeURIComponent('Hola '+c.nombre+', te escribimos de FiscoNegocio. Tu saldo pendiente es de '+fmtMXN(adeudo)+'. Favor de realizar tu pago a la brevedad.')}" target="_blank" style="text-decoration:none">📲</a>` : '';
+
+    return `<tr>
+      <td>
+        <div class="td-nombre">${c.nombre} ${waLink}</div>
+        <div class="td-rfc">${c.rfc||'—'}</div>
+      </td>
+      <td><span class="badge badge-regimen">${REGIMEN_LABELS[c.regimen]||c.regimen||'—'}</span></td>
+      <td class="td-monto">${fmtMXN(honorario)}</td>
+      <td style="color:var(--gray2)">${c.dia_pago?'Día '+c.dia_pago:'—'}</td>
+      <td><span class="td-vencidas ${vencidasClass(vencidas)}">${vencidas} ${vencidas===1?'mes':'meses'}</span>
+        ${adeudo>0?`<br><span style="font-size:11px;color:var(--red)">${fmtMXN(adeudo)}</span>`:''}
+      </td>
+      <td style="font-size:12px;color:var(--gray)">${proximoVencimiento(c.dia_pago)}</td>
+      <td>${ESTATUS_BADGES[c.estatus]||'—'}</td>
+      <td style="font-size:12px;color:var(--gray);max-width:160px;white-space:normal">${c.comentarios||'—'}</td>
+      <td><div class="td-actions">
+        <button class="btn btn-outline btn-sm" onclick="editCliente('${c.id}')">✏️</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteCliente('${c.id}')">🗑</button>
+      </div></td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('tableFooter').textContent = `${filtered.length} cliente${filtered.length!==1?'s':''}`;
+  updateStats();
+}
+
+// ── Modal ──────────────────────────────────────────────────────────────────
+function openModal(id=null){
+  editId = id;
+  document.getElementById('modalTitle').textContent = id ? 'Editar cliente' : 'Nuevo cliente';
+  const fields = ['nombre','rfc','regimen','honorario','dia_pago','vencidas','estatus','tel','comentarios'];
+  if(id){
+    const c = clientes.find(x=>x.id===id);
+    if(!c) return;
+    fields.forEach(f=>{ const el=document.getElementById('f_'+f); if(el) el.value=c[f]||''; });
+  } else {
+    fields.forEach(f=>{ const el=document.getElementById('f_'+f); if(el) el.value=f==='estatus'?'al_dia':f==='vencidas'?'0':''; });
+  }
+  document.getElementById('modalOverlay').classList.add('open');
+}
+
+function closeModal(e){
+  if(e && e.target!==document.getElementById('modalOverlay')) return;
+  document.getElementById('modalOverlay').classList.remove('open');
+  editId = null;
+}
+
+function saveCliente(){
+  const nombre   = document.getElementById('f_nombre').value.trim();
+  const rfc      = document.getElementById('f_rfc').value.trim();
+  const regimen  = document.getElementById('f_regimen').value;
+  const honorario= document.getElementById('f_honorario').value;
+  const dia_pago = document.getElementById('f_dia_pago').value;
+  const vencidas = document.getElementById('f_vencidas').value||'0';
+  const estatus  = document.getElementById('f_estatus').value;
+  const tel      = document.getElementById('f_tel').value.trim();
+  const comentarios = document.getElementById('f_comentarios').value.trim();
+
+  if(!nombre){alert('El nombre es requerido');return;}
+  if(!regimen){alert('Selecciona el régimen fiscal');return;}
+  if(!honorario||parseFloat(honorario)<=0){alert('El honorario debe ser mayor a 0');return;}
+  if(!dia_pago||parseInt(dia_pago)<1||parseInt(dia_pago)>31){alert('Día de pago debe ser entre 1 y 31');return;}
+
+  const data = {nombre,rfc,regimen,honorario:parseFloat(honorario),dia_pago:parseInt(dia_pago),vencidas:parseInt(vencidas),estatus,tel,comentarios};
+
+  if(editId){
+    const idx = clientes.findIndex(c=>c.id===editId);
+    if(idx>=0) clientes[idx] = {...clientes[idx],...data};
+  } else {
+    clientes.push({id:uid(),createdAt:new Date().toISOString(),...data});
+  }
+  save();
+  document.getElementById('modalOverlay').classList.remove('open');
+  editId = null;
+  renderTable();
+}
+
+function editCliente(id){ openModal(id); }
+
+function deleteCliente(id){
+  const c = clientes.find(x=>x.id===id);
+  if(!c) return;
+  if(!confirm(`¿Eliminar a ${c.nombre}? Esta acción no se puede deshacer.`)) return;
+  clientes = clientes.filter(x=>x.id!==id);
+  save();
+  renderTable();
+}
+
+// ── Export CSV ─────────────────────────────────────────────────────────────
+function exportCSV(){
+  if(!clientes.length){alert('No hay clientes para exportar');return;}
+  const headers = ['Nombre','RFC','Régimen','Honorario','Día pago','Vencidas','Estatus','Teléfono','Comentarios','Adeudo total'];
+  const rows = clientes.map(c=>[
+    c.nombre, c.rfc||'', REGIMEN_LABELS[c.regimen]||c.regimen, c.honorario, c.dia_pago,
+    c.vencidas, c.estatus, c.tel||'', c.comentarios||'',
+    parseFloat(c.honorario||0)*parseInt(c.vencidas||0)
+  ]);
+  const csv = [headers,...rows].map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(csv);
+  a.download = 'cobranza_fisconegocio_'+new Date().toISOString().slice(0,10)+'.csv';
+  a.click();
+}
+
+// ── Init ───────────────────────────────────────────────────────────────────
+load();
+renderTable();
+</script>
+</body>
+</html>
