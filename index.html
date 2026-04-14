@@ -5,44 +5,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>C.P. Fernando Mendoza Ferreira — Asesoría Fiscal y Empresarial</title>
   <style>
-    /* STICKY CTA BAR */
-    .sticky-cta {
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      z-index: 999;
-      background: #00ff6d;
-      padding: 14px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      box-shadow: 0 -4px 24px rgba(0,255,109,0.35);
-      transform: translateY(100%);
-      transition: transform 0.4s cubic-bezier(.4,0,.2,1);
+/* FADE IN ON SCROLL - lightweight */
+    .fade-section {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
     }
-    .sticky-cta.visible { transform: translateY(0); }
-    .sticky-cta a {
-      color: #0d1026;
-      font-size: 0.92rem;
-      font-weight: 800;
-      text-decoration: none;
-      flex: 1;
-      text-align: center;
+    .fade-section.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
-    .sticky-cta-close {
-      background: rgba(0,0,0,0.12);
-      border: none;
-      color: #0d1026;
-      width: 26px; height: 26px;
-      border-radius: 50%;
-      font-size: 0.75rem;
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-      font-weight: 900;
+
+    .fade-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
     }
-    @media (min-width: 768px) { .sticky-cta { display: none; } }
-  </style>
+    .fade-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .fade-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .fade-delay-1 { transition-delay: 0.1s; }
+    .fade-delay-2 { transition-delay: 0.2s; }
+    .fade-delay-3 { transition-delay: 0.3s; }
+    .fade-delay-4 { transition-delay: 0.4s; }
+    .fade-delay-5 { transition-delay: 0.5s; }
+    .fade-delay-6 { transition-delay: 0.6s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .fade-section, .fade-left, .fade-right {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+    }
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
@@ -398,7 +405,7 @@
 <body>
 
 <!-- HERO -->
-<div class="hero">
+<div class="hero fade-section">
   <div class="avatar-wrap">
     <div class="avatar-ring"></div>
     <div class="avatar-ring2"></div>
@@ -674,7 +681,7 @@
 .resico-hl-cta{display:inline-block;background:#00ff6d;color:#0d1026;font-size:0.84rem;font-weight:800;padding:12px 26px;border-radius:50px;text-decoration:none;transition:background 0.2s,transform 0.15s;box-shadow:0 4px 18px rgba(0,255,109,0.25);}
 .resico-hl-cta:hover{background:#00e060;transform:translateY(-2px);}
 </style>
-<div class="resico-section">
+<div class="resico-section fade-section">
   <div style="text-align:center;margin-bottom:16px;">
     <span class="resico-badge">⚡ Régimen Fiscal</span>
   </div>
@@ -793,7 +800,7 @@
 .quiz-restart{display:inline-block;margin-top:14px;font-size:0.78rem;color:#555;cursor:pointer;transition:color 0.2s;}
 .quiz-restart:hover{color:#00ff6d;}
 </style>
-<div class="quiz-section">
+<div class="quiz-section fade-section">
   <div style="text-align:center;margin-bottom:16px;">
     <span class="quiz-badge">🧭 Diagnóstico Fiscal</span>
   </div>
@@ -1002,7 +1009,7 @@ function qReset() {
 }
 .csn-r-cta:hover{background:#00e060;transform:translateY(-2px);}
 </style>
-<div class="csn-section">
+<div class="csn-section fade-section">
   <h2 class="csn-headline">¿Cómo saber si<br><span>necesito un contador?</span></h2>
   <p class="csn-sub">Responde honestamente. En segundos sabes si es momento de actuar.</p>
   <div class="csn-cards">
@@ -1130,7 +1137,7 @@ function csnToggle(el){
   display: flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
 </style>
-<div class="cmp-section">
+<div class="cmp-section fade-section">
   <h2 class="cmp-headline">¿Por qué elegir<br><span>a Fisconegociomx?</span></h2>
   <p class="cmp-sub">Compara y decide con información real.</p>
   <div class="cmp-tabs">
@@ -1317,7 +1324,7 @@ function closeSrvBtn() { document.getElementById('srv-overlay').classList.remove
 .ben-card.open .ben-body { max-height: 200px; padding-top: 14px; }
 .ben-card.highlight .ben-icon-wrap { background: rgba(0,255,109,0.15); }
 </style>
-<div class="ben-section">
+<div class="ben-section fade-section">
   <h2 class="nc-headline" style="text-align:center;margin-bottom:8px;margin-top:0;">Nuestros <span style="color:#00ff6d;">Beneficios</span></h2>
   <p style="text-align:center;font-size:0.88rem;color:#8C8C8C;margin-bottom:32px;">Da clic en cada punto para conocer más.</p>
   <div class="ben-grid">
@@ -1428,7 +1435,7 @@ function toggleBen(el) {
   .proceso-steps4{grid-template-columns:1fr;gap:14px;}
 }
 </style>
-<div class="proceso-section">
+<div class="proceso-section fade-section">
   <h2 class="proceso-headline">¿Cómo<br><span>trabajamos?</span></h2>
   <p class="proceso-sub">Sin complicaciones, sin tecnicismos. Así es como ordenamos tu negocio juntos.</p>
   <div class="proceso-steps4">
@@ -1586,7 +1593,7 @@ function toggleBen(el) {
   color: var(--gray);
 }
 </style>
-<div class="cta2-section">
+<div class="cta2-section fade-section">
   <div class="cta2-box">
     <div class="cta2-tag">📅 Primera cita sin costo</div>
     <h2 class="cta2-title">Tu negocio merece<br><span>un contador de verdad</span></h2>
@@ -1642,7 +1649,7 @@ function toggleBen(el) {
 }
 .faq-body-inner strong{color:#00ff6d;}
 </style>
-<div class="faq-section">
+<div class="faq-section fade-section">
   <h2 class="faq-headline">Preguntas<br><span>frecuentes</span></h2>
   <p class="faq-sub">Todo lo que necesitas saber antes de dar el paso.</p>
   <div class="faq-list">
@@ -2195,6 +2202,25 @@ function toggleAcc(el) {
       shown = true;
       document.getElementById('sticky-cta').classList.add('visible');
     }
+  });
+})();
+</script>
+
+<script>
+// Fade-in on scroll — lightweight IntersectionObserver
+(function() {
+  const opts = { threshold: 0.1, rootMargin: '0px 0px -40px 0px' };
+  const io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, opts);
+
+  document.querySelectorAll('.fade-section, .fade-left, .fade-right').forEach(function(el) {
+    io.observe(el);
   });
 })();
 </script>
