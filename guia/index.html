@@ -66,25 +66,36 @@
     .section-divider { height:1px; background:linear-gradient(90deg,transparent,rgba(0,255,109,0.1),transparent); margin:0 24px; }
 
     /* ── GLOSARIO ── */
-    .glosario-cloud { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
-    .cloud-tag { padding:7px 14px; border-radius:8px; border:1px solid #1e2244; background:var(--dark-3); color:#888; font-size:0.78rem; font-weight:600; cursor:pointer; transition:all 0.18s; }
-    .cloud-tag:hover { border-color:rgba(0,255,109,0.3); color:#ccc; }
-    .cloud-tag.active { background:rgba(0,255,109,0.1); border-color:rgba(0,255,109,0.4); color:var(--green); }
-    .glosario-list { display:flex; flex-direction:column; gap:6px; }
-    .glosario-item { background:var(--dark-3); border:1px solid #1e2244; border-radius:10px; overflow:hidden; transition:border-color 0.18s; }
+    .glosario-cats { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px; }
+    @media(max-width:520px){ .glosario-cats { grid-template-columns:1fr; } }
+    .cat-card { position:relative; background:var(--dark-3); border:1px solid #1e2244; border-radius:16px; padding:20px 18px; cursor:pointer; transition:all 0.22s; overflow:hidden; }
+    .cat-card::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(0,255,109,0.06),transparent 60%); opacity:0; transition:opacity 0.22s; }
+    .cat-card:hover { border-color:rgba(0,255,109,0.35); transform:translateY(-2px); box-shadow:0 8px 32px rgba(0,255,109,0.08); }
+    .cat-card:hover::before { opacity:1; }
+    .cat-icon { font-size:1.4rem; margin-bottom:10px; }
+    .cat-name { font-size:0.9rem; font-weight:700; color:#fff; margin-bottom:4px; }
+    .cat-count { font-size:0.72rem; color:#555; font-weight:500; }
+    .cat-card .cat-arrow { position:absolute; top:16px; right:16px; font-size:0.75rem; color:#333; transition:all 0.2s; }
+    .cat-card:hover .cat-arrow { color:var(--green); transform:translateX(2px); }
+    .glosario-list { display:flex; flex-direction:column; gap:8px; }
+    .glosario-item { background:var(--dark-3); border:1px solid #1e2244; border-radius:14px; overflow:hidden; transition:all 0.18s; }
     .glosario-item:hover { border-color:rgba(0,255,109,0.2); }
-    .glosario-item.open { border-color:rgba(0,255,109,0.3); }
-    .glosario-item.open .glosario-row { color:var(--green); }
-    .glosario-item.open .glosario-arrow { transform:rotate(180deg); }
-    .glosario-row { display:flex; align-items:center; justify-content:space-between; padding:12px 16px; cursor:pointer; gap:10px; }
-    .glosario-term-row { font-size:0.88rem; font-weight:700; color:#ccc; flex:1; }
-    .glosario-term-row span { color:#555; font-weight:400; margin-left:6px; font-size:0.78rem; }
-    .glosario-arrow { font-size:0.7rem; color:#444; transition:transform 0.2s; flex-shrink:0; }
-    .glosario-body { display:none; padding:0 16px 14px; border-top:1px solid #1e2244; }
+    .glosario-item.open { border-color:rgba(0,255,109,0.35); box-shadow:0 4px 20px rgba(0,255,109,0.07); }
+    .glosario-item.open .glosario-row { color:#fff; }
+    .glosario-item.open .glosario-arrow { transform:rotate(180deg); color:var(--green); }
+    .glosario-item.open .glosario-term-row span { color:rgba(0,255,109,0.6); }
+    .glosario-row { display:flex; align-items:center; justify-content:space-between; padding:15px 18px; cursor:pointer; gap:12px; }
+    .glosario-term-row { font-size:0.9rem; font-weight:700; color:#bbb; flex:1; transition:color 0.18s; }
+    .glosario-term-row span { color:#444; font-weight:400; margin-left:8px; font-size:0.8rem; transition:color 0.18s; }
+    .glosario-arrow { font-size:0.7rem; color:#333; transition:all 0.2s; flex-shrink:0; }
+    .glosario-body { display:none; padding:0 18px 18px; border-top:1px solid rgba(255,255,255,0.04); }
     .glosario-item.open .glosario-body { display:block; }
-    .glosario-def { font-size:0.82rem; color:var(--gray); line-height:1.7; }
-    .glosario-tip { margin-top:10px; padding:9px 12px; background:rgba(0,255,109,0.05); border-left:3px solid var(--green); border-radius:0 6px 6px 0; font-size:0.76rem; color:#888; }
+    .glosario-def { font-size:0.85rem; color:var(--gray); line-height:1.75; }
+    .glosario-tip { margin-top:12px; padding:11px 14px; background:rgba(0,255,109,0.05); border-left:3px solid var(--green); border-radius:0 8px 8px 0; font-size:0.78rem; color:#888; }
     .glosario-tip strong { color:var(--green); }
+    .glosario-back { margin-bottom:14px; }
+    .glosario-back-btn { background:none; border:none; color:#555; font-size:0.8rem; cursor:pointer; padding:6px 0; transition:color 0.18s; display:flex; align-items:center; gap:6px; }
+    .glosario-back-btn:hover { color:var(--green); }
 
     /* ── STICKY CTA ── */
     .sticky-cta{position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(13,16,38,0.97);backdrop-filter:blur(12px);border-top:1px solid rgba(0,255,109,0.15);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;transform:translateY(100%);transition:transform 0.35s cubic-bezier(.4,0,.2,1);}
@@ -1063,16 +1074,15 @@ function diagReset() {
     if(!list) return;
     list.innerHTML = '';
     if(openCat === null) {
-      // Mostrar tags de categoría
       const cats = [
-        {name:'RFC y SAT', terms:['RFC','SAT','CIF','e.firma','Buzón Tributario']},
-        {name:'CFDI y facturación', terms:['CFDI','Retención','Nómina']},
-        {name:'Impuestos (ISR, IVA)', terms:['ISR','IVA','Declaración Anual','Declaración Mensual']},
-        {name:'Nómina y empleados', terms:['IMSS','Nómina','Retención']},
-        {name:'Deducciones', terms:['Deducible','Actividad Empresarial','RESICO']},
-        {name:'Trámites digitales', terms:['e.firma','CIF','Buzón Tributario','Contabilidad Electrónica','Régimen Fiscal']}
+        {name:'RFC y SAT', icon:'🔑', terms:['RFC','SAT','CIF','e.firma','Buzón Tributario']},
+        {name:'CFDI y facturación', icon:'🧾', terms:['CFDI','Retención','Nómina']},
+        {name:'Impuestos (ISR, IVA)', icon:'💰', terms:['ISR','IVA','Declaración Anual','Declaración Mensual']},
+        {name:'Nómina y empleados', icon:'👥', terms:['IMSS','Nómina','Retención']},
+        {name:'Deducciones', icon:'📋', terms:['Deducible','Actividad Empresarial','RESICO']},
+        {name:'Trámites digitales', icon:'📡', terms:['e.firma','CIF','Buzón Tributario','Contabilidad Electrónica','Régimen Fiscal']}
       ];
-      list.innerHTML = '<div style="display:flex;flex-wrap:wrap;gap:10px;">'+cats.map(c => '<div class="cloud-tag" onclick="openCategory(\''+c.name+'\',this)" style="padding:10px 18px;font-size:0.85rem;">'+c.name+'<span style="font-size:0.7rem;color:#555;margin-left:6px;">('+c.terms.length+')</span></div>').join('')+'</div>';
+      list.innerHTML = '<div class="glosario-cats">'+cats.map(c => '<div class="cat-card" onclick="openCategory(\''+c.name+'\')"><div class="cat-icon">'+c.icon+'</div><div class="cat-name">'+c.name+'</div><div class="cat-count">'+c.terms.length+' conceptos clave</div><div class="cat-arrow">→</div></div>').join('')+'</div>';
     } else {
       // Mostrar términos de la categoría abierta
       const catMap = {
@@ -1085,7 +1095,7 @@ function diagReset() {
       };
       const termNames = catMap[openCat] || [];
       const catTerms = terminos.filter(t => termNames.includes(t.term));
-      let html = '<div style="margin-bottom:16px;"><button onclick="backToCats()" style="background:none;border:none;color:#555;font-size:0.78rem;cursor:pointer;">← Ver categorías</button></div>';
+      let html = '<div class="glosario-back"><button class="glosario-back-btn" onclick="backToCats()">← Ver categorías</button></div>';
       catTerms.forEach((t) => {
         const idx = terminos.indexOf(t);
         html += '<div class="glosario-item'+(openTermIdx === idx ? ' open' : '')+'"><div class="glosario-row" onclick="toggleTerm('+idx+',this.parentElement)"><div class="glosario-term-row">'+t.term+'<span>'+t.abbr+'</span></div><div class="glosario-arrow">▼</div></div><div class="glosario-body"><div class="glosario-def">'+t.def+'</div>'+(t.tip ? '<div class="glosario-tip"><strong>💡</strong> '+t.tip.replace('Tip: ','')+'</div>' : '')+'</div></div>';
