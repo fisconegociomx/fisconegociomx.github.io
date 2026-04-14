@@ -66,17 +66,23 @@
     .section-divider { height:1px; background:linear-gradient(90deg,transparent,rgba(0,255,109,0.1),transparent); margin:0 24px; }
 
     /* ── GLOSARIO ── */
-    .glosario-chips { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:28px; }
-    .chip { padding:8px 16px; border-radius:50px; border:1px solid #1e2244; background:var(--dark-3); color:#888; font-size:0.8rem; font-weight:600; cursor:pointer; transition:all 0.18s; user-select:none; }
-    .chip:hover { border-color:rgba(0,255,109,0.3); color:#ccc; }
-    .chip.active { background:rgba(0,255,109,0.1); border-color:rgba(0,255,109,0.4); color:var(--green); }
-    .glosario-panel { background:var(--dark-3); border:1px solid #1e2244; border-radius:16px; padding:24px 28px; min-height:120px; transition:all 0.2s; }
-    .glosario-panel.has-content { border-color:rgba(0,255,109,0.2); }
-    .glosario-term { font-size:1.1rem; font-weight:800; color:#fff; margin-bottom:6px; }
-    .glosario-abbr { font-size:0.72rem; font-weight:700; color:var(--green); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:12px; }
-    .glosario-def { font-size:0.88rem; color:var(--gray); line-height:1.75; }
-    .glosario-empty { color:#333; font-size:0.85rem; text-align:center; padding:20px 0; }
-    .glosario-tip { margin-top:12px; padding:10px 14px; background:rgba(0,255,109,0.05); border-left:3px solid var(--green); border-radius:0 8px 8px 0; font-size:0.78rem; color:#888; }
+    .glosario-search { width:100%; background:#111; border:1px solid #2a2a2a; border-radius:10px; padding:10px 14px; color:#fff; font-family:'Inter',sans-serif; font-size:0.85rem; outline:none; transition:border-color 0.2s; margin-bottom:12px; }
+    .glosario-search:focus { border-color:rgba(0,255,109,0.4); }
+    .glosario-search::placeholder { color:#444; }
+    .glosario-list { display:flex; flex-direction:column; gap:6px; }
+    .glosario-item { background:var(--dark-3); border:1px solid #1e2244; border-radius:10px; overflow:hidden; transition:border-color 0.18s; }
+    .glosario-item:hover { border-color:rgba(0,255,109,0.2); }
+    .glosario-item.open { border-color:rgba(0,255,109,0.3); }
+    .glosario-item.open .glosario-row { color:var(--green); }
+    .glosario-item.open .glosario-arrow { transform:rotate(180deg); }
+    .glosario-row { display:flex; align-items:center; justify-content:space-between; padding:12px 16px; cursor:pointer; gap:10px; }
+    .glosario-term-row { font-size:0.88rem; font-weight:700; color:#ccc; flex:1; }
+    .glosario-term-row span { color:#555; font-weight:400; margin-left:6px; font-size:0.78rem; }
+    .glosario-arrow { font-size:0.7rem; color:#444; transition:transform 0.2s; flex-shrink:0; }
+    .glosario-body { display:none; padding:0 16px 14px; border-top:1px solid #1e2244; }
+    .glosario-item.open .glosario-body { display:block; }
+    .glosario-def { font-size:0.82rem; color:var(--gray); line-height:1.7; }
+    .glosario-tip { margin-top:10px; padding:9px 12px; background:rgba(0,255,109,0.05); border-left:3px solid var(--green); border-radius:0 6px 6px 0; font-size:0.76rem; color:#888; }
     .glosario-tip strong { color:var(--green); }
 
     /* ── STICKY CTA ── */
@@ -494,10 +500,8 @@ function diagReset() {
     <div class="section-title">Glosario <span>Fiscal</span> Esencial</div>
     <p class="section-intro">Toca cualquier término para ver su definición. Conocer el lenguaje fiscal es el primer paso para tomar control de tu negocio.</p>
 
-    <div class="glosario-chips" id="chips"></div>
-    <div class="glosario-panel" id="glosario-panel">
-      <div class="glosario-empty">👆 Selecciona un término para ver su definición</div>
-    </div>
+    <input class="glosario-search" id="glosario-search" type="text" placeholder="🔍 Buscar término..." oninput="filterGlosario()">
+    <div class="glosario-list" id="glosario-list"></div>
   </section>
 
   <div class="section-divider"></div>
