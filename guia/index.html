@@ -542,7 +542,14 @@ function diagReset() {
     <div class="section-title">¿Qué pasa si <span>no llevas control</span>?</div>
     <p class="section-intro">La falta de orden fiscal y financiero no solo genera multas — puede destruir tu negocio. Estos son los riesgos reales que enfrentan los emprendedores que no llevan contabilidad.</p>
 
-    <div class="riesgos-grid" id="riesgos-grid"></div>
+    <div class="riesgo-tabs" id="riesgo-tabs">
+      <div class="riesgo-tab active" data-nivel="bajo" onclick="switchRiesgo(this)">Bajo</div>
+      <div class="riesgo-tab" data-nivel="medio" onclick="switchRiesgo(this)">Medio</div>
+      <div class="riesgo-tab" data-nivel="alto" onclick="switchRiesgo(this)">Alto</div>
+      <div class="riesgo-tab critico" data-nivel="critico" onclick="switchRiesgo(this)">Crítico</div>
+      <div class="riesgo-slider-track" id="riesgo-slider"></div>
+    </div>
+    <div class="riesgo-panel" id="riesgo-panel"></div>
   </section>
 
   <div class="section-divider"></div>
@@ -917,22 +924,18 @@ function diagReset() {
     .reg-alert strong { color:var(--green); }
 
     /* ── RIESGOS ── */
-    .riesgos-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-    @media(max-width:520px) { .riesgos-grid{grid-template-columns:1fr;} }
-    .riesgo-card { background:var(--dark-3); border:1px solid #1e2244; border-radius:16px; padding:22px; position:relative; overflow:hidden; transition:transform 0.2s,border-color 0.2s; cursor:default; }
-    .riesgo-card:hover { transform:translateY(-2px); border-color:rgba(255,68,68,0.3); }
-    .riesgo-card::before { content:''; position:absolute; top:-30px; right:-30px; width:100px; height:100px; border-radius:50%; opacity:0.06; pointer-events:none; }
-    .riesgo-card.nivel-critico::before { background:#ff4444; }
-    .riesgo-card.nivel-alto::before { background:#ff8c00; }
-    .riesgo-card.nivel-medio::before { background:#ffcc00; }
-    .riesgo-icon { font-size:1.8rem; margin-bottom:10px; display:block; }
-    .riesgo-nivel { font-size:0.62rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; padding:3px 8px; border-radius:5px; display:inline-block; margin-bottom:8px; }
-    .nivel-critico .riesgo-nivel { background:rgba(255,68,68,0.15); color:#ff4444; }
-    .nivel-alto .riesgo-nivel { background:rgba(255,140,0,0.15); color:#ff8c00; }
-    .nivel-medio .riesgo-nivel { background:rgba(255,204,0,0.15); color:#ffcc00; }
-    .riesgo-title { font-size:0.95rem; font-weight:800; color:#fff; margin-bottom:6px; line-height:1.3; }
-    .riesgo-desc { font-size:0.78rem; color:#777; line-height:1.65; }
-    .riesgo-monto { margin-top:10px; font-size:0.75rem; font-weight:700; color:#ff4444; }
+    .riesgo-tabs { display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:0; background:var(--dark-3); border:1px solid #1e2244; border-radius:14px; padding:6px; margin-bottom:20px; position:relative; overflow:hidden; }
+    .riesgo-tab { text-align:center; padding:12px 8px; border-radius:10px; font-size:0.8rem; font-weight:700; color:#555; cursor:pointer; transition:all 0.2s; position:relative; z-index:2; }
+    .riesgo-tab.active { color:#fff; }
+    .riesgo-tab.critico { color:#ff4444; }
+    .riesgo-tab.critico.active { color:#fff; }
+    .riesgo-slider-track { position:absolute; top:6px; height:calc(100% - 12px); border-radius:10px; background:var(--green); transition:all 0.25s cubic-bezier(.4,0,.2,1); z-index:1; }
+    .riesgo-panel { display:flex; flex-direction:column; gap:10px; }
+    .riesgo-item { background:var(--dark-3); border:1px solid #1e2244; border-radius:12px; padding:18px 20px; transition:all 0.2s; }
+    .riesgo-item:hover { border-color:rgba(0,255,109,0.15); }
+    .riesgo-item-title { font-size:0.92rem; font-weight:800; color:#fff; margin-bottom:6px; }
+    .riesgo-item-desc { font-size:0.8rem; color:var(--gray); line-height:1.65; }
+    .riesgo-item-warn { margin-top:10px; padding:8px 12px; background:rgba(0,255,109,0.05); border-left:3px solid var(--green); border-radius:0 6px 6px 0; font-size:0.75rem; color:#888; }
     .nivel-alto .riesgo-monto { color:#ff8c00; }
     .nivel-medio .riesgo-monto { color:#ffcc00; }
   </style>
@@ -988,16 +991,54 @@ function diagReset() {
     }
   };
 
-  const riesgos = [
-    { icon:'💸', nivel:'critico', title:'Multas del SAT', desc:'No presentar declaraciones genera multas automáticas de $1,810 a $22,400 MXN por obligación omitida, más actualización e inflación.', monto:'Hasta $22,400 por declaración omitida' },
-    { icon:'📛', nivel:'critico', title:'Cancelación de Sellos Digitales', desc:'El SAT puede cancelar tu Certificado de Sello Digital (CSD), dejándote imposibilitado para facturar. Tu negocio se detiene completamente.', monto:'Bloqueo total de facturación' },
-    { icon:'🏦', nivel:'critico', title:'Embargo de Cuentas', desc:'El SAT puede embargar cuentas bancarias sin previo juicio si determinas adeudos fiscales. Puedes amanecer sin acceso a tu dinero.', monto:'100% del saldo en cuentas' },
-    { icon:'📊', nivel:'alto', title:'Recargos e Inflación', desc:'Las contribuciones no pagadas generan recargos del 1.47% mensual más actualización por inflación. Una deuda pequeña crece exponencialmente.', monto:'1.47% mensual de recargos' },
-    { icon:'❌', nivel:'alto', title:'Pérdida de Deducciones', desc:'Sin CFDI de tus gastos, no puedes deducirlos. Pagas ISR sobre ingresos brutos sin descontar lo que invertiste en tu negocio.', monto:'ISR sobre ingresos sin deducir' },
-    { icon:'📉', nivel:'alto', title:'Problemas con Créditos', desc:'Bancos y financieras revisan historial fiscal para otorgar créditos. Sin declaraciones en orden, imposible acceder a financiamiento.', monto:'Acceso limitado a crédito' },
-    { icon:'⚖️', nivel:'medio', title:'Auditorías y Revisiones', desc:'El SAT cruza información automáticamente. Discrepancias entre ingresos declarados y movimientos bancarios activan revisiones de escritorio.', monto:'Tiempo y costos legales' },
-    { icon:'👥', nivel:'medio', title:'Problemas con Empleados', desc:'No tener nómina formalizada ni IMSS genera demandas laborales. La Junta de Conciliación puede condenar al pago de salarios caídos y liquidación.', monto:'Hasta 3 meses de salario + prestaciones' },
-  ];
+  const riesgoData = {
+    bajo: [
+      { title:'Buen control fiscal', desc:'Tus declaraciones están al día, emites CFDI correctamente y llevas control de ingresos y gastos. El riesgo de requerimiento del SAT es mínimo.' },
+      { title:'Base sólida', desc:'Tener todo en orden te permite acceder a créditos, optimizezar impuestos y escalar tu negocio sin sorpresas.' },
+    ],
+    medio: [
+      { title:'Requerimientos del SAT', desc:'Discrepancias entre ingresos declarados y depósitos bancarios activan revisiones automáticas. El SAT cruza datos constantemente.' },
+      { title:'Multas por demora', desc:'Retrasar declaraciones genera multas de $1,810 a $4,523 MXN por cada mes omitido. Se acumulan rápido.' },
+      { title:'Pérdida de sleep', desc:'No saber qué tan exposesado estás te genera estrés y decisiones financieras malas.' },
+    ],
+    alto: [
+      { title:'Recargos e inflación', desc:'Las contribuciones no pagadas generan recargos del 1.47% mensual más actualización por inflación. Una deuda de $10k se convierte en $25k en 5 años.' },
+      { title:'Pérdida de deducciones', desc:'Sin CFDI de tus gastos no puedes deducirlos. Pagas ISR sobre ingresos brutos sin descontar lo que invertiste en tu negocio.' },
+      { title:'Cancelación de sellos', desc:'Si acumulas obligaciones pendientes, el SAT puede cancelsar tus CSD y quedaras sin poder facturar. Tu negocio se detiene.' },
+    ],
+    critico: [
+      { title:'Embargo de cuentas', desc:'El SAT puede embargar cuentas bancarias sin previo juicio si determinan adeudos fiscales. Puedes amanecer sin acceso a tu dinero.' },
+      { title:'Multas hasta $22,400 por obligación', desc:'No presentar declaraciones genera multas automáticas que incluyen actualización e inflación. Una sola obligación pendiente puede costar miles.' },
+      { title:'Responsabilidad penal', desc:'En casos extremos de defraudación fiscal calificada puedes enfrentar proceso penal. No es común, pero es real.' },
+    ],
+  };
+
+  function switchRiesgo(btn) {
+    const nivel = btn.dataset.nivel;
+    document.querySelectorAll('.riesgo-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    const tabs = document.querySelectorAll('.riesgo-tab');
+    const idx = Array.from(tabs).indexOf(btn);
+    const track = document.getElementById('riesgo-slider');
+    const tabW = 100 / tabs.length;
+    track.style.width = tabW + '%';
+    track.style.left = (idx * tabW) + '%';
+    if(nivel === 'critico') track.style.background = '#ff4444';
+    else if(nivel === 'alto') track.style.background = '#ff8c00';
+    else if(nivel === 'medio') track.style.background = '#ffcc00';
+    else track.style.background = 'var(--green)';
+    renderRiesgoPanel(nivel);
+  }
+
+  function renderRiesgoPanel(nivel) {
+    const panel = document.getElementById('riesgo-panel');
+    const items = riesgoData[nivel];
+    panel.innerHTML = items.map(it => `
+      <div class="riesgo-item">
+        <div class="riesgo-item-title">${it.title}</div>
+        <div class="riesgo-item-desc">${it.desc}</div>
+      </div>`).join('');
+  }
 
   function switchReg(btn) {
     document.querySelectorAll('.reg-tab').forEach(t => t.classList.remove('active'));
@@ -1025,20 +1066,9 @@ function diagReset() {
       </div>`;
   }
 
-  function renderRiesgos() {
-    const grid = document.getElementById('riesgos-grid');
-    grid.innerHTML = riesgos.map(r => `
-      <div class="riesgo-card nivel-${r.nivel}">
-        <span class="riesgo-icon">${r.icon}</span>
-        <span class="riesgo-nivel">${r.nivel === 'critico' ? 'Crítico' : r.nivel === 'alto' ? 'Alto' : 'Medio'}</span>
-        <div class="riesgo-title">${r.title}</div>
-        <div class="riesgo-desc">${r.desc}</div>
-        <div class="riesgo-monto">⚠️ ${r.monto}</div>
-      </div>`).join('');
-  }
-
   renderReg('resico');
-  renderRiesgos();
+  renderRiesgoPanel('bajo');
+  switchRiesgo(document.querySelector('.riesgo-tab.active'));
   </script>
 
 
