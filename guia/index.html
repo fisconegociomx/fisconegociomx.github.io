@@ -66,9 +66,10 @@
     .section-divider { height:1px; background:linear-gradient(90deg,transparent,rgba(0,255,109,0.1),transparent); margin:0 24px; }
 
     /* ── GLOSARIO ── */
-    .glosario-search { width:100%; background:#111; border:1px solid #2a2a2a; border-radius:10px; padding:10px 14px; color:#fff; font-family:'Inter',sans-serif; font-size:0.85rem; outline:none; transition:border-color 0.2s; margin-bottom:12px; }
-    .glosario-search:focus { border-color:rgba(0,255,109,0.4); }
-    .glosario-search::placeholder { color:#444; }
+    .glosario-cloud { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
+    .cloud-tag { padding:7px 14px; border-radius:8px; border:1px solid #1e2244; background:var(--dark-3); color:#888; font-size:0.78rem; font-weight:600; cursor:pointer; transition:all 0.18s; }
+    .cloud-tag:hover { border-color:rgba(0,255,109,0.3); color:#ccc; }
+    .cloud-tag.active { background:rgba(0,255,109,0.1); border-color:rgba(0,255,109,0.4); color:var(--green); }
     .glosario-list { display:flex; flex-direction:column; gap:6px; }
     .glosario-item { background:var(--dark-3); border:1px solid #1e2244; border-radius:10px; overflow:hidden; transition:border-color 0.18s; }
     .glosario-item:hover { border-color:rgba(0,255,109,0.2); }
@@ -500,7 +501,7 @@ function diagReset() {
     <div class="section-title">Glosario <span>Fiscal</span> Esencial</div>
     <p class="section-intro">Toca cualquier término para ver su definición. Conocer el lenguaje fiscal es el primer paso para tomar control de tu negocio.</p>
 
-    <input class="glosario-search" id="glosario-search" type="text" placeholder="🔍 Buscar término..." oninput="filterGlosario()">
+    <div class="glosario-cloud" id="glosario-cloud"></div>
     <div class="glosario-list" id="glosario-list"></div>
   </section>
 
@@ -1054,35 +1055,55 @@ function diagReset() {
     { term:'CIF', abbr:'Constancia de Situación Fiscal', def:'Documento oficial del SAT que acredita tu situación como contribuyente: régimen fiscal, domicilio fiscal, obligaciones y fecha de alta. Lo solicitan bancos, clientes grandes y dependencias de gobierno.', tip:'Tip: Puedes descargar tu CIF actualizado en cualquier momento desde sat.gob.mx o en la app del SAT.' },
     { term:'e.firma', abbr:'Firma Electrónica Avanzada (antes FIEL)', def:'Certificado digital que equivale a tu firma autógrafa ante el SAT. Necesaria para trámites avanzados: declaración anual, buzón tributario, SUA, IMSS. Se obtiene en oficinas del SAT con identificación y cita previa.', tip:'Tip: Guarda tus archivos .cer y .key en un lugar seguro — perderlos implica revocar y obtener una nueva e.firma.' },
   ];
+  let activeTag = null;
 
-  let selected = null;
+  function renderCloud() {
+    const cloud = document.getElementById('glosario-cloud');
+    const tags = ['RFC y SAT','CFDI y facturación','Impuestos (ISR, IVA)','Nómina y empleados','Deducciones','Trámites digitales'];
+    cloud.innerHTML = tags.map(t => '<div class="cloud-tag" onclick="filterByTag(\''+t+'\',this)">'+t+'</div>').join('');
+  }
 
-  function renderChips() {
-    const container = document.getElementById('chips');
-    terminos.forEach((t, i) => {
-      const chip = document.createElement('div');
-      chip.className = 'chip';
-      chip.textContent = t.term;
-      chip.onclick = () => selectTerm(i, chip);
-      container.appendChild(chip);
+  function filterByTag(tag, el) {
+    if(activeTag === tag) { activeTag = null; el.classList.remove('active'); renderGlosario(null); }
+    else {
+      document.querySelectorAll('.cloud-tag').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+      activeTag = tag;
+      const map = {
+        'RFC y SAT': ['RFC','SAT','CIF','e.firma','Buzón Tributario'],
+        'CFDI y facturación': ['CFDI','Retención','Nómina'],
+        'Impuestos (ISR, IVA)': ['ISR','IVA','Declaración Anual','Declaración Mensual'],
+        'Nómina y empleados': ['IMSS','Nómina','Retención'],
+        'Deducciones': ['Deducible','Actividad Empresarial','RESICO'],
+        'Trámites digitales': ['e.firma','CIF','Buzón Tributario','Contabilidad Electrónica','Régimen Fiscal']
+      };
+      const show = map[tag] || null;
+      renderGlosario(show);
+    }
+  }
+
+  function renderGlosario(showTerms) {
+    const list = document.getElementById('glosario-list');
+    if(!list) return;
+    list.innerHTML = '';
+    const toShow = showTerms ? terminos.filter(t => showTerms.includes(t.term)) : terminos;
+    toShow.forEach((t) => {
+      const actualIdx = terminos.indexOf(t);
+      const item = document.createElement('div');
+      item.className = 'glosario-item';
+      item.innerHTML = '<div class="glosario-row" onclick="toggleGlosario('+actualIdx+',this.parentElement)"><div class="glosario-term-row">'+t.term+'<span>'+t.abbr+'</span></div><div class="glosario-arrow">▼</div></div><div class="glosario-body"><div class="glosario-def">'+t.def+'</div>'+(t.tip ? '<div class="glosario-tip"><strong>💡</strong> '+t.tip.replace('Tip: ','')+'</div>' : '')+'</div>';
+      list.appendChild(item);
     });
   }
 
-  function selectTerm(i, chip) {
-    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-    chip.classList.add('active');
-    const t = terminos[i];
-    const panel = document.getElementById('glosario-panel');
-    panel.classList.add('has-content');
-    panel.innerHTML = `
-      <div class="glosario-term">${t.term}</div>
-      <div class="glosario-abbr">${t.abbr}</div>
-      <div class="glosario-def">${t.def}</div>
-      ${t.tip ? `<div class="glosario-tip"><strong>💡</strong> ${t.tip.replace('Tip: ','')}</div>` : ''}
-    `;
+  function toggleGlosario(idx, el) {
+    const wasOpen = el.classList.contains('open');
+    document.querySelectorAll('.glosario-item.open').forEach(i => i.classList.remove('open'));
+    if(!wasOpen) el.classList.add('open');
   }
 
-  renderChips();
+  renderCloud();
+  renderGlosario(null);
 
 
 
