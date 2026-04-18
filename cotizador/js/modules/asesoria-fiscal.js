@@ -68,14 +68,18 @@ function renderAF1() {
     </div>
     <div class="nav">
       <button class="btn-back" onclick="goBackToMenu()">← Menú principal</button>
-      <button class="btn-next" disabled>Selecciona una opción</button>
+      <button class="btn-next" id="af1-next" disabled onclick="renderAF2()">Siguiente →</button>
     </div>
   `;
 }
 
 function pickTipoAsesoria(tipo) {
   window.AF.tipo = tipo;
-  renderAF2();
+  var btn = document.getElementById('af1-next');
+  if (btn) {
+    btn.disabled = false;
+    btn.textContent = 'Siguiente →';
+  }
 }
 
 // ── STEP 2: RÉGIMEN Y CONTEXTO ───────────────────────────────────────────────
