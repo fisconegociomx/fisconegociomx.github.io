@@ -849,6 +849,7 @@ function renderSummary(){
       ${breakdown.filter(b=>!b.inc).map(b=>`<div class="sc-item"><span class="sc-item-lbl">${b.label}</span><span class="sc-item-val">${fmt(b.val)}</span></div>`).join('')}
       ${breakdown.filter(b=>b.inc).map(b=>`<div class="sc-item"><span class="sc-item-lbl">${b.label}</span><span class="sc-item-val inc">Incluido ✓</span></div>`).join('')}
       ${discount>0?`<div class="sc-item" style="color:var(--green)"><span class="sc-item-lbl">🏷️ ${discountLabel}</span><span class="sc-item-val" style="color:var(--green)">− ${fmt(discount)}</span></div>`:''}
+      <div class="sc-item"><span class="sc-item-lbl">IVA (16%)</span><span class="sc-item-val">${fmt(iva)}</span></div>
       <div style="margin-top:10px;padding:10px 12px;background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:10px">
         <div style="font-size:10px;color:var(--gold);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">★ Servicios siempre incluidos</div>
         <div style="font-size:11px;color:var(--gold);display:flex;flex-direction:column;gap:4px">
@@ -892,6 +893,8 @@ function restartCotizador(){
   document.getElementById('btn1').disabled=true;
   document.getElementById('successBanner')?.classList.remove('show');
   goTo(1);
+  renderAddons();
+  renderProgressBar();
 }
 
 function applyPromo(){
