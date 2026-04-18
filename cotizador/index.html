@@ -486,7 +486,6 @@ function showMenu() {
 
 function hideAllSections() {
   document.querySelectorAll('.sec').forEach(s => s.classList.remove('active'));
-  document.getElementById('asesoria-flow').style.display = 'none';
   document.getElementById('menu-flow').style.display = 'none';
 }
 
@@ -559,11 +558,7 @@ const ADDONS=[
    price:{resico:300,pf_emp:400,plataformas:400,pm_general:700},
    note:'Anual o según periodicidad',
    includedIn:['avanzado','empresarial']},
-  {id:'asesoria',name:'Asesoría de Modelo de Negocio',plus:true,
-   desc:'Análisis y diseño de estructura legal-fiscal óptima. Incluye 2 sesiones mensuales.',
-   price:{resico:700,pf_emp:800,plataformas:750,pm_general:1500},
-   note:'Sesiones adicionales: $500 c/u',
-   includedIn:['empresarial']},
+
   {id:'plan_admin',name:'Seguimiento Plan Administrativo',plus:true,
    desc:'Flujo de caja, presupuestos y KPIs financieros. Reporte mensual.',
    price:{resico:700,pf_emp:700,plataformas:650,pm_general:1200},
@@ -1004,8 +999,6 @@ window.addEventListener('DOMContentLoaded', function() {
   showMenu();
 });
 </script>
-
-<!-- Asesoria Fiscal Module -->
 
 <div class="print-modal" id="printModal">
   <div class="pm-inner">
