@@ -504,7 +504,7 @@ function pickAFUrgencia(tipo, mult) {
   window.AF.urgencia = tipo;
   window.AF.multiplicador = mult;
   window.AF.total = Math.round(window.AF.precioBase * mult);
-  renderAF4();
+  renderAFResumen();
 }
 
 // ── RESUMEN ───────────────────────────────────────────────────────────────────
