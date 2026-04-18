@@ -80,7 +80,6 @@ function pickTipoAsesoria(tipo) {
 // ── STEP 2: RÉGIMEN Y CONTEXTO ───────────────────────────────────────────────
 function renderAF2() {
   updateAFSteps(2);
-  const content = document.getElementById('af-content');
   let regimenOptions = '';
 
   if (window.AF.contribuyente === 'pf') {
@@ -254,8 +253,6 @@ function toggleAFAviso(aviso) {
 function renderAF3() {
   updateAFSteps(3);
   const tipo = window.AF.tipo;
-  const content = document.getElementById('af-content');
-
   let detailHTML = '';
 
   if (tipo === 'puntual') {
@@ -448,7 +445,6 @@ function isAF3Complete() {
 // ── STEP 4: URGENCIA ──────────────────────────────────────────────────────────
 function renderAF4() {
   updateAFSteps(4);
-  const content = document.getElementById('af-content');
 
   // Calculate base price for puntual
   if (window.AF.tipo === 'puntual') {
