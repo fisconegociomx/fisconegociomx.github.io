@@ -238,7 +238,6 @@ function pickAFRegimen(reg) {
 
 function pickAFRFCStatus(status) {
   window.AF.rfcStatus = status;
-  renderAF2();
 }
 
 function toggleAFAviso(aviso) {
@@ -514,13 +513,13 @@ function pickAFUrgencia(tipo, mult) {
   window.AF.urgencia = tipo;
   window.AF.multiplicador = mult;
   window.AF.total = Math.round(window.AF.precioBase * mult);
-  renderAFResumen();
 }
 
 // ── RESUMEN ───────────────────────────────────────────────────────────────────
 function renderAFResumen() {
   updateAFSteps(5);
   const content = document.getElementById('af-content');
+  content.innerHTML = '';
   const tipoLabels = { puntual: 'Puntual', mensual: 'Mensual', proyecto: 'Proyecto', revision: 'Revisión' };
   const tipoLabel = tipoLabels[window.AF.tipo];
   const urgenciaMult = window.AF.multiplicador;
