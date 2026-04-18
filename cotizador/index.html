@@ -191,8 +191,6 @@
 
     /* ── Print modal ── */
     .print-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:999;overflow-y:auto;padding:20px}
-    #asesoria-flow{background:var(--dark);min-height:100vh;position:relative;z-index:10;display:none;flex-direction:column}
-    #menu-flow{display:none;overflow:hidden}
     .print-modal.visible{display:flex;align-items:flex-start;justify-content:center}
     .pm-inner{background:#fff;color:#111;max-width:780px;width:100%;border-radius:8px;overflow:hidden;position:relative}
     .pm-actions{position:sticky;top:0;background:#f8f8f8;border-bottom:1px solid #e5e7eb;padding:12px 20px;display:flex;gap:10px;align-items:center;justify-content:space-between;z-index:10}
@@ -482,12 +480,6 @@ function showMenu() {
         <div class="r-desc">Régimen, nivel de servicio, add-ons y generatePDF mensual.</div>
         <span class="r-who">Desde $950/mes</span>
       </div>
-      <div class="r-card" onclick="goTo('asesoria')" style="min-height:120px">
-        <div class="r-icon">💼</div>
-        <div class="r-name">Asesoría Fiscal</div>
-        <div class="r-desc">Puntual, mensual, proyectos o revisión. Precio según alcance.</div>
-        <span class="r-who">Desde $500</span>
-      </div>
     </div>
   `;
 }
@@ -619,7 +611,6 @@ function updateSteps(cur){
 
 function goTo(n){
   if(typeof n==='string'){
-    if(n==='asesoria'){initAsesoria();return;}
     if(n==='menu'){showMenu();return;}
     return;
   }
@@ -1015,9 +1006,7 @@ window.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <!-- Asesoria Fiscal Module -->
-<script src="js/modules/asesoria-fiscal.js"></script>
 
-<!-- Print Modal -->
 <div class="print-modal" id="printModal">
   <div class="pm-inner">
     <div class="pm-actions">
