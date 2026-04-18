@@ -35,6 +35,7 @@ function initAsesoria() {
 // ── STEP 1: TIPO DE ASESORÍA ─────────────────────────────────────────────────
 function renderAF1() {
   const content = document.getElementById('af-content');
+  content.innerHTML = '';
   content.innerHTML = `
     <div class="sec-label">Paso 1 de 4 — Asesoría Fiscal</div>
     <div class="sec-title">¿Qué tipo de asesoría necesitas?</div>
@@ -80,6 +81,8 @@ function pickTipoAsesoria(tipo) {
 // ── STEP 2: RÉGIMEN Y CONTEXTO ───────────────────────────────────────────────
 function renderAF2() {
   updateAFSteps(2);
+  const content = document.getElementById('af-content');
+  content.innerHTML = '';
   let regimenOptions = '';
 
   if (window.AF.contribuyente === 'pf') {
@@ -252,6 +255,8 @@ function toggleAFAviso(aviso) {
 // ── STEP 3: DETALLE DEL SERVICIO ─────────────────────────────────────────────
 function renderAF3() {
   updateAFSteps(3);
+  const content = document.getElementById('af-content');
+  content.innerHTML = '';
   const tipo = window.AF.tipo;
   let detailHTML = '';
 
@@ -445,6 +450,8 @@ function isAF3Complete() {
 // ── STEP 4: URGENCIA ──────────────────────────────────────────────────────────
 function renderAF4() {
   updateAFSteps(4);
+  const content = document.getElementById('af-content');
+  content.innerHTML = '';
 
   // Calculate base price for puntual
   if (window.AF.tipo === 'puntual') {
