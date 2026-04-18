@@ -67,7 +67,7 @@ function renderAF1() {
     </div>
     <div class="nav">
       <button class="btn-back" onclick="goBackToMenu()">← Menú principal</button>
-      <span></span>
+      <button class="btn-next" disabled>Selecciona una opción</button>
     </div>
   `;
 }
@@ -79,6 +79,7 @@ function pickTipoAsesoria(tipo) {
 
 // ── STEP 2: RÉGIMEN Y CONTEXTO ───────────────────────────────────────────────
 function renderAF2() {
+  updateAFSteps(2);
   const content = document.getElementById('af-content');
   let regimenOptions = '';
 
@@ -180,7 +181,7 @@ function renderAF2() {
             <div class="a-desc">Tienes un saldo a favor y estás en proceso de devolución.</div>
           </div>
         </div>
-        <div class="a-card${window.AF.avisosSat.includes(' requerimiento')?' sel':''}" onclick="toggleAFAviso('requerimiento')">
+        <div class="a-card${window.AF.avisosSat.includes('requerimiento')?' sel':''}" onclick="toggleAFAviso('requerimiento')">
           <div class="a-chk">${window.AF.avisosSat.includes('requerimiento')?'✓':''}</div>
           <div class="a-info">
             <div class="a-name">Requerimiento SAT</div>
@@ -251,6 +252,7 @@ function toggleAFAviso(aviso) {
 
 // ── STEP 3: DETALLE DEL SERVICIO ─────────────────────────────────────────────
 function renderAF3() {
+  updateAFSteps(3);
   const tipo = window.AF.tipo;
   const content = document.getElementById('af-content');
 
@@ -445,6 +447,7 @@ function isAF3Complete() {
 
 // ── STEP 4: URGENCIA ──────────────────────────────────────────────────────────
 function renderAF4() {
+  updateAFSteps(4);
   const content = document.getElementById('af-content');
 
   // Calculate base price for puntual
@@ -734,6 +737,7 @@ function hideAllSections() {
   document.querySelectorAll('.sec').forEach(s => s.classList.remove('active'));
   document.getElementById('asesoria-flow').style.display = 'none';
   document.getElementById('af-steps').style.display = 'none';
+  window.AF = {};
 }
 
 function updateAFSteps(step) {
