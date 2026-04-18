@@ -228,16 +228,26 @@ function renderAF2() {
 function pickAFContribuyente(tipo) {
   window.AF.contribuyente = tipo;
   window.AF.regimen = null;
+  // Update button state and re-render to show regimen options
+  const content = document.getElementById('af-content');
+  content.innerHTML = '';
   renderAF2();
 }
 
 function pickAFRegimen(reg) {
   window.AF.regimen = reg;
+  // Re-render to show RFC status options
+  const content = document.getElementById('af-content');
+  content.innerHTML = '';
   renderAF2();
 }
 
 function pickAFRFCStatus(status) {
   window.AF.rfcStatus = status;
+  // Re-render to show avisos options
+  const content = document.getElementById('af-content');
+  content.innerHTML = '';
+  renderAF2();
 }
 
 function toggleAFAviso(aviso) {
