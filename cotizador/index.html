@@ -459,6 +459,43 @@
 </div>
 
 <script>
+// MENU STEP (Paso 0)
+function showMenu() {
+  hideAllSections();
+  document.getElementById('menu-flow').style.display = 'block';
+  document.getElementById('menu-steps').style.display = 'flex';
+  document.getElementById('menu-steps').innerHTML = `
+    <div class="steps">
+      <div class="hs active"><div class="hs-n">0</div><span>Menú</span></div>
+    </div>
+  `;
+  document.getElementById('menu-content').innerHTML = `
+    <div class="sec-label">¿Qué quieres cotizar?</div>
+    <div class="sec-title">Selecciona el tipo de servicio</div>
+    <div class="sec-sub">Cada flujo te guía paso a paso para calcular el precio.</div>
+    <div class="regime-grid" style="max-width:600px;margin:0 auto">
+      <div class="r-card" onclick="goTo(1)" style="min-height:120px">
+        <div class="r-icon">📅</div>
+        <div class="r-name">Servicios Mensuales</div>
+        <div class="r-desc">Régimen, nivel de servicio, add-ons y generatePDF mensual.</div>
+        <span class="r-who">Desde $950/mes</span>
+      </div>
+      <div class="r-card" onclick="goTo('asesoria')" style="min-height:120px">
+        <div class="r-icon">💼</div>
+        <div class="r-name">Asesoría Fiscal</div>
+        <div class="r-desc">Puntual, mensual, proyectos o revisión. Precio según alcance.</div>
+        <span class="r-who">Desde $500</span>
+      </div>
+    </div>
+  `;
+}
+
+function hideAllSections() {
+  document.querySelectorAll('.sec').forEach(s => s.classList.remove('active'));
+  document.getElementById('asesoria-flow').style.display = 'none';
+  document.getElementById('menu-flow').style.display = 'none';
+}
+
 const R={
   resico:     {name:'RESICO',icon:'🧾',tipo:'Persona Física'},
   pf_emp:     {name:'PF Actividad Empresarial',icon:'💼',tipo:'Persona Física'},
@@ -579,6 +616,11 @@ function updateSteps(cur){
 }
 
 function goTo(n){
+  if(typeof n==='string'){
+    if(n==='asesoria'){initAsesoria();return;}
+    if(n==='menu'){showMenu();return;}
+    return;
+  }
   document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
   document.getElementById('sec'+n).classList.add('active');
   document.getElementById('floatBar').classList.toggle('visible',n===3);
@@ -962,7 +1004,13 @@ function generatePDF(){
   document.getElementById('printModal').classList.add('visible');
   document.getElementById('successBanner')?.classList.add('show');
 }
+window.addEventListener('DOMContentLoaded', function() {
+  showMenu();
+});
 </script>
+
+<!-- Asesoria Fiscal Module -->
+<script src="js/modules/asesoria-fiscal.js"></script>
 
 <!-- Print Modal -->
 <div class="print-modal" id="printModal">
@@ -975,6 +1023,29 @@ function generatePDF(){
       </div>
     </div>
     <div class="pdf-doc" id="pdfDoc"></div>
+  </div>
+</div>
+
+</div>
+
+<!-- ASESORÍA FISCAL FLOW -->
+<div id="asesoria-flow" style="display:none">
+  <div id="af-steps" style="display:none" class="hero"></div>
+  <div class="wrap">
+    <div id="af-content"></div>
+  </div>
+</div>
+
+<!-- MENU FLOW (Paso 0) -->
+<div id="menu-flow" style="display:none">
+  <div class="hero">
+    <div class="hero-tag">Cotizador Interactivo</div>
+    <h1>Calcula el costo de tu <span>asesoría fiscal</span></h1>
+    <p>Personaliza tu plan, agrega servicios y obtén tu cotización al instante.</p>
+    <div id="menu-steps"></div>
+  </div>
+  <div class="wrap">
+    <div id="menu-content"></div>
   </div>
 </div>
 
